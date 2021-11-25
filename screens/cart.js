@@ -1,10 +1,13 @@
-
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 var { width } = Dimensions.get("window")
-// import icons
 import Icon from 'react-native-vector-icons/Ionicons';
+import Order from './Order';
+
 const Cart = ({route, navigation}) => {
+  const [counter, setCounter] = useState(0) 
+  const increment = () => {setCounter(counter => counter+1)}
+  const decrement = () => {setCounter(counter => counter?counter-1:counter )}
     return (
       <View style={{flex:1,alignItems: 'center', justifyContent: 'center'}}>
          <View style={{height:20}} />
@@ -17,18 +20,23 @@ const Cart = ({route, navigation}) => {
              <Image resizeMode={"contain"} style={{width:width/3,height:width/3}} source={{uri: "http://tutofox.com/foodapp/food/pizza/pizza-1.png"}} />
              <View style={{flex:1, backgroundColor:'transparent', padding:10, justifyContent:"space-between"}}>
                <View>
-                 <Text style={{fontWeight:"bold", fontSize:20}}>Titulo de producto</Text>
-                 <Text>Descripcion de food</Text>
+                 <Text style={{fontWeight:"bold", fontSize:20}}>Pizza</Text>
+                 <Text>Descripcion</Text>
                </View>
                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                  <Text style={{fontWeight:'bold',color:"#9fd236",fontSize:20}}>$565</Text>
                  <View style={{flexDirection:'row', alignItems:'center'}}>
-                   <TouchableOpacity>
-                     <Icon name="ios-remove-circle" size={30} color={"#9fd236"} />
-                   </TouchableOpacity>
-                   <Text style={{paddingHorizontal:8, fontWeight:'bold'}}>5</Text>
-                   <TouchableOpacity>
-                     <Icon name="ios-add-circle" size={30} color={"#9fd236"} />
+                 <TouchableOpacity
+                   onPress = {() => (decrement())}
+                   >
+                     <Icon name="ios-remove-circle" size={30} color="#9fd236" 
+                     />
+                   </TouchableOpacity>                   
+                   <Text style={{paddingHorizontal:8, fontWeight:'bold'}}>{counter}</Text>
+                   <TouchableOpacity
+                   onPress = {() => (increment())}
+                   >
+                     <Icon name="ios-add-circle" size={30}  color="#9fd236"  />
                    </TouchableOpacity>
                  </View>
                </View>
@@ -39,19 +47,25 @@ const Cart = ({route, navigation}) => {
 
          <View style={{height:20}} />
 
+         <View style={{fontSize: 24, fontWeight: 'bold',paddingBottom: 10, paddingLeft: 10,}}>
+              <Text  style={{fontSize: 24, fontWeight: 'bold',}}>Total Amount = {565 * counter}</Text>
+          </View>
+
        <TouchableOpacity style={{
            backgroundColor:"#9fd236",
            width:width-40,
            alignItems:'center',
            padding:10,
            borderRadius:5
-         }}>
+         }}
+         onPress={() => navigation.navigate("Order")}
+         >
          <Text style={{
              fontSize:24,
              fontWeight:"bold",
              color:'white'
-           }}>
-           CHECKOUT
+           }} >
+           Place Order
          </Text>
        </TouchableOpacity>
 

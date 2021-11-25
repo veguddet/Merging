@@ -6,9 +6,9 @@ import {
      Button, 
      StyleSheet, 
      ScrollView, 
-     TextInput, 
 } from 'react-native'
-//import database from '@react-native-firebase/database';
+import { TextInput } from 'react-native-paper'
+import database from '@react-native-firebase/database';
 
 
 export default class RegisterPage extends React.Component{
@@ -44,7 +44,7 @@ return(
 <SafeAreaView style={{flex:1,}}>
 <ScrollView style={styles.scrollView}>
 <View>
-<Text style={{fontSize:24, marginTop:'5%', color:'#e86c1a', fontWeight:'500', textAlign:'center'}}>New User </Text>
+<Text style={{fontSize:24, top: 40, color:'#e86c1a', fontWeight:"bold", textAlign:'center'}}>Create Account</Text>
 </View>
 <View style={styles.textContainer}>
 <TextInput
@@ -71,12 +71,11 @@ onChangeText={(username) => { this.setState({ username: username }); } } childre
 placeholder={"Password"} secureTextEntry={true} mode='outlined' label={"Password"}
 onChangeText={(password) => { this.setState({ password: password }); } } children={undefined} autoComplete={undefined}/>
 </View>
-<View style={{marginRight:20,marginLeft:20, marginTop:20}}>
+<View style={{marginRight:20,marginLeft:20, marginTop:20, paddingTop: 30}}>
 <Button
 title='SignUp'
 color="#841584"
-onPress={()=>{this.submit()}} >
-</Button>
+onPress={()=>{this.submit()}} />
 </View>
 </ScrollView>
 </SafeAreaView>
@@ -89,12 +88,11 @@ const styles = StyleSheet.create({
 container: {
 flex: 1,
 },
-
 textContainer : {
 marginTop:'2%',
-marginBottom:'2%'
+marginBottom:'2%',
+top: 40,
 },
-
 scrollView: {
 marginHorizontal: 10,
 }

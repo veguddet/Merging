@@ -17,7 +17,7 @@ const Profile = ({route, navigation}) => {
           style={styles.button}
          
           onPress={() => {
-            navigation.navigate("Home")
+            navigation.navigate("Login")
           }}
             >
           <Text style={{color:'white'}}>LOGOUT</Text>

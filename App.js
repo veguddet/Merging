@@ -1,47 +1,32 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Tabs from "./navigation/tabs";
-
-import Home from './screens/Home';
-import Profile from './screens/Profile';
+import SplashScreen from './screens/SplashScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import LoginPage from './screens/LoginPage';
 import RegisterPage from './screens/RegisterPage';
+import Tabs from './screens/Tabs';
+import Home from './screens/Home';
+import Order from './screens/Order';
+import Cart from './screens/cart';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
-  const Tab = createBottomTabNavigator();
- const bottomTabScreen = () => {
-
   return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarHideOnKeyboard: true,
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarStyle: {
-          height: 50,
-        },
-        })}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    );
-} 
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-        headerShown: false,
-        }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+          headerShown: false,
+          }}>
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Register" component={RegisterPage} />
-          <Stack.Screen name="Home" component={Home} /> 
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Bottom" component={bottomTabScreen} />
+          <Stack.Screen name="Tabs" component={Tabs} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Order" component={Order} />
+          <Stack.Screen name="Cart" component={Cart} />
       </Stack.Navigator>
     </NavigationContainer>
   );
