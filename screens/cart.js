@@ -2,7 +2,6 @@ import React, { Component, useState } from 'react';
 import { Text, View, TextInput, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 var { width } = Dimensions.get("window")
 import Icon from 'react-native-vector-icons/Ionicons';
-import Order from './Order';
 
 const Cart = ({route, navigation}) => {
   const [counter, setCounter] = useState(0) 
@@ -11,7 +10,7 @@ const Cart = ({route, navigation}) => {
     return (
       <View style={{flex:1,alignItems: 'center', justifyContent: 'center'}}>
          <View style={{height:20}} />
-         <Text style={{fontSize:28, color:"gray"}}>Cart food</Text>
+         <Text style={{fontSize:28, color:"black",fontWeight: 'bold',}}>Added Items</Text>
          <View style={{height:10}} />
 
          <View style={{flex:1}}>
@@ -24,7 +23,7 @@ const Cart = ({route, navigation}) => {
                  <Text>Descripcion</Text>
                </View>
                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                 <Text style={{fontWeight:'bold',color:"#9fd236",fontSize:20}}>$565</Text>
+                 <Text style={{fontWeight:'bold',color:"#9fd236",fontSize:20}}>$199</Text>
                  <View style={{flexDirection:'row', alignItems:'center'}}>
                  <TouchableOpacity
                    onPress = {() => (decrement())}
@@ -48,7 +47,7 @@ const Cart = ({route, navigation}) => {
          <View style={{height:20}} />
 
          <View style={{fontSize: 24, fontWeight: 'bold',paddingBottom: 10, paddingLeft: 10,}}>
-              <Text  style={{fontSize: 24, fontWeight: 'bold',}}>Total Amount = {565 * counter}</Text>
+              <Text  style={{fontSize: 24, fontWeight: 'bold',}}>Total Amount = {199 * counter}</Text>
           </View>
 
        <TouchableOpacity style={{

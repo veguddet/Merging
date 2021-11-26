@@ -26,6 +26,7 @@ const Home = ({navigation}) => {
       <Image source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYVQWZDH9G25dzFwIIncMwoTpoJCGXqGdd_g&usqp=CAU"}} style={styles.image}/> 
       <Text style={styles.text1}>PIZZA</Text>
       <TouchableOpacity
+    //  activeOpacity={0.5}
        onPress={() => navigation.navigate("Cart")}
       > 
       <Image style={{width:50,height:50,borderRadius:25,left:280,bottom:155}} source={require('../assets/plus.png')}/>

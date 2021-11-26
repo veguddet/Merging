@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet,Text,View,TouchableOpacity, } from 'react-native';
+import { StyleSheet,Text,View,TouchableOpacity, ImageBackground} from 'react-native';
 import image from '../assets/burger1.png';
-import { ImageBackground } from 'react-native';
 
 const WelcomeScreen = ({navigation}) => {
     return (

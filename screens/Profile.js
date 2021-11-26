@@ -10,6 +10,7 @@ const Profile = ({route, navigation}) => {
   const [text4, onChangeText4] = React.useState(null);
 
   return (
+    <ScrollView>
     <View style={{width: '100%', height: '100%', backgroundColor: 'white',}}>
       
       <View style={{width: '100%', padding: 10,backgroundColor:'#cce6ff'}}>
@@ -20,7 +21,7 @@ const Profile = ({route, navigation}) => {
             navigation.navigate("Login")
           }}
             >
-          <Text style={{color:'white'}}>LOGOUT</Text>
+          <Text style={{color:'white',fontSize: 16,}}>LOGOUT</Text>
         </TouchableOpacity>
         <View>
          {/* <TextInput
@@ -31,7 +32,7 @@ const Profile = ({route, navigation}) => {
          // keyboardType="numeric"
        /> */}
     
-         <Image style={{width:50,height:50,borderRadius:25}} source={require('../assets/profile.png')}></Image>
+         <Image style={{width:100,height:100,borderRadius:50,}} source={require('../assets/profile.png')}></Image>
       
        
          </View>
@@ -88,16 +89,17 @@ const Profile = ({route, navigation}) => {
             navigation.navigate("Home")
           }}
             >
-          <Text style={{color:'white'}}>CANCEL</Text>
+          <Text style={{color:'white',fontSize: 16,}}>CANCEL</Text>
         </TouchableOpacity>
         </View>
     <TouchableOpacity
           style={styles.button1}
           onPress={() => Alert.alert("Profile Details Updated")}
             >
-          <Text style={{color:'white'}}>OK</Text>
+          <Text style={{color:'white',fontSize: 16,}}>OK</Text>
         </TouchableOpacity>
     </View>
+    </ScrollView>
 );
 };
 const styles = StyleSheet.create({
@@ -118,27 +120,36 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor:  "#841584",
+    borderRadius: 15,
+    justifyContent: "center",
+    height: 40,
     paddingLeft:0,
     width:100,
-    left:280,
-    top:30
+    left:250,
+    top:60
   },
   button1: {
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#841584",
+    borderRadius: 15,
+    justifyContent: "center",
+    height: 40,
     width:100,
-    left:280,
+    left:260,
     bottom:20,
-    top:100
+    top:-30
   },
   button2: {
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#841584",
+    borderRadius: 15,
+    justifyContent: "center",
+    height: 40,
     paddingLeft:0,
     width:100,
     left:20,
-    top:120
+    top:10
   
   },
 });
