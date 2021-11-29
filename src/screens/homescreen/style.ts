@@ -1,0 +1,81 @@
+
+import { StyleSheet } from "react-native";
+export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    image: {
+      justifyContent: 'center',
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      flexDirection: 'row',
+      backgroundColor: 'black',
+    },
+    image1: {
+      justifyContent: 'center',
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      bottom: 220,
+    },
+    image2: {
+      justifyContent: 'center',
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      bottom: 320,
+    },
+    image3: {
+      justifyContent: 'center',
+      width: 100,
+      height: 100,
+      borderRadius: 50,
+      flexDirection: 'row',
+      backgroundColor: 'black',
+      bottom: 430,
+    },
+    text: {
+      color: 'black',
+      fontSize: 25,
+      lineHeight: 54,
+      fontStyle: 'italic',
+      textAlign: 'center',
+      // bottom:300,
+      flexDirection: 'row',
+      // backgroundColor:'grey'
+      left: 120,
+    },
+    text1: {
+      color: 'black',
+      fontSize: 20,
+      lineHeight: 84,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      bottom: 90,
+      left: 120,
+    },
+    text2: {
+      color: 'black',
+      fontSize: 20,
+      lineHeight: 84,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      bottom: 180,
+      left: 120,
+    },
+    text3: {
+      color: 'black',
+      fontSize: 20,
+      lineHeight: 84,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      bottom: 280,
+      left: 120,
+    },
+  });
+  
