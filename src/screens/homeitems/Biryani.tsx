@@ -42,7 +42,7 @@ const Biryani = ({navigation}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('NutrionScreen', biryani)}>
+        onPress={() => navigation.navigate('BiryaniDetails', biryani)}>
         <View style={style.card}>
           <View
             style={{

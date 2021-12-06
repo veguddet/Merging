@@ -39,12 +39,29 @@ const BurgerScreen = ({navigation}: any) => {
         //console.log(payments)
       });
   }, []);
+//  const searchData = (text:any) => {
+//     if (text) {
+//       const newData = this.state.DATA.filter(item => {
+//         const itemData = item.title
+//           ? item.title.toUpperCase()
+//           : ''.toUpperCase();
+//         const textData = text.toUpperCase();
+//         return itemData.indexOf(textData) > -1;
+//       });
+//       this.setState({FilteredData:newData})
+//       this.setState({text})
+//       // setText(text);
+//     } else {
+//       this.setState({FilteredData:this.state.DATA})
+//       this.setState({text:''})
+//     }
+//   };
 
   const Card = ({burgers}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('DetailsScreen', burgers)}>
+        onPress={() => navigation.navigate('BurgerDetails', burgers)}>
         <View style={style.card}>
           <View
             style={{
@@ -54,33 +71,24 @@ const BurgerScreen = ({navigation}: any) => {
             <Image
               // source={{uri: item.img}}
               source={{uri: burgers.image}}
-              style={{width: 150, height: 200, borderRadius: 20}}
+              style={{width: 150, height: 150, borderRadius: 10}}
             />
           </View>
-          <Text style={{fontSize: 19, fontWeight: 'bold'}}>{burgers.name}</Text>
+          <Text style={{fontSize: 19, fontWeight: 'bold',padding:5}}>{burgers.name}</Text>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 5,
+             
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 19, fontWeight: 'bold',paddingLeft:8}}>
               Rs{burgers.price}
             </Text>
 
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{fontSize: 22, color: COLORS.white, fontWeight: 'bold'}}>
-                +
-              </Text>
+            <View style={{justifyContent:'center',alignItems:'center'}}  >
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+            <IconAntDesign name="right" size={20} color="green" />
+          </TouchableOpacity>
             </View>
           </View>
         </View>

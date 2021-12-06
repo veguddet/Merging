@@ -44,7 +44,7 @@ const PizzaScreen = ({navigation}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('DetailsScreen', pizza)}>
+        onPress={() => navigation.navigate('PizzaDetails', pizza)}>
         <View style={style.card}>
           <View
             style={{
@@ -54,33 +54,24 @@ const PizzaScreen = ({navigation}: any) => {
             <Image
               // source={{uri: item.img}}
               source={{uri: pizza.image}}
-              style={{width: 150, height: 200, borderRadius: 20}}
+              style={{width: 150, height: 150, borderRadius: 20}}
             />
           </View>
-          <Text style={{fontSize: 19, fontWeight: 'bold'}}>{pizza.name}</Text>
+          <Text style={{fontSize: 19, fontWeight: 'bold',paddingTop:10}}>{pizza.name}</Text>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 5,
+              marginTop:5,
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
-              Rs{pizza.price}
+            <Text style={{fontSize: 19, fontWeight: 'bold',}}>
+              Rs {pizza.price}
             </Text>
 
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{fontSize: 22, color: COLORS.white, fontWeight: 'bold'}}>
-                +
-              </Text>
+            <View style={{justifyContent:'center',alignItems:'center'}}  >
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+            <IconAntDesign name="right" size={20} color="green" />
+          </TouchableOpacity>
             </View>
           </View>
         </View>

@@ -31,12 +31,12 @@ const DetailsScreen = ({navigation, route}: any) => {
       </View>
       <Text style={style.calories}>Total Calories : ++ {counter}</Text>
       <View style={style.detailsContainer}>
-        <View
+        {/* <View
           style={{
             marginLeft: 20,
             flexDirection: 'row',
             alignItems: 'flex-end',
-          }}></View>
+          }}></View> */}
         <View
           style={{
             marginLeft: 20,

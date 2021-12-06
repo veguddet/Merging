@@ -16,12 +16,19 @@ import Test from './src/screens/homeitems/Test';
 import DetailsScreen from './src/screens/homeitems/details/DetailScreen';
 import Biryani from './src/screens/homeitems/Biryani';
 import FrankieScreen from './src/screens/homeitems/FrankieScreen';
-import NutrionScreen from './src/screens/homeitems/details/NutritionScreen';
+import BiryaniDetails from './src/screens/homeitems/details/BiryaniDetails';
+import CartScreen from './src/screens/cart/cartScreen'
+import {Provider} from 'react-redux'
+import store from './src/redux/store';
+//import NutritionScreen from './src/nutritionScreen/NutritionScreen';
+
 
 
 const App = () => {
+  
   const Stack = createNativeStackNavigator();
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
@@ -31,8 +38,8 @@ const App = () => {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Register" component={RegisterPage} />
-        <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Home" component={Home} />
+       <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Order" component={Order} />
         <Stack.Screen name="Cart" component={Cart} />
         <Stack.Screen name="Home1" component={Home1} />
@@ -42,9 +49,15 @@ const App = () => {
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         <Stack.Screen name="BiryaniScreen" component={Biryani} />
         <Stack.Screen name="FrankieScreen" component={FrankieScreen} />
-        <Stack.Screen name="NutrionScreen" component={NutrionScreen} />
+        <Stack.Screen name="BiryaniDetails" component={BiryaniDetails} />
+        <Stack.Screen name="CartScreen" component={CartScreen} />
+
+        {/* //<Stack.Screen name="NutritionScreen" component={NutritionScreen} /> */}
+
+        
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 

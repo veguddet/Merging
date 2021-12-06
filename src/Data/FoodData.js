@@ -4,7 +4,7 @@ const plants = [
       name: 'Burger',
       price: '1000',
       like: true,
-      img: require('../assets/FoodImages/pizza.jpg'),
+      img: require('../assets/burger1.png'),
      
     },
     {
@@ -36,7 +36,7 @@ const plants = [
         name: 'Momos',
         price: '1000',
         like: true,
-        img: require('../assets/FoodImages/Biryani.jpg'),
+        img: require('../assets/FoodImages/pizza.jpg'),
         
       },
     

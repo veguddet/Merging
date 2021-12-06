@@ -6,18 +6,25 @@ export const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+       marginTop:50
+    },
+    topCardView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+     
     },
     addeditems: {
       fontSize: 28,
       color: 'black',
       fontWeight: 'bold',
+      marginTop:30
     },
     height20: {
       height: 20,
     },
     imageview: {
       width: width - 20,
-      margin: 10,
       backgroundColor: 'transparent',
       flexDirection: 'row',
       borderBottomWidth: 2,
@@ -25,8 +32,8 @@ export const styles = StyleSheet.create({
       paddingBottom: 10,
     },
     imagelink: {
-      width: width / 3,
-      height: width / 3,
+      width: 100,
+      height: 100,
     },
     text199view: {
       flexDirection: 'row',
@@ -38,11 +45,19 @@ export const styles = StyleSheet.create({
       fontSize: 20,
     },
     height10: {
-      height: 10,
+      height: 20,
     },
     counter: {
       paddingHorizontal: 8,
       fontWeight: 'bold',
+    },
+    buyBtn: {
+      width: 170,
+      height: 50,
+      backgroundColor:'#00B761',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30,
     },
     amountview: {
       fontSize: 24,
@@ -55,11 +70,12 @@ export const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     touch: {
-      backgroundColor: '#9fd236',
-      width: width - 40,
+      width: 130,
+      height: 50,
+      backgroundColor:'#00B761',
+      justifyContent: 'center',
       alignItems: 'center',
-      padding: 10,
-      borderRadius: 5,
+      borderRadius: 30,
     },
     order: {
       fontSize: 24,

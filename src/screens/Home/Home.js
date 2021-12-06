@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   SafeAreaView,
@@ -10,6 +10,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import auth, { firebase } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 
 import COLORS from './colors';
@@ -17,7 +19,29 @@ const width = Dimensions.get('window').width / 2 - 30;
 import FoodData from '../../Data/FoodData'
 
 const Home1 = ({navigation}) => {
+  const [userName, setUserName] = React.useState('');
+  useEffect(() => {
+    let id= auth().currentUser.uid
+    const subscriber = firestore()
+      .collection('users')
+      .doc(id)
+      .get()
+      .then(snapshot => {
+        
+        // let snap = snapshot.docs.map(doc => {
+        //   const data = doc.data();
+        //   const doc_id = doc.id;
+        //   return {doc_id, ...data};
+         console.log(snapshot.data().firstname)
+         setUserName(snapshot.data().firstname)
+        // });
+        //console.log(snap)
+        // setBiryaniData(snap);
+      });
+  }, []);
+  
   const [catergoryIndex, setCategoryIndex] = React.useState(0);
+  
 
   const categories = ['Food','Offers' ];
 
@@ -113,7 +137,7 @@ const Home1 = ({navigation}) => {
         <View>
           <Text style={{fontSize: 25, fontWeight: 'bold'}}>Welcome to</Text>
           <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
-            Food App
+            Welcome {userName} !
           </Text>
         </View>
         
@@ -140,7 +164,7 @@ const Home1 = ({navigation}) => {
 const style = StyleSheet.create({
   categoryContainer: {
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
     
   },

@@ -19,7 +19,8 @@ const WelcomeScreen = ({navigation}: any) => {
           <TouchableOpacity style={styles.buttons}>
             <Text
               style={styles.buttonText}
-              onPress={() => navigation.navigate('Login')}>
+              //  onPress={() => navigation.navigate('Home1')}>
+                onPress={() => navigation.navigate('Login')}>
               LOGIN
             </Text>
           </TouchableOpacity>
@@ -27,7 +28,8 @@ const WelcomeScreen = ({navigation}: any) => {
           <TouchableOpacity style={styles.buttons}>
             <Text
               style={styles.buttonText}
-              onPress={() => navigation.navigate('Register')}>
+              onPress={() => navigation.navigate('NutritionScreen')}>
+                
               REGISTER
             </Text>
           </TouchableOpacity>

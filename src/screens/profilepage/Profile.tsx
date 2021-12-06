@@ -17,6 +17,7 @@ const Profile = ({navigation}: any) => {
   const [text4, onChangeText4] = React.useState('');
 
   return (
+    <ScrollView>
     <View style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
       <View style={{width: '100%', padding: 10, backgroundColor: '#cce6ff'}}>
         <TouchableOpacity
@@ -113,6 +114,7 @@ const Profile = ({navigation}: any) => {
         </Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 };
 

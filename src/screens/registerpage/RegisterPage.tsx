@@ -6,17 +6,22 @@ import {
   Button,
   StyleSheet,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {styles} from './style';
-interface RegisterProps {}
+interface RegisterProps { navigation:any}
 interface RegisterState {
   firstname: any;
   lastname: any;
   mobile: any;
-  username: any;
+  email: any;
   password: any;
+  address: any;
+ 
 }
 
 export default class RegisterPage extends React.Component<
@@ -29,24 +34,56 @@ export default class RegisterPage extends React.Component<
       firstname: '',
       lastname: '',
       mobile: '',
-      username: '',
+      email: '',
       password: '',
+      address: '',
     };
     this.submit = this.submit.bind(this);
   }
 
-  submit() {
-    const user = database().ref('user').push();
-
-    user
-      .set({
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        mobile: this.state.mobile,
-        username: this.state.username,
-        password: this.state.password,
-      })
-      .then(() => console.log('Data updated.'));
+  async submit() {
+    // const user = database().ref('user').push();
+    // user
+    //   .set({
+    //     firstname: this.state.firstname,
+    //     lastname: this.state.lastname,
+    //     mobile: this.state.mobile,
+    //     email: this.state.email,
+    //     password: this.state.password,
+    //   })
+    //   .then(() => console.log('Data updated.'));
+    
+           await auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(res => {
+        let id = res.user.uid;
+          
+          firestore()
+          .collection('users')
+          .doc(id)
+          .set({
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            mobile: this.state.mobile,
+            email: this.state.email,
+            password: this.state.password,
+            address: this.state.address,
+          })
+          .catch(err => console.log(err));
+        this.setState({
+          firstname: '',
+          lastname: '',
+          mobile: '',
+          email: '',
+          password: '',
+          address: '',
+        })
+          
+          
+          this.props.navigation.navigate('Login')}
+      );
+     
+    
   }
   render() {
     return (
@@ -102,11 +139,11 @@ export default class RegisterPage extends React.Component<
           </View>
           <View style={styles.textContainer}>
             <TextInput
-              placeholder={'Username'}
+              placeholder={'email'}
               mode="outlined"
-              label={'Username'}
-              onChangeText={username => {
-                this.setState({username: username});
+              label={'email'}
+              onChangeText={email => {
+                this.setState({email: email});
               }}
               children={undefined}
               autoComplete={undefined}
@@ -120,6 +157,19 @@ export default class RegisterPage extends React.Component<
               label={'Password'}
               onChangeText={password => {
                 this.setState({password: password});
+              }}
+              children={undefined}
+              autoComplete={undefined}
+            />
+          </View>
+          <View style={styles.textContainer}>
+            <TextInput
+              placeholder={'Adress'}
+
+              mode="outlined"
+              label={'Adress'}
+              onChangeText={address => {
+                this.setState({address: address});
               }}
               children={undefined}
               autoComplete={undefined}

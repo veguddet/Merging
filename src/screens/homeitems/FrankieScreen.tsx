@@ -47,11 +47,6 @@ const FrankieScreen = ({navigation}:any) => {
         })
   }, []);
 
-  
-
-
-
-
 
   const Card = ({frankie}:any) => {
     return (
