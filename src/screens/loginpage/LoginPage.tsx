@@ -77,8 +77,8 @@ const LoginPage = ({navigation}:any) => {
         <Button
           title="Register"
           color="#841584"
-          onPress={() => navigation.navigate('Register')}
-        // onPress={() => navigation.navigate('Tabs')}
+        //  onPress={() => navigation.navigate('Register')}
+         onPress={() => navigation.navigate('Tabs')}
          
         />
       </View>
