@@ -8,7 +8,6 @@ const PizzaData = [
       proteins:'10',
       carbs:'30',
       calories:'400'
-     
     },
     {
         id: 1,
@@ -18,10 +17,8 @@ const PizzaData = [
         img: require('../assets/FoodImages/pizza.jpg'),
         proteins:'10',
         carbs:'30',
-        calories:'700'
-       
-      },
-    
-   
+        calories:'700' 
+      }, 
 ]
+
 export default PizzaData

@@ -7,10 +7,7 @@ const BurgerData = [
       img: require('../assets/burger1.png'),
       proteins:'10',
       carbs:'20',
-      calories:'300'
-      
-      
-     
+      calories:'300'   
     },
     {
         id: 2,
@@ -20,8 +17,7 @@ const BurgerData = [
         img: require('../assets/FoodImages/momos.jpg'),
         proteins:'10',
         carbs:'30',
-        calories:'400'
-       
+        calories:'400' 
       },
       {
         id: 3,
@@ -32,13 +28,7 @@ const BurgerData = [
         proteins:'10',
         carbs:'20',
         calories:'250'
-       
-      },
-    
-   
-    
-  
-   
+      },  
   ];
   
   export default BurgerData;

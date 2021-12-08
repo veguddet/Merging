@@ -1,3 +1,4 @@
+
 import React, {useEffect} from 'react';
 import {
   View,
@@ -28,16 +29,20 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
   const [fats, setFats] = React.useState(0);
   const [isveggies, setIsVeggies] = React.useState(false);
   const [isExtraCrust, setIsExtraCrust] = React.useState(false);
+  const [amount, setAmount] = React.useState(0);
+  const [productCount, setProductcount] = React.useState(1);
 
   useEffect(() => {
     let calories = Route.calories;
     let proteins = Route.proteins;
     let carbs = Route.carbs;
     let fats = Route.fats;
+    let amount = Route.price;
     setCount(calories);
     setProteins(proteins);
     setCarbs(carbs);
     setFats(fats);
+    setAmount(amount);
   }, []);
 
   const handleAddData = () => {
@@ -49,9 +54,28 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
       Name: Route.name,
       Price: Route.price,
       Image: Route.image,
+      id: Math.floor(Math.random() * 9999999),
+      count: 1,
     });
-    navigation.navigate('Cart');
+    navigation.navigate('Home1');
   };
+  // const Increasecount = () => {
+  //   setProductcount(productCount + 1);
+  //   setCarbs(carbs * 2);
+  //   setFats(fats * 2);
+  //   setProteins(proteins * 2);
+  //   setAmount(amount * productCount);
+  //   setCount(counter * 2);
+  //   // setAmount(amount*productCount)
+  // };
+  // const Decreasecount = () => {
+  //   setProductcount(productCount - 1);
+  //   setCarbs(carbs / 2);
+  //   setFats(fats / 2);
+  //   setProteins(proteins / 2);
+  //   setCount(counter / 2);
+  //   setAmount(amount / productCount);
+  // };
 
   console.log(counter);
   const Route = route.params;
@@ -96,7 +120,8 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
-              Rs{Route.price}
+              {/* Rs{Route.price} */}
+              Rs{amount}
             </Text>
           </View>
         </View>
@@ -195,19 +220,20 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
             marginTop: 20,
             justifyContent: 'space-evenly',
           }}>
-          <View style={style.borderBtn}>
+          {/* <TouchableOpacity style={style.borderBtn} onPress={Decreasecount}>
             <Text style={style.borderBtnText}>-</Text>
-          </View>
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 20,
               fontWeight: 'bold',
             }}>
-            1
+            {productCount}
           </Text>
-          <View style={style.borderBtn}>
+          <TouchableOpacity style={style.borderBtn} onPress={Increasecount}>
             <Text style={style.borderBtnText}>+</Text>
-          </View>
+          </TouchableOpacity>
+          */}
           <TouchableOpacity style={style.buyBtn} onPress={handleAddData}>
             <Text
               style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>

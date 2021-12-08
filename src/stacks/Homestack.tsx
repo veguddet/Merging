@@ -1,7 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SplashScreen from '../screens/splashscreen/SplashScreen';
 import Home1 from '../screens/Home/Home';
 import BurgerScreen from '../screens/homeitems/BurgerScreen';
 import PizzaScreen from '../screens/homeitems/PizzaScreen';
@@ -13,10 +11,8 @@ import BurgerDetails from '../screens/homeitems/details/BurgerDetails';
 import PizzaDetails from '../screens/homeitems/details/PizzaDetails';
 import cartScreen from '../screens/cart/cartScreen';
 import cart from '../screens/cartscreen/cart';
-
-//import NutritionScreen from './src/nutritionScreen/NutritionScreen';
-
-
+import Profile from '../screens/profilepage/Profile';
+import EditProfile from '../screens/profilepage/EditProfile';
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
@@ -38,6 +34,8 @@ const HomeStack = () => {
         <Stack.Screen name="PizzaDetails" component={PizzaDetails} />
         <Stack.Screen name="CartScreen" component={cartScreen} />
         <Stack.Screen name="Cart" component={cart} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
 
         
       </Stack.Navigator>

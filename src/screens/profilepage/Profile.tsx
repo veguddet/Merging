@@ -1,121 +1,190 @@
 import React from 'react';
 import {
   View,
-  Text,
   ScrollView,
   TextInput,
   TouchableOpacity,
-  Alert,
   Image,
+  Text,
+  Button,
+  StyleSheet,
+  StatusBar,
 } from 'react-native';
-import {styles} from './style';
+import {
+  Avatar,
+  Title,
+  Caption,
+  TouchableRipple,
+} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const Profile = ({navigation}: any) => {
-  const [text, onChangeText] = React.useState('');
-  const [text1, onChangeText1] = React.useState('');
-  const [text2, onChangeText2] = React.useState('');
-  const [text3, onChangeText3] = React.useState('');
-  const [text4, onChangeText4] = React.useState('');
-
   return (
-    <ScrollView>
-    <View style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
-      <View style={{width: '100%', padding: 10, backgroundColor: '#cce6ff'}}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <Text style={{color: 'white'}}>LOGOUT</Text>
-        </TouchableOpacity>
-        <View>
-          {/* <TextInput
-         style={styles.input1}
-         onChangeText={onChangeText}
-         value={text}
-         placeholder="Enter your First Name"
-         // keyboardType="numeric"
-       /> */}
-
-          <Image
-            style={{width: 50, height: 50, borderRadius: 25}}
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNVXz698GCgRABdAlakP-I6V8_MZYuk7dZRXa6f2775hMk-UCKrq_eZa8XdY8IGkdJHVM&usqp=CAU',
-            }}></Image>
-        </View>
-      </View>
-
-      <View style={{paddingTop: 20}}>
-        <Text style={{fontSize: 20, paddingLeft: 10, fontWeight: 'bold'}}>
-          First Name
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="Enter your First Name"
-          // keyboardType="numeric"
-        />
-        <Text style={{fontSize: 20, paddingLeft: 10, fontWeight: 'bold'}}>
-          Last Name
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText1}
-          value={text1}
-          placeholder="Enter your Last Name"
-          // keyboardType="numeric"
-        />
-        <Text style={{fontSize: 20, paddingLeft: 10, fontWeight: 'bold'}}>
-          Address
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText2}
-          value={text2}
-          placeholder="Enter your Address"
-          // keyboardType="numeric"
-        />
-        <Text style={{fontSize: 20, paddingLeft: 10, fontWeight: 'bold'}}>
-          Bio
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText3}
-          value={text3}
-          placeholder="Enter your Bio"
-          // keyboardType="numeric"
-        />
-        <Text style={{fontSize: 20, paddingLeft: 10, fontWeight: 'bold'}}>
-          Mobile Number
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText4}
-          value={text4}
-          placeholder="Enter your Mobile Number"
-          keyboardType="numeric"
-        />
-      </View>
-      <View>
-        <TouchableOpacity
-          style={styles.button2}
-          onPress={() => {
-            navigation.navigate('Home');
-          }}>
-          <Text style={{color: 'white'}}>CANCEL</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.button1}
-        onPress={() => Alert.alert('Profile Details Updated')}>
-        <Text
-          style={{color: 'white', textAlign: 'center', alignContent: 'center'}}>
-          OK
-        </Text>
-      </TouchableOpacity>
+    <View style={styles.container}> 
+      <StatusBar 
+      barStyle='dark-content' 
+      backgroundColor="white"
+      translucent
+     />
+     <ScrollView>
+       <View style={styles.userInfoSection}>
+         <View style={{flexDirection: 'row', marginTop: 15}}>
+           <Avatar.Image 
+           source={require('../../assets/images/person.png')}
+          size={110}
+           />
+           <View style={{marginLeft: 20}}>
+             <Title style={styles.title}>Venky Reddy</Title>
+             <Caption style={styles.caption}>@venky_17</Caption>
+             <View style={{marginRight: 10}}>
+              <MaterialCommunityIcons.Button
+              activeOpacity={1}
+                name="account-edit"
+                size={25}
+                backgroundColor= '#fff'
+                color='#000'
+                onPress={() => navigation.navigate('EditProfile')}
+              />
+            </View>
+           </View>
+         </View>
+       </View>
+       {/* <View style={styles.boarder}></View> */}
+       <View style={styles.userInfoSection}>
+         <View style={styles.row}>
+           <Icon name="map-marker-radius" color='#777777' size={20} />
+           <Text style={{color:'#777777', marginLeft: 10}}>Kurnool, India</Text>
+         </View>
+         <View style={styles.row}>
+           <Icon name="phone" color='#777777' size={20} />
+           <Text style={{color:'#777777', marginLeft: 10}}>+91-9894903211</Text>
+         </View>
+         <View style={styles.row}>
+           <Icon name="email" color='#777777' size={20} />
+           <Text style={{color:'#777777', marginLeft: 10}}>venky_reddy@gmail.com</Text>
+         </View>
+       </View>
+       {/* <View style={styles.infoBoxWrapper}>
+         <View style={styles.infoBox}>
+           <Title>$117</Title>
+           <Caption>Wallet</Caption>
+         </View>
+         <View style={styles.infoBox}>
+           <Title>17</Title>
+           <Caption>Orders</Caption>
+         </View>
+       </View> */}
+        <View style={styles.boarder}></View>
+       <View style={styles.menuWrapper}>
+         <TouchableRipple onPress={() => {}}>
+           <View style={styles.menuItem}>
+             <Icon name='heart-outline' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Your Favorites</Text>
+            </View>
+         </TouchableRipple>
+         <TouchableRipple onPress={() => {}}>
+           <View style={styles.menuItem}>
+             <Icon name='credit-card' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Payments</Text>
+            </View>
+         </TouchableRipple>
+         <TouchableRipple onPress={() => {}}>
+           <View style={styles.menuItem}>
+             <Icon name='share-outline' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Tell Your Friends</Text>
+            </View>
+         </TouchableRipple>
+         <TouchableRipple onPress={() => {}}>
+           <View style={styles.menuItem}>
+             <Icon name='account-check-outline' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Support</Text>
+            </View>
+         </TouchableRipple>
+         <TouchableRipple onPress={() => {}}>
+           <View style={styles.menuItem}>
+             <Icon name='cog-outline' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Settings</Text>
+            </View>
+         </TouchableRipple>
+         <TouchableRipple onPress={() => {navigation.navigate('Login')}}>
+           <View style={styles.menuItem}>
+             <Icon name='lock-outline' color="#FF6347" size={25} />
+             <Text style={styles.menuItemText}>Logout</Text>
+            </View>
+         </TouchableRipple>
+       </View>
+       <View style={styles.spacing}></View>
+       </ScrollView>
     </View>
-    </ScrollView>
   );
 };
 
 export default Profile;
+
+const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+     marginTop: 20,
+     backgroundColor: 'white',
+   },
+   userInfoSection: {
+    paddingHorizontal: 30,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 22,
+   // marginTop: 10,
+    marginBottom: 5,
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 14,
+    fontWeight: '500',
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 15,
+  },
+  infoBoxWrapper: {
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
+    borderTopColor: '#dddddd',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    height: 100,
+  },
+  infoBox: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRightColor: '#dddddd',
+    borderRightWidth: 1,
+  },
+  menuWrapper: {
+   // marginTop: 10,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+  },
+  menuItemText: {
+    color: '#777777',
+    marginLeft: 20,
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 26,
+  },
+  spacing: {
+    margin : 10,
+  },
+  boarder: {
+    borderTopColor: '#dddddd',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    height:10,
+    marginBottom: 10,
+  },
+  });
+

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import COLORS from '../Home/colors';
 
-import {styles} from '../splashscreen/style';
+//import {styles} from '../splashscreen/style';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import {SecondaryButton} from './button';
 import { connect } from 'react-redux';
@@ -68,7 +68,7 @@ const CartScreen = ({navigation,data}: any) => {
               <IconAntDesign name="minus" size={30} color="#900" />
             </TouchableOpacity>
 
-            <Text style={styles.counter}>{counter}</Text>
+            <Text style={style.counter}>{counter}</Text>
             <TouchableOpacity onPress={() => increment()}>
               <IconAntDesign name="plus" size={30} color="#900" />
             </TouchableOpacity>
@@ -187,6 +187,9 @@ const style = StyleSheet.create({
 
     alignItems: 'flex-start',
     justifyContent: 'center',
+  },
+  counter: {
+
   },
  
 }

@@ -50,7 +50,8 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                 Name:Route.name,
                 Price:Route.price,
                 Image:Route.image,
-                Id:Route.id
+                id:Math.floor(Math.random()*9999999),
+                count:1
 
           })
          // navigation.navigate('Cart')
@@ -188,19 +189,6 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
             marginTop: 20,
             justifyContent: 'space-evenly',
           }}>
-          <View style={style.borderBtn}>
-            <Text style={style.borderBtnText}>-</Text>
-          </View>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>
-            1
-          </Text>
-          <View style={style.borderBtn}>
-            <Text style={style.borderBtnText}>+</Text>
-          </View>
           <TouchableOpacity style={style.buyBtn} onPress={handleAddData}>
             <Text
               style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>

@@ -10,4 +10,9 @@ export const DeleteData=(id:any)=>{
      payload:id
     }
 }
- 
+export const countIncrement=(Data:any)=>{
+    return{
+     type:'countIncrement',
+     payload:Data
+    }
+}

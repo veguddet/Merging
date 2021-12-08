@@ -20,6 +20,8 @@ import BiryaniDetails from './src/screens/homeitems/details/BiryaniDetails';
 import CartScreen from './src/screens/cart/cartScreen'
 import {Provider} from 'react-redux'
 import store from './src/redux/store';
+import Profile from './src/screens/profilepage/Profile';
+import EditProfile from './src/screens/profilepage/EditProfile';
 //import NutritionScreen from './src/nutritionScreen/NutritionScreen';
 
 
@@ -51,6 +53,8 @@ const App = () => {
         <Stack.Screen name="FrankieScreen" component={FrankieScreen} />
         <Stack.Screen name="BiryaniDetails" component={BiryaniDetails} />
         <Stack.Screen name="CartScreen" component={CartScreen} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
 
         {/* //<Stack.Screen name="NutritionScreen" component={NutritionScreen} /> */}
 

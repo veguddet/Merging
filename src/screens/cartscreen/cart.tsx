@@ -1,3 +1,4 @@
+
 import React, { Component, useEffect, useState } from 'react';
 import {
   Text,
@@ -13,88 +14,172 @@ import { styles } from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BurgerData from '../../Data/BurgerData';
 import { FlatList } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
-import { DeleteData } from '../../redux/cartAction';
+import { countIncrement, DeleteData } from '../../redux/cartAction';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
-const Cart = ({ route, navigation, data,removeItem }) => {
-  const [counter, setCounter] = useState(0);
+const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
+  const { cartList } = useSelector(state => state.cartReducer);
+  const [counter, setCounter] = useState(1);
   const [total, setTotal] = useState(0);
 
-const totalAmountCalculte=()=>{
-  let Total=0;
-  data.map(item=>{
-    if(item.Price){
-      Total+=item.Price
-    }
-    console.log(Total)
-    setTotal(Total)
-  
-  })
+  const totalAmountCalculte = () => {
+    let Total = 0;
+    cartList.map(item => {
+      if (item.Price) {
+        Total += item.Price * item.count;
+      }
+      console.log(Total);
 
-}
-useEffect(() => {
-  totalAmountCalculte()
-}, [data]);
- 
+      setTotal(Total);
+    });
+    setTotal(Total);
+  };
+  useEffect(() => {
+    totalAmountCalculte();
+  }, [data, removeItem, quantity]);
 
+  // const handleRemove=()=>{
+  //   removeItem()
+  // }
 
-  const increment = () => {
+  const increment = async (item:any) => {
     setCounter(counter => counter + 1);
+    console.log('newItem', item);
+    await quantity({
+      Proteins: item.Proteins,
+      Fats: item.Fats,
+      Carbs: item.Carbs,
+      calories: item.calories,
+      Name: item.Name,
+      Price: item.Price,
+      Image: item.Image,
+      id: item.id,
+      count: item.count + 1,
+    });
   };
-  const decrement = () => {
-    setCounter(counter => (counter ? counter - 1 : counter));
-  };
+
   const Card = ({ Item }: any) => {
     return (
       <View style={styles.topCardView}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={styles.imageview}>
             <Image
               resizeMode={'contain'}
               style={styles.imagelink}
               source={{ uri: Item.Image }}
             />
-            
-            <View   style={{ paddingLeft:30
-              }}>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'transparent',
-                padding: 10,
-                justifyContent: 'flex-end',
-                paddingLeft:20
-              }}>
-              <View  >
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{Item.Name}</Text>
-                <Text>Descripcion</Text>
-              </View>
-              <View style={styles.text199view}>
-                <Text style={styles.text199}>{Item.Price}</Text>
-               
-              </View>
-              <TouchableOpacity onPress={removeItem}>
-              <View style={styles.text199view}>
-                <Text style={styles.text199}>Remove</Text>
-               
-              </View>
-              </TouchableOpacity>
+            <View style={styles.text199view}>
+              <Text style={styles.text1}>Rs{Item.Price*Item.count}</Text>
             </View>
+
+
+            <View style={{ paddingLeft: 30 }}>
+              <View
+                style={{
+                  flex: 1,
+                  backgroundColor: 'transparent',
+                  padding: 10,
+                  justifyContent: 'flex-end',
+                  paddingLeft: 20,
+                }}>
+                <View>
+                  <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                    {Item.Name}
+                  </Text>
+                  <View>
+                    <Text> Protein = {Item.Proteins*Item.count} </Text>
+                  </View>
+                  <View>
+                    <Text> Carbs = {Item.Carbs*Item.count} </Text>
+                  </View>
+                  <View>
+                    <Text> Fats = {Item.Fats*Item.count}</Text>
+                  </View>
+                </View>
+
+                {/* <TouchableOpacity onPress={()=>removeItem(Item.id)}>
+                  <View style={styles.text199}>
+                    <Text style={styles.text19}>Remove</Text>
+                  </View>
+                </TouchableOpacity> */}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 20,
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <TouchableOpacity style={styles.borderBtn}>
+                    <Text style={styles.borderBtnText}>-</Text>
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 'bold',
+                      padding:10
+                    }}>
+                   {Item.count}
+                  </Text>
+                  <TouchableOpacity style={styles.borderBtn} onPress={() =>increment(Item)}>
+                    <Text style={styles.borderBtnText}>+</Text>
+                  </TouchableOpacity>
+                 <TouchableOpacity style={{paddingLeft:10}}onPress={() => removeItem(Item.id)}>
+                   <IconAntDesign name="close" size={40} color={'black'} />
+                   </TouchableOpacity>
+
+                </View>
+              </View>
             </View>
           </View>
         </View>
         <View style={styles.height20} />
         <View style={{ height: 20 }} />
       </View>
-      
+      // <View style={{ flex: 1 }}>
+      //   <View
+      //     style={{
+      //       flexDirection: 'row',
+      //       justifyContent: 'flex-start',
+      //       alignItems: 'center',
+      //     }}>
+      //     <Image
+      //       resizeMode={'contain'}
+      //       style={styles.imagelink}
+      //       source={{ uri: Item.Image }}
+      //     />
+      //     <View style={{ padding: 30 }}>
+      //       <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{Item.Name}</Text>
+      //       <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{Item.Price * Item.count}</Text>
+      //     </View>
+      //     <View style={{ flexDirection: 'row' }}>
+      //       <TouchableOpacity onPress={() => removeItem(Item.id)}>
+      //         <View style={styles.text199view}>
+      //           <Text style={styles.text199}>Remove</Text>
+      //         </View>
+      //       </TouchableOpacity>
+      //     </View>
+      //     <TouchableOpacity onPress={() => { }}>
+      //       <IconAntDesign name="minus" size={30} color={'red'} />
+      //     </TouchableOpacity>
+
+      //     <Text style={{ paddingHorizontal: 8, fontWeight: 'bold' }}>
+      //       {Item.count}
+      //     </Text>
+
+      //     <TouchableOpacity onPress={() => increment(Item)}>
+      //       <IconAntDesign name="plus" size={30} color={'blue'} />
+      //     </TouchableOpacity>
+
+      //   </View>
+
+      // </View>
     );
   };
-  console.log('prps', data)
+  console.log('prps', data);
   return (
-
     // <View style={styles.topview}>
     //   <View style={styles.height20} />
     //   <Text style={styles.addeditems}>Added Items</Text>
@@ -149,11 +234,10 @@ useEffect(() => {
     //   <View style={{height: 20}} />
     // </View>
     <View style={styles.topview}>
-     
       <Text style={styles.addeditems}>Added Items</Text>
       <View style={styles.height10} />
       <FlatList
-        data={data}
+        data={cartList}
         renderItem={({ item }) => {
           return <Card Item={item} />;
         }}
@@ -162,20 +246,11 @@ useEffect(() => {
         <Text style={styles.amount}>Total Amount = {total}</Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.buyBtn}
-        onPress={totalAmountCalculte}>
+      <TouchableOpacity style={styles.buyBtn} onPress={totalAmountCalculte}>
         <Text style={styles.order}>Place Order</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.buyBtn}
-        onPress={() => navigation.popOut()}>
-        <Text style={styles.order}>Order</Text>
-      </TouchableOpacity>
-     
-      </View>
-      );
+    </View>
+  );
 };
 const style = StyleSheet.create({
   header: {
@@ -189,7 +264,7 @@ const style = StyleSheet.create({
     height: 100,
     elevation: 15,
     borderRadius: 10,
-    backgroundColor:"white",
+    backgroundColor: 'white',
     marginVertical: 10,
     marginHorizontal: 20,
     paddingHorizontal: 10,
@@ -215,27 +290,19 @@ const style = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
- 
-}
-);
+});
 
-
-
-
-
-
-      function mapStateToProps(state:any) {
+function mapStateToProps(state: any) {
   return {
-        data:state.cartReducer
+    data: state.cartReducer,
   };
-  }
-  
-const mapDispatchToProps = (dispatch:any) => {
-  return {
-      removeItem: (product:any) => dispatch(DeleteData(product))
-  }
 }
 
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    removeItem: (product: any) => dispatch(DeleteData(product)),
+    quantity: (add: any) => dispatch(countIncrement(add)),
+  };
+};
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
