@@ -52,7 +52,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
       Carbs: carbs,
       calories: counter,
       Name: Route.name,
-      Price: Route.price,
+      Price: amount,
       Image: Route.image,
       id: Math.floor(Math.random() * 9999999),
       count: 1,
@@ -164,6 +164,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
                     ? setProteins(proteins - 10)
                     : setProteins(proteins + 10);
                   checCheese ? setFats(fats - 10) : setFats(fats + 10);
+                  checCheese ? setAmount(amount - 70) :setAmount(amount + 70);
                 }
               }}
             />
@@ -183,6 +184,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
                     ? setProteins(proteins - 10)
                     : setProteins(proteins + 10);
                   isveggies ? setFats(fats - 10) : setFats(fats + 10);
+                  isveggies ? setAmount(amount - 100) : setAmount(amount + 100);
                 }
               }}
             />
@@ -206,6 +208,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
                   ? setProteins(proteins - 10)
                   : setProteins(proteins + 10);
                 isExtraCrust ? setFats(fats - 30) : setFats(fats + 30);
+                isExtraCrust ? setAmount(amount - 30) : setAmount(amount + 30);
               }
             }}
           />

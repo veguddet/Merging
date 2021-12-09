@@ -5,25 +5,23 @@ import SplashScreen from './src/screens/splashscreen/SplashScreen';
 import WelcomeScreen from './src/screens/welcomescreen/WelcomeScreen';
 import LoginPage from './src/screens/loginpage/LoginPage';
 import RegisterPage from './src/screens/registerpage/RegisterPage';
-import Tabs from './src/screens/tabs/Tabs';
 import Home from './src/screens/homescreen/Home';
+import Tabs from './src/screens/tabs/Tabs';
 import Order from './src/screens/order/Order';
-import Cart from './src/screens/cartscreen/cart';
 import Home1 from './src/screens/Home/Home';
-import BurgerScreen from './src/screens/homeitems/BurgerScreen'
+import BurgerScreen from './src/screens/homeitems/BurgerScreen';
 import PizzaScreen from './src/screens/homeitems/PizzaScreen';
 import Test from './src/screens/homeitems/Test';
+import Cart from './src/screens/cartscreen/cart';
 import DetailsScreen from './src/screens/homeitems/details/DetailScreen';
 import Biryani from './src/screens/homeitems/Biryani';
 import FrankieScreen from './src/screens/homeitems/FrankieScreen';
 import BiryaniDetails from './src/screens/homeitems/details/BiryaniDetails';
-import CartScreen from './src/screens/cart/cartScreen'
-import {Provider} from 'react-redux'
-import store from './src/redux/store';
+import CartScreen from './src/screens/cart/cartScreen';
 import Profile from './src/screens/profilepage/Profile';
 import EditProfile from './src/screens/profilepage/EditProfile';
-//import NutritionScreen from './src/nutritionScreen/NutritionScreen';
-
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 
 const App = () => {
@@ -41,7 +39,7 @@ const App = () => {
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Register" component={RegisterPage} />
         <Stack.Screen name="Home" component={Home} />
-       <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="Order" component={Order} />
         <Stack.Screen name="Cart" component={Cart} />
         <Stack.Screen name="Home1" component={Home1} />
@@ -56,9 +54,6 @@ const App = () => {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
 
-        {/* //<Stack.Screen name="NutritionScreen" component={NutritionScreen} /> */}
-
-        
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

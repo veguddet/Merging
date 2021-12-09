@@ -12,7 +12,7 @@ const WelcomeScreen = ({navigation}: any) => {
     <View>
       <ImageBackground
         source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIYSotR6O1bhHCUmHIlrlbsHCkGV6X_0kKWQ&usqp=CAU',
+          uri: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfDF8MHx8&auto=format&fit=crop&w=600&q=60',
         }}
         style={styles.imageContainer}>
         <View style={styles.buttonContainer}>
@@ -28,7 +28,7 @@ const WelcomeScreen = ({navigation}: any) => {
           <TouchableOpacity style={styles.buttons}>
             <Text
               style={styles.buttonText}
-              onPress={() => navigation.navigate('NutritionScreen')}>
+              onPress={() => navigation.navigate('Register')}>
                 
               REGISTER
             </Text>

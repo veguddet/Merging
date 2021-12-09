@@ -16,3 +16,16 @@ export const countIncrement=(Data:any)=>{
      payload:Data
     }
 }
+export const countDecrement=(Data:any)=>{
+    return{
+     type:'countDecrement',
+     payload:Data
+    }
+}
+
+export const emptyCart=(Data:any)=>{
+    return{
+     type:'emptyCart',
+     payload:Data
+    }
+}

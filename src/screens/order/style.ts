@@ -12,5 +12,11 @@ export const styles = StyleSheet.create({
       fontWeight: 'bold',
       color: 'black',
       margin: 10,
+      
+    },
+    text1: {
+      fontSize: 15,
+      color: 'black',
+      margin:2,
     },
   });

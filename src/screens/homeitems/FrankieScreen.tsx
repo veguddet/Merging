@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   SafeAreaView,
@@ -12,47 +12,39 @@ import {
   Alert,
 } from 'react-native';
 
-
 import COLORS from '../Home/colors';
 import firestore from '@react-native-firebase/firestore';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 const width = Dimensions.get('window').width / 2 - 30;
 
-const FrankieScreen = ({navigation}:any) => {
-
+const FrankieScreen = ({navigation}: any) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
-  const [frankieData, setfrankieData] = useState(null); // Initial empty array of users
+  const [FrankieData, setFrankieData] = useState(null); // Initial empty array of users
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('frankie')
       .get()
-      .then(
-        snapshot => {
+      .then(snapshot => {
+        let snap = snapshot.docs.map(doc => {
+          const data = doc.data();
 
-          let snap = snapshot.docs.map(doc => {
+          const doc_id = doc.id;
 
-            const data = doc.data();
-
-            const doc_id = doc.id;
-          
-
-
-            return { doc_id, ...data };
-
-          });
-         //console.log(snap)
-         setfrankieData(snap)
-         
-        })
+          return {doc_id, ...data};
+        });
+        //console.log(snap)
+        setFrankieData(snap);
+      });
   }, []);
 
+  console.log(FrankieData);
 
-  const Card = ({frankie}:any) => {
+  const Card = ({Frankie}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() =>  navigation.navigate('DetailsScreen', frankie)}>
+        onPress={() => navigation.navigate('DetailsScreen', Frankie)}>
         <View style={style.card}>
           <View
             style={{
@@ -60,38 +52,26 @@ const FrankieScreen = ({navigation}:any) => {
               alignItems: 'center',
             }}>
             <Image
-             // source={{uri: item.img}}
-             source={{uri:frankie.image}}
-              style={{width: 150, height: 200, borderRadius: 20}}
+              // source={{uri: item.img}}
+              source={{uri: Frankie.image}}
+              style={{width: 150, height: 150, borderRadius: 20}}
             />
           </View>
-          <Text style={{fontSize: 19, fontWeight: 'bold',}}>
-            {frankie.name}
-            </Text>
+          <Text style={{fontSize: 19, fontWeight: 'bold',paddingTop:10}}>{Frankie.name}</Text>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 5,
+              marginTop:5,
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
-              Rs{frankie.price}
+            <Text style={{fontSize: 19, fontWeight: 'bold',}}>
+              Rs {Frankie.price}
             </Text>
-            
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{fontSize: 22, color: COLORS.white, fontWeight: 'bold'}}>
-                +
-              </Text>
-           
+
+            <View style={{justifyContent:'center',alignItems:'center'}}  >
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+            <IconAntDesign name="right" size={20} color="green" />
+          </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -100,7 +80,12 @@ const FrankieScreen = ({navigation}:any) => {
   };
   return (
     <SafeAreaView
-      style={{flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white,marginTop:50}}>
+      style={{
+        flex: 1,
+        paddingHorizontal: 20,
+        backgroundColor: COLORS.white,
+        marginTop: 50,
+      }}>
       <View style={style.header}>
       <View style={{flexDirection: 'row',alignItems:'center'}}>
         <TouchableOpacity    onPress={() => navigation.goBack()}> 
@@ -108,20 +93,15 @@ const FrankieScreen = ({navigation}:any) => {
           <IconAntDesign name="arrowleft" size={30} color="#900" />
         </TouchableOpacity>
           <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold',paddingLeft:20}}>
-            frankie!
+            Frankie!
           </Text>
-         
         </View>
-      
       </View>
       <View style={{marginTop: 30, flexDirection: 'row'}}>
         <View style={style.searchContainer}>
-        
           <TextInput placeholder="Search" style={style.input} />
         </View>
-        <View style={style.sortBtn}>
-         
-        </View>
+        <View style={style.sortBtn}></View>
       </View>
 
       <FlatList
@@ -132,9 +112,9 @@ const FrankieScreen = ({navigation}:any) => {
           paddingBottom: 50,
         }}
         numColumns={2}
-        data={frankieData}
+        data={FrankieData}
         renderItem={({item}) => {
-          return <Card frankie={item} />;
+          return <Card Frankie={item} />;
         }}
       />
     </SafeAreaView>

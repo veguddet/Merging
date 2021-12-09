@@ -25,6 +25,21 @@ const cartReducer = (state = initialstate, action) => {
           return list
         }
       })}
+      case 'countDecrement':
+     console.log("asas")
+      return {...state ,cartList:state.cartList.map(list=>{  
+        if(list.id==action.payload.id){ 
+          console.log("list",list)
+         return action.payload          
+        } 
+        else{
+          console.log("elesess",list)
+          return list
+        }
+      })}
+      case 'emptyCart':
+        return {...state, cartList:[]};
+
     
 
     default:

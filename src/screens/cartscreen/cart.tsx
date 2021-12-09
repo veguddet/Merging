@@ -17,10 +17,10 @@ import { FlatList } from 'react-native-gesture-handler';
 import { connect, useSelector } from 'react-redux';
 import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
-import { countIncrement, DeleteData } from '../../redux/cartAction';
+import { countDecrement, countIncrement, DeleteData } from '../../redux/cartAction';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
-const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
+const Cart = ({ route, navigation, data, removeItem, quantity, quantitydecrese }: any) => {
   const { cartList } = useSelector(state => state.cartReducer);
   const [counter, setCounter] = useState(1);
   const [total, setTotal] = useState(0);
@@ -45,7 +45,7 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
   //   removeItem()
   // }
 
-  const increment = async (item:any) => {
+  const increment = async (item: any) => {
     setCounter(counter => counter + 1);
     console.log('newItem', item);
     await quantity({
@@ -60,6 +60,21 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
       count: item.count + 1,
     });
   };
+  const decrement = async (item: any) => {
+    setCounter(counter => counter + 1);
+    console.log('newItem', item);
+    await quantitydecrese({
+      Proteins: item.Proteins,
+      Fats: item.Fats,
+      Carbs: item.Carbs,
+      calories: item.calories,
+      Name: item.Name,
+      Price: item.Price,
+      Image: item.Image,
+      id: item.id,
+      count: item.count === 1 ? item.count : item.count - 1,
+    });
+  };
 
   const Card = ({ Item }: any) => {
     return (
@@ -72,7 +87,7 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
               source={{ uri: Item.Image }}
             />
             <View style={styles.text199view}>
-              <Text style={styles.text1}>Rs{Item.Price*Item.count}</Text>
+              <Text style={styles.text1}>Rs{Item.Price * Item.count}</Text>
             </View>
 
 
@@ -90,13 +105,13 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
                     {Item.Name}
                   </Text>
                   <View>
-                    <Text> Protein = {Item.Proteins*Item.count} </Text>
+                    <Text> Protein = {Item.Proteins * Item.count} </Text>
                   </View>
                   <View>
-                    <Text> Carbs = {Item.Carbs*Item.count} </Text>
+                    <Text> Carbs = {Item.Carbs * Item.count} </Text>
                   </View>
                   <View>
-                    <Text> Fats = {Item.Fats*Item.count}</Text>
+                    <Text> Fats = {Item.Fats * Item.count}</Text>
                   </View>
                 </View>
 
@@ -112,23 +127,23 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
                     marginTop: 20,
                     justifyContent: 'space-evenly',
                   }}>
-                  <TouchableOpacity style={styles.borderBtn}>
+                  <TouchableOpacity style={styles.borderBtn} onPress={() => decrement(Item)}>
                     <Text style={styles.borderBtnText}>-</Text>
                   </TouchableOpacity>
                   <Text
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
-                      padding:10
+                      padding: 10
                     }}>
-                   {Item.count}
+                    {Item.count}
                   </Text>
-                  <TouchableOpacity style={styles.borderBtn} onPress={() =>increment(Item)}>
+                  <TouchableOpacity style={styles.borderBtn} onPress={() => increment(Item)}>
                     <Text style={styles.borderBtnText}>+</Text>
                   </TouchableOpacity>
-                 <TouchableOpacity style={{paddingLeft:10}}onPress={() => removeItem(Item.id)}>
-                   <IconAntDesign name="close" size={40} color={'black'} />
-                   </TouchableOpacity>
+                  <TouchableOpacity style={{ paddingLeft: 10 }} onPress={() => removeItem(Item.id)}>
+                    <IconAntDesign name="close" size={40} color={'black'} />
+                  </TouchableOpacity>
 
                 </View>
               </View>
@@ -242,13 +257,36 @@ const Cart = ({ route, navigation, data, removeItem, quantity }: any) => {
           return <Card Item={item} />;
         }}
       />
-      <View style={styles.amountview}>
-        <Text style={styles.amount}>Total Amount = {total}</Text>
-      </View>
+      {total ? (<View style={{alignItems:'center'}}>
+        <View style={styles.amountview}>
+          <Text style={styles.amount}>Total Amount = {total}</Text>
+        </View>
 
-      <TouchableOpacity style={styles.buyBtn} onPress={totalAmountCalculte}>
-        <Text style={styles.order}>Place Order</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.buyBtn} onPress={()=>navigation.navigate('checkout')}>
+          <Text style={styles.order}>Place Order</Text>
+        </TouchableOpacity>
+      </View>) : (<View>
+        <Image
+            source={{uri:'http://www.shitalexports.com/img/empty-cart.jpg'}}
+            style={{
+              width: 400,
+              height: 400,
+              marginBottom:'30%'
+            }}
+          />
+
+
+      </View>)}
+
+      {/* <View>
+        <View style={styles.amountview}>
+          <Text style={styles.amount}>Total Amount = {total}</Text>
+        </View>
+
+        <TouchableOpacity style={styles.buyBtn} onPress={totalAmountCalculte}>
+          <Text style={styles.order}>Place Order</Text>
+        </TouchableOpacity>
+      </View> */}
     </View>
   );
 };
@@ -302,6 +340,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     removeItem: (product: any) => dispatch(DeleteData(product)),
     quantity: (add: any) => dispatch(countIncrement(add)),
+    quantitydecrese: (sub: any) => dispatch(countDecrement(sub)),
   };
 };
 

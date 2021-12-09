@@ -13,9 +13,7 @@ const SplashScreen = ({navigation}: any) => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="black" translucent />
       <Image
-        source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx1MNr7YXhLO48AN4y5k_u7KaTbYMreXfrvw&usqp=CAU',
-        }}
+      source={require('../../assets/images/plate.png')}
         resizeMode="contain"
         style={styles.image}
       />

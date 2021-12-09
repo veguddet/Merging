@@ -13,6 +13,8 @@ import cartScreen from '../screens/cart/cartScreen';
 import cart from '../screens/cartscreen/cart';
 import Profile from '../screens/profilepage/Profile';
 import EditProfile from '../screens/profilepage/EditProfile';
+import checkout from '../screens/checkout/checkout';
+import Order from '../screens/order/Order';
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
@@ -36,6 +38,8 @@ const HomeStack = () => {
         <Stack.Screen name="Cart" component={cart} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="checkout" component={checkout} />
+        <Stack.Screen name="Order" component={Order} />
 
         
       </Stack.Navigator>

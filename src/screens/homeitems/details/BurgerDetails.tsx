@@ -29,16 +29,19 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
   const [fats, setFats] = React.useState(0);
   const [isveggies, setIsVeggies] = React.useState(false);
   const [isPatty, setIsPatty] = React.useState(false);
+  const [amount, setAmount] = React.useState(0);
 
   useEffect(() => {
     let calories = Route.calories;
     let proteins = Route.proteins;
     let carbs = Route.carbs;
     let fats = Route.fats;
+    let amount = Route.price;
     setCount(calories);
     setProteins(proteins);
     setCarbs(carbs);
     setFats(fats);
+    setAmount(amount);
   }, []);
 
    const handleAddData=()=>{
@@ -48,7 +51,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                 Carbs:carbs,
                 calories:counter,
                 Name:Route.name,
-                Price:Route.price,
+                Price:amount,
                 Image:Route.image,
                 id:Math.floor(Math.random()*9999999),
                 count:1
@@ -96,7 +99,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
-              Rs{Route.price}
+              Rs{amount}
             </Text>
           </View>
         </View>
@@ -140,6 +143,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                     ? setProteins(proteins - 10)
                     : setProteins(proteins + 10);
                     checCheese ? setFats(fats - 50) : setFats(fats + 50);
+                    checCheese ? setAmount(amount - 50) : setAmount(amount + 50);
                 }
               }}
             />
@@ -159,6 +163,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                     ? setProteins(proteins - 10)
                     : setProteins(proteins + 10);
                     isveggies ? setFats(fats - 30) : setFats(fats + 30);
+                    isveggies ? setAmount(amount - 30) : setAmount(amount + 30);
                 }
               }}
             />
@@ -177,6 +182,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
                     ? setProteins(proteins - 10)
                     : setProteins(proteins + 10);
                     isPatty ? setFats(fats - 50) : setFats(fats + 50);
+                    isPatty ? setAmount(amount - 50) : setAmount(amount + 50);
                 }
               }}
             />

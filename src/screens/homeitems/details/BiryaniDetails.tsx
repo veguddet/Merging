@@ -1,50 +1,88 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Button, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import COLORS from '../../Home/colors';
 
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import cheese1 from '../../../assets/FoodImages/cheese1.png';
+import patty from '../../../assets/FoodImages/patty.png';
+import veggies from '../../../assets/FoodImages/veggies.png'
 import caloriesicon from '../../../assets/FoodImages/caloriesicon.png';
-import veggies from '../../../assets/FoodImages/veggies.png';
+import { connect } from 'react-redux';
+import { AddData } from '../../../redux/cartAction';
 
-const BiryaniDetails = ({navigation, route}: any) => {
+const BiryaniDetails = ({navigation, route,addItem}: any) => {
   const [checked, setChecked] = React.useState(false);
   const [checCheese, setCheckCheese] = React.useState(false);
   const [counter, setCount] = React.useState(0);
   const [proteins, setProteins] = React.useState(0);
   const [carbs, setCarbs] = React.useState(0);
-  const [cal, setCal] = React.useState();
+  const [fats, setFats] = React.useState(0);
+  const [isveggies, setIsVeggies] = React.useState(false);
+  const [isPatty, setIsPatty] = React.useState(false);
 
   useEffect(() => {
     let calories = Route.calories;
     let proteins = Route.proteins;
     let carbs = Route.carbs;
+    let fats = Route.fats;
     setCount(calories);
     setProteins(proteins);
     setCarbs(carbs);
+    setFats(fats);
   }, []);
+
+   const handleAddData=()=>{
+          addItem({
+                Proteins:proteins,
+                Fats:fats,
+                Carbs:carbs,
+                calories:counter,
+                Name:Route.name,
+                Price:Route.price,
+                Image:Route.image,
+                id:Math.floor(Math.random()*9999999),
+                count:1
+
+          })
+         // navigation.navigate('Cart')
+         navigation.popToTop()
+  }
   console.log(counter);
   const Route = route.params;
   return (
     <ScrollView>
       <View style={style.container}>
-        <Image style={style.image} source={{uri: Route.image}} />
         <View
           style={{
-            flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingRight: 8,
+            paddingTop: 10,
           }}>
-          <Image source={caloriesicon} style={{height: 50, width: 50}} />
-          <Text style={style.text}>Total Calories:{counter}</Text>
+          <Image style={style.image} source={{uri: Route.image}} />
+        </View>
+        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingRight:8}}>
+          <Image
+          source={caloriesicon}
+          style={{height:50,width:50}}
+          />
+        <Text style={style.text}>Total Calories:{counter}</Text>
         </View>
       </View>
       <View>
         <View
           style={{
             marginLeft: 20,
-            marginTop: 20,
+            marginTop: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -66,8 +104,8 @@ const BiryaniDetails = ({navigation, route}: any) => {
         <View>
           <Text
             style={{
-              marginLeft: 15,
-              marginTop: 20,
+              marginLeft: 20,
+              marginTop: 10,
               fontSize: 22,
               fontWeight: 'bold',
             }}>
@@ -77,34 +115,80 @@ const BiryaniDetails = ({navigation, route}: any) => {
             style={{
               marginTop: 10,
               flexDirection: 'row',
-              paddingLeft: 10,
+            paddingTop:10,
+            paddingLeft:5
             }}>
             <Text style={style.nutritionsText}>Carbs:{carbs}</Text>
             <Text style={style.nutritionsText}>Proteins:{proteins}</Text>
-            <Text style={style.nutritionsText}>Fats:{Route.fats}</Text>
+            <Text style={style.nutritionsText}>Fats:{fats}</Text>
           </View>
         </View>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1,paddingTop:10}}>
+         
           <View style={style.checkboxbiew}>
-            <Image source={veggies} style={style.Icon} />
-            <Text style={style.checkboxText}>Extra Veggies</Text>
+          <Image source={cheese1} style={style.Icon}/>
+            <Text style={style.checkboxText}>Extra Paneer</Text>
+          
             <Checkbox
-              status={checked ? 'checked' : 'unchecked'}
+              status={checCheese ? 'checked' : 'unchecked'}
               onPress={() => {
-                setChecked(!checked);
+                setCheckCheese(!checCheese);
                 {
-                  checked ? setCount(counter - 70) : setCount(counter + 70);
+                  checCheese ? setCount(counter - 50) : setCount(counter + 50);
+                  checCheese ? setCarbs(carbs - 10) : setCarbs(carbs + 10);
+                  checCheese
+                    ? setProteins(proteins - 10)
+                    : setProteins(proteins + 10);
+                    checCheese ? setFats(fats - 50) : setFats(fats + 50);
                 }
               }}
             />
           </View>
+
+          <View style={style.checkboxbiew}>
+          <Image source={veggies} style={style.Icon}/>
+            <Text style={style.checkboxText}>Extra Veggies</Text>
+            <Checkbox
+              status={isveggies ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setIsVeggies(!isveggies);
+                {
+                  isveggies ? setCount(counter - 50) : setCount(counter + 50);
+                  isveggies ? setCarbs(carbs - 10) : setCarbs(carbs + 10);
+                  isveggies
+                    ? setProteins(proteins - 10)
+                    : setProteins(proteins + 10);
+                    isveggies ? setFats(fats - 30) : setFats(fats + 30);
+                }
+              }}
+            />
+          </View>
+         
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginTop: 20,
+            justifyContent: 'space-evenly',
+          }}>
+          <TouchableOpacity style={style.buyBtn} onPress={handleAddData}>
+            <Text
+              style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
+              Add To Cart
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
   );
 };
-
-export default BiryaniDetails;
+function mapDispatchToProps(dispatch:any) {
+return { 
+  addItem: (product) => dispatch(AddData(product))
+};
+} 
+export default connect(null,mapDispatchToProps)(BiryaniDetails);
 
 export const style = StyleSheet.create({
   container: {
@@ -117,11 +201,12 @@ export const style = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
-    margin: 10,
+    //margin: 10,
   },
   image: {
     width: '100%',
-    height: 400,
+    height: 290,
+    paddingTop: 20,
   },
   header: {
     paddingHorizontal: 20,
@@ -136,6 +221,11 @@ export const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
+  },
+  Icon:{
+      height:40,
+      width:40,
+    
   },
   detailsContainer: {
     flex: 0.55,
@@ -187,26 +277,31 @@ export const style = StyleSheet.create({
   },
   checkboxbiew: {
     flexDirection: 'row',
-    paddingTop: 10,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     flex: 0.6,
-    paddingLeft: 20,
+    paddingBottom: 10,
+    paddingRight:18
   },
   checkboxText: {
-    padding: 10,
+    paddingLeft: 10,
     color: 'brown',
     fontWeight: 'bold',
     fontSize: 20,
     flex: 0.4,
-  },
-  Icon: {
-    height: 40,
-    width: 40,
   },
   calories: {
     fontWeight: 'bold',
     fontSize: 20,
     marginLeft: 10,
   },
+  addToCart:{
+    backgroundColor:'green',
+    width:'70%',
+    alignItems:'center',
+    justifyContent:'center'
+
+    
+  },
+
 });

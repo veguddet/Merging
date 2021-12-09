@@ -13,7 +13,7 @@ export default class Tabs extends Component {
     return (
       <Tab.Navigator >
         <Tab.Screen
-          name="Home"
+          name="HomeStack"
           component={HomeStack}
           options={{
             headerShown:false,
@@ -24,7 +24,7 @@ export default class Tabs extends Component {
           }}
         />
         <Tab.Screen
-          name="Cart"
+          name="Carttab"
           component={Cart}
           options={{
             tabBarLabel: 'Cart',
@@ -35,7 +35,7 @@ export default class Tabs extends Component {
           }}
         />
         <Tab.Screen
-          name="Profile"
+          name="ProfileTab"
           component={Profile}
           options={{
             tabBarLabel: 'Profile',

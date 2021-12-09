@@ -1,38 +1,32 @@
 const plants = [
+    
     {
-      id: 1,
-      name: 'Burger',
-      price: '1000',
-      like: true,
-      img: require('../assets/burger1.png'),
-    },
-    {
-        id: 2,
+        id: 1,
         name: 'Pizza',
         price: '1000',
         like: true,
-        img: require('../assets/FoodImages/pizza.jpg'),  
+        img: require('../../assets/FoodImages/Pizza.png'),  
       },
       {
-        id: 3,
+        id: 2,
         name: 'Biryani',
         price: '1000',
         like: true,
         img: require('../assets/FoodImages/Biryani.jpg'),
       },
       {
-        id: 4,
+        id: 3,
         name: 'Frankie',
         price: '1000',
         like: true,
-        img: require('../assets/FoodImages/frankie.jpg'),  
+        img: require('../../assets/FoodImages/Biryani.jpg'),  
       },
       {
-        id: 5,
+        id: 4,
         name: 'Momos',
         price: '1000',
         like: true,
-        img: require('../assets/FoodImages/pizza.jpg'), 
+        img: require('../../assets/FoodImages/frankie.jpg'), 
       },
   ];
   
