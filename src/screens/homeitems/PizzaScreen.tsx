@@ -187,13 +187,17 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  StatusBar,
+  ScrollView,
 } from 'react-native';
 
-import COLORS from '../Home/colors';
+//import COLORS from '../Home/colors';
+import { COLORS, FONTS } from '../../constants';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerData from '../../Data/BurgerData';
 import firestore from '@react-native-firebase/firestore';
-const width = Dimensions.get('window').width / 2 - 30;
+import Ionicons from "react-native-vector-icons/Ionicons";
+const width = Dimensions.get('window').width / 1 - 30;
 
 const PizzaScreen = ({navigation}: any) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -246,25 +250,44 @@ const PizzaScreen = ({navigation}: any) => {
               alignItems: 'center',
             }}>
             <Image
-              // source={{uri: item.img}}
               source={{uri: pizza.image}}
-              style={{width: 150, height: 150, borderRadius: 10}}
+              style={{
+                width: 325,
+                height: 200, 
+                borderRadius: 10
+              }}
             />
           </View>
-          <Text style={{fontSize: 19, fontWeight: 'bold',padding:5}}>{pizza.name}</Text>
+          <Text style={{
+            fontSize: 18, 
+            color:COLORS.DEFAULT_BLACK,
+            fontFamily: FONTS.POPPINS_MEDIUM,
+            padding:5
+          }}>
+              {pizza.name}
+            </Text>
+
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-             
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold',paddingLeft:8}}>
-              Rs{pizza.price}
+            <Text style={{
+              fontSize: 18, 
+              fontWeight: 'bold',
+              paddingLeft:8, 
+              color:COLORS.DEFAULT_YELLOW 
+              }}>
+              Rs {pizza.price}
             </Text>
 
             <View style={{justifyContent:'center',alignItems:'center'}}  >
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-            <IconAntDesign name="right" size={20} color="green" />
+              <TouchableOpacity 
+              onPress={() => navigation.navigate('PizzaDetails', pizza)}
+              >
+            <IconAntDesign name="right" size={20} 
+           // color={COLORS.DEFAULT_BLACK} 
+            />
           </TouchableOpacity>
             </View>
           </View>
@@ -272,46 +295,51 @@ const PizzaScreen = ({navigation}: any) => {
       </TouchableOpacity>
     );
   };
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: COLORS.white,
-        marginTop: 50,
+        backgroundColor: COLORS.DEFAULT_WHITE,
       }}>
+      <StatusBar
+      barStyle="light-content" 
+      backgroundColor={COLORS.DEFAULT_GREEN}
+      translucent={false} 
+      />
       <View style={style.header}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <IconAntDesign name="arrowleft" size={30} color="#900" />
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
+            <IconAntDesign name="arrowleft" size={30} color={COLORS.DEFAULT_BLACK} />
+          </TouchableOpacity> */}
+           <Ionicons 
+                name="chevron-back-outline" 
+                size={30} 
+               // color={COLORS.DEFAULT_BLACK}
+                onPress={() => navigation.goBack()} />
 
           <Text
             style={{
-              fontSize: 38,
-              color: COLORS.green,
+              fontSize: 24,
+              color: COLORS.DEFAULT_GREEN,
               fontWeight: 'bold',
               paddingLeft: 30,
+              paddingBottom: 10,
             }}>
-            pizza!
+            pizza
           </Text>
         </View>
       </View>
-      <View style={{marginTop: 30, flexDirection: 'row'}}>
-        <View style={style.searchContainer}>
-          <TextInput placeholder="Search" style={style.input} />
-        </View>
-        <View style={style.sortBtn}></View>
-      </View>
 
       <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
+       // columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          marginTop: 10,
-          paddingBottom: 50,
+          marginTop: 20,
+          paddingBottom: 30,
         }}
-        numColumns={2}
+      //  numColumns={2}
         data={burgerData}
         renderItem={({item}) => {
           return <Card pizza={item} />;
@@ -330,48 +358,26 @@ const style = StyleSheet.create({
   },
   categoryText: {fontSize: 16, color: 'grey', fontWeight: 'bold'},
   categoryTextSelected: {
-    color: COLORS.green,
+    color: COLORS.DEFAULT_GREEN,
     paddingBottom: 5,
     borderBottomWidth: 2,
-    borderColor: COLORS.green,
+    borderColor: COLORS.DEFAULT_GREEN,
   },
   card: {
     flex: 1,
-    backgroundColor: COLORS.light,
-    width,
-    marginHorizontal: 2,
+    backgroundColor: COLORS.LIGHT_GREY,
+   // width,
+   // marginHorizontal: 2,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     padding: 15,
   },
   header: {
-    marginTop: 30,
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  searchContainer: {
-    height: 50,
-    backgroundColor: COLORS.light,
-    borderRadius: 10,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    flex: 1,
-    color: COLORS.dark,
-  },
-  sortBtn: {
-    marginLeft: 10,
-    height: 50,
-    width: 50,
-    borderRadius: 10,
-    backgroundColor: COLORS.green,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });
+
 export default PizzaScreen;
 

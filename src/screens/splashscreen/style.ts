@@ -1,22 +1,24 @@
 import React from 'react';
 
 import {StyleSheet} from 'react-native';
+import { COLORS, FONTS } from './../../constants/theme';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor:COLORS.DEFAULT_GREEN,
+  // backgroundColor: COLORS.darkLime,
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 120,
+    width: 120,
   },
   titleText: {
     color: 'white',
     fontSize: 26,
-    // fontFamily: Fonts.POPPINS_LIGHT,
+    fontFamily: FONTS.POPPINS_LIGHT,
     paddingTop: 16,
   },
 });

@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
+import { COLORS, FONTS } from './../../constants/theme';
+
 export const styles = StyleSheet.create({
     imageContainer: {
         height: '100%',
@@ -7,10 +9,10 @@ export const styles = StyleSheet.create({
      },
     buttonContainer: {
          flexDirection: 'row', 
-        // paddingVertical: 20,
-        // marginHorizontal: 20,
-       //  marginVertical: 500,
-      // marginTop: '175%',
+         paddingVertical: 20,
+         marginHorizontal: 20,
+         marginVertical: 600,
+        // marginTop: '160%',
      },
     buttons: {
     width: "40%",
@@ -19,12 +21,14 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 20,
-    backgroundColor: "#841584",
+    backgroundColor: COLORS.DEFAULT_GREEN,
+   // backgroundColor: COLORS.darkLime,
     bottom:80,
     top:20,
   },
   buttonText: {
       fontSize: 16,
       color: "white",
+     // fontFamily: FONTS.POPPINS_EXTRA_BOLD
   },
 });

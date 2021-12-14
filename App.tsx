@@ -22,6 +22,8 @@ import Profile from './src/screens/profilepage/Profile';
 import EditProfile from './src/screens/profilepage/EditProfile';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import CompletedOrderScreen from './src/screens/completedorders/completedOrders';
+import Onboarding from './src/screens/onboardingscreen/Onboarding';
 
 
 const App = () => {
@@ -35,6 +37,7 @@ const App = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Onboard" component={Onboarding} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Register" component={RegisterPage} />
@@ -53,6 +56,7 @@ const App = () => {
         <Stack.Screen name="CartScreen" component={CartScreen} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

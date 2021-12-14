@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useLayoutEffect} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   TextInput,
   StatusBar,
   ScrollView,
+  Dimensions,
+  StyleSheet,
 } from 'react-native';
 import {COLORS, FONTS, SIZES, images, dummyData} from '../../constants';
 import {CategoryCard, TrendingCard} from '../../components';
@@ -17,7 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useFocusEffect } from '@react-navigation/core';
 import { useSelector } from 'react-redux';
 
-const Home1 = ({navigation}) => {
+const Home1 = ({navigation}:any) => {
   const [userName, setUserName] = React.useState('');
   const [userImage, setUserImage] = React.useState('');
   const [searchText, setsearchtext] = React.useState('');
@@ -31,38 +33,13 @@ const Home1 = ({navigation}) => {
       .doc(id)
       .get()
       .then(snapshot => {
-        // let snap = snapshot.docs.map(doc => {
-        //   const data = doc.data();
-        //   const doc_id = doc.id;
-        //   return {doc_id, ...data};
-        console.log(snapshot.data().firstname);
+      //  console.log(snapshot.data().firstname);
         setUserName(snapshot.data().firstname);
         setUserImage(snapshot.data().image);
-        // });
-        //console.log(snap)
-        // setBiryaniData(snap);
       });
   }, []))
 
-  const searchData = text => {
-    if (text) {
-      const newData = this.state.data.filter(item => {
-        const itemData = item.text
-          ? item.text.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      this.setState({FilteredData:newData})
-      this.setState({text})
-      // setText(text);
-    } else {
-      this.setState({FilteredData:this.state.data})
-      this.setState({text:''})
-    }
-  };
-
-  const handleNavigation = item => {
+  const handleNavigation = (item: any)=> {
     switch (item.name) {
       case 'Burger':
         navigation.navigate('BurgerScreen');
@@ -77,19 +54,6 @@ const Home1 = ({navigation}) => {
         navigation.navigate('FrankieScreen');
         break;
     }
-
-    // if (item.name == 'Burger') {
-    //     navigation.navigate('BurgerScreen');
-    //   }
-    //   else if(item.name == 'Biryani'){
-    //     navigation.navigate('BiryaniScreen');
-    //   }
-    //   else if(item.name == 'Pizza'){
-    //     navigation.navigate('PizzaScreen');
-    //   }
-    //   else if(item.name == 'Frankie'){
-    //     navigation.navigate('FrankieScreen');
-    //   }
   };
 
   function renderHeader() {
@@ -128,8 +92,7 @@ const Home1 = ({navigation}) => {
         {/* Image */}
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <Image
-            // source={require('../../assets/images/person.png')}
-            source = {userImage? {uri : 'data:image/jpeg;base64,' + userImage}:require('../../assets/profile.png')}
+            source = {userImage? {uri : 'data:image/jpeg;base64,' + userImage}:require('../../assets/user2.png')}
             style={{
               width: 40,
               height: 40,
@@ -141,40 +104,89 @@ const Home1 = ({navigation}) => {
     );
   }
 
-  function renderSearchBar() {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          height: 50,
-          alignItems: 'center',
-          marginHorizontal: SIZES.padding,
-          paddingHorizontal: SIZES.radius,
-          borderRadius: 10,
-          backgroundColor: COLORS.lightGray,
-        }}>
-        <Image
-          //  source={icons.search}
-          style={{
-            //  width: 20,
-            height: 20,
-            tintColor: COLORS.gray,
-          }}
-        />
-        <Icon name="search-outline" size={25} />
-        <TextInput
-          style={{
-            marginLeft: SIZES.radius,
-            ...FONTS.body3,
-          }}
-          placeholderTextColor={COLORS.gray}
-          placeholder="Search your favourite food ! "
-          value={searchText}
-          onChangeText={text => this.searchData(text)}
-        />
+const banners = [
+  'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
+  'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
+  'https://www.dominos.co.in/theme2/front/assets/banner2.png',
+  'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
+]
+ const WIDTH = Dimensions.get('window').width;
+ const HEIGHT = Dimensions.get('window').height;
+
+  function renderBanner() {
+    const [imgActive, setimgActive] = useState(0);
+    
+  const onchange = (nativeEvent) => {
+    if(nativeEvent) {
+      const slide = Math.ceil(nativeEvent.contentOffset.x/ nativeEvent.layoutMeasurement.width)
+      if(slide !=imgActive) {
+        setimgActive(slide);
+      }
+    }
+  }
+    return(
+      <View style={styles.container}>
+        <View style={{ width: WIDTH,height:HEIGHT * 0.25,}}>
+          <ScrollView
+          onScroll={({nativeEvent}) => onchange(nativeEvent)}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          horizontal
+          style={{ width: WIDTH,height:HEIGHT * 0.25,}}
+          >
+            {
+              banners.map((e, index) =>
+              <Image 
+              key={e}
+              resizeMode = 'stretch'
+              style={{ width: WIDTH,height:HEIGHT * 0.25,}}
+              source={{uri: e}}
+              />
+              )
+            }
+          </ScrollView>
+          <View style={styles.wrapDot}>
+          {
+      banners.map((e, index) =>
+      <Text
+       key={e}
+       style={imgActive ==index ? styles.dotActive:styles.dot}
+      >
+       ● 
+      </Text>
+      )
+    }
+          </View>
+        </View>
       </View>
     );
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1, 
+      // justifyContent:'center',
+      // alignItems: 'center',
+    },
+    wrapDot: {
+      position :'absolute',
+      bottom: 0,
+      flexDirection: 'row',
+      alignself: 'center',
+      justifyContent:'center',
+      alignItems: 'center',
+    },
+    dotActive: {
+      margin:5,
+      color:'black'
+    },
+    dot:{
+      margin:5,
+      color:'white'
+    }
+  });
 
   function renderScrollHeader() {
     return (
@@ -192,8 +204,8 @@ const Home1 = ({navigation}) => {
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-              backgroundColor: '#f9dd7a',
-              // backgroundColor: COLORS.gray,
+             // backgroundColor: '#f9dd7a',
+              backgroundColor: COLORS.LIGHT_GREEN,
               marginHorizontal: 10,
               borderRadius: 25,
               paddingVertical: 5,
@@ -221,7 +233,8 @@ const Home1 = ({navigation}) => {
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-              backgroundColor: '#e5e4eb',
+            //  backgroundColor: '#e5e4eb',
+              backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
               paddingVertical: 5,
@@ -249,7 +262,8 @@ const Home1 = ({navigation}) => {
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-              backgroundColor: '#e5e4eb',
+            //  backgroundColor: '#e5e4eb',
+              backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
               paddingVertical: 5,
@@ -277,7 +291,8 @@ const Home1 = ({navigation}) => {
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-              backgroundColor: '#e5e4eb',
+             // backgroundColor: '#e5e4eb',
+              backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
               paddingVertical: 5,
@@ -306,7 +321,7 @@ const Home1 = ({navigation}) => {
       <View
         style={{
           flexDirection: 'row',
-          marginTop: SIZES.padding,
+          marginTop: SIZES.radius,
           marginHorizontal: SIZES.padding/2,
           borderRadius: 10,
           backgroundColor: COLORS.lightGreen,
@@ -315,7 +330,7 @@ const Home1 = ({navigation}) => {
         {/* Image */}
         <View
           style={{
-            width: 100,
+            width: 150,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -353,7 +368,7 @@ const Home1 = ({navigation}) => {
                 textDecorationLine: 'underline',
                 ...FONTS.h4,
               }}>
-              See Items(Go to Cart)
+              See Items
             </Text>
           </TouchableOpacity>
         </View>
@@ -381,6 +396,7 @@ const Home1 = ({navigation}) => {
           data={dummyData.trendingRecipes}
           // horizontal
           numColumns={2}
+          paddingBottom={20}
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => `${item.id}`}
           renderItem={({item, index}) => {
@@ -391,58 +407,10 @@ const Home1 = ({navigation}) => {
                 }}
                 recipeItem={item}
                 onPress={() => handleNavigation(item)}
-                //     onPress={() => {
-                //                   if (item.name == 'Burger') {
-                //                     navigation.navigate('BurgerScreen');
-                //                   }
-                //                   else if(item.name == 'Biryani'){
-                //                     navigation.navigate('BiryaniScreen');
-                //                   }
-                //                   else if(item.name == 'Pizza'){
-                //                     navigation.navigate('PizzaScreen');
-                //                   }
-                //                   else if(item.name == 'Frankie'){
-                //                     navigation.navigate('FrankieScreen');
-                //                   }
-                //                 }}
               />
             );
           }}
         />
-      </View>
-    );
-  }
-
-  function renderCategoryHeader() {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginTop: 20,
-          marginHorizontal: SIZES.padding,
-        }}>
-        {/* Section Title */}
-        <Text
-          style={{
-            flex: 1,
-            ...FONTS.h2,
-            color: COLORS.black,
-            fontWeight: 'bold',
-          }}>
-          Trending Food Items
-        </Text>
-
-        {/* View All */}
-        <TouchableOpacity>
-          <Text
-            style={{
-              color: COLORS.gray,
-              ...FONTS.body4,
-            }}>
-            View All
-          </Text>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -454,10 +422,14 @@ const Home1 = ({navigation}) => {
         backgroundColor: COLORS.white,
         paddingTop:10
       }}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" translucent />
+     <StatusBar
+      barStyle="dark-content" 
+      backgroundColor={COLORS.DEFAULT_WHITE}
+      translucent={false} 
+      />
       <FlatList
-        marginTop={20}
-        //  data={dummyData.categories}
+       // marginTop={20}
+      //  data={dummyData.categories}
         keyExtractor={item => `${item.id}`}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
@@ -466,20 +438,18 @@ const Home1 = ({navigation}) => {
             {/* Header */}
             {renderHeader()}
 
-            {/* Search Bar */}
-            {/* {renderSearchBar()} */}
+            {/* Banner */}
+            {renderBanner()}
 
             {/* See Recipe Card */}
             {renderSeeRecipeCard()}
 
-            {/* {  Scroll Header  } */}
+            {/* Scroll Header */}
             {renderScrollHeader()}
 
             {/* Trending Section */}
             {renderTrendingSection()}
 
-            {/* Category Header */}
-            {/* {renderCategoryHeader()} */}
           </View>
         }
         renderItem={({item}) => {
@@ -489,7 +459,6 @@ const Home1 = ({navigation}) => {
                 marginHorizontal: SIZES.padding,
               }}
               categoryItem={item}
-              onPress={() => navigation.navigate('Recipe', {recipe: item})}
             />
           );
         }}

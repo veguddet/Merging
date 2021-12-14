@@ -7,6 +7,7 @@ import {
   ImageBackground,
   StatusBar,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -14,9 +15,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore';
 import auth, {firebase} from '@react-native-firebase/auth';
+import { COLORS } from '../../constants';
+import { Display } from '../../utils';
 //import { useTheme } from 'react-native-paper';
 
-const EditProfile = ({navigation}) => {
+const EditProfile = ({navigation}:any) => {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [lName, setlName] = useState('');
@@ -24,6 +27,7 @@ const EditProfile = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [user, setUser] = useState({});
+
   useEffect(() => {
     let id = auth().currentUser.uid;
     const subscriber = firestore()
@@ -47,9 +51,7 @@ const EditProfile = ({navigation}) => {
   const launchImageGallery = () => {
     let options = {
       mediaType: 'photo',
-
       includeBase64: true,
-
       includeExtra: true,
     };
 
@@ -69,6 +71,7 @@ const EditProfile = ({navigation}) => {
       }
     });
   };
+
   const handleSave = navigation => {
     if (name.length !== 0 && name.length !== 0) {
       // here add data to firestore
@@ -89,9 +92,15 @@ const EditProfile = ({navigation}) => {
     }
   };
   // const {colors} = useTheme();
+  
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" translucent />
+      <StatusBar
+      barStyle="light-content"
+      backgroundColor={COLORS.DEFAULT_GREEN}
+      translucent={false}
+    />
+      <ScrollView>
       <View style={{marginTop: '20%'}}>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => {}}>
@@ -104,11 +113,12 @@ const EditProfile = ({navigation}) => {
                 alignItems: 'center',
                 opacity: 0.9,
               }}>
+              {/* <TouchableOpacity onPress={launchImageGallery}> */}
               <ImageBackground
                 //  source={require('../../assets/profile.png')}
                 source={
                   image.length === 0
-                    ? require('../../assets/profile.png')
+                    ? require('../../assets/user2.png')
                     : {uri: 'data:image/jpeg;base64,' + image}
                 }
                 style={{height: 100, width: 100}}
@@ -120,10 +130,10 @@ const EditProfile = ({navigation}) => {
                     alignItems: 'center',
                   }}>
                   <TouchableOpacity onPress={launchImageGallery}>
-                    <Icon
+                     <Icon
                       name="camera"
                       size={35}
-                      color="#fff"
+                     // color="white"
                       style={{
                         opacity: 0.9,
                         alignItems: 'center',
@@ -131,11 +141,12 @@ const EditProfile = ({navigation}) => {
                         // borderWidth: 0.5,
                         // borderColor: '#fff',
                         borderRadius: 10,
-                      }}
+                      }} 
                     />
                   </TouchableOpacity>
                 </View>
               </ImageBackground>
+              {/* </TouchableOpacity> */}
             </View>
           </TouchableOpacity>
           <Text
@@ -151,7 +162,8 @@ const EditProfile = ({navigation}) => {
             <FontAwesome
               name="user-o"
               size={20}
-              // color={colors.text}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               style={{paddingLeft: 30}}
             />
             <TextInput
@@ -167,7 +179,8 @@ const EditProfile = ({navigation}) => {
             <FontAwesome
               name="user-o"
               size={20}
-              // color={colors.text}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               style={{paddingLeft: 30}}
             />
             <TextInput
@@ -183,6 +196,8 @@ const EditProfile = ({navigation}) => {
             <Feather
               name="phone"
               size={20}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               // color={colors.text}
               style={{paddingLeft: 30}}
             />
@@ -200,7 +215,8 @@ const EditProfile = ({navigation}) => {
             <FontAwesome
               name="envelope-o"
               size={20}
-              // color={colors.text}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               style={{paddingLeft: 30}}
             />
             <TextInput
@@ -213,15 +229,16 @@ const EditProfile = ({navigation}) => {
               onChangeText={text => setEmail(text)}
             />
           </View>
-
           <View style={styles.action}>
             <FontAwesome
-              name="globe"
+              name="location-arrow"
               size={20}
-              // color={colors.text}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               style={{paddingLeft: 30}}
             />
             <TextInput
+             // placeholder="Address"
               placeholder={address}
               placeholderTextColor="#666666"
               autoCorrect={false}
@@ -229,14 +246,34 @@ const EditProfile = ({navigation}) => {
               keyboardType="numbers-and-punctuation"
               style={styles.textInput}
               value={address}
-              onChangeText={text => setAddress(text)}
+              onChangeText={text=>setAddress(text)}
+            />
+          </View>
+          <View style={styles.action}>
+            <FontAwesome
+              name="globe"
+              size={20}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
+              style={{paddingLeft: 30}}
+            />
+            <TextInput
+              placeholder="Country"
+              placeholderTextColor="#666666"
+              autoCorrect={false}
+              multiline={true}
+              keyboardType="numbers-and-punctuation"
+              style={styles.textInput}
+              // value={address}
+              // onChangeText={text => setAddress(text)}
             />
           </View>
           <View style={styles.action}>
             <Icon
               name="map-marker-outline"
               size={20}
-              // color={colors.text}
+             // color="#FF6347" 
+              color={COLORS.DEFAULT_GREEN}
               style={{paddingLeft: 30}}
             />
             <TextInput
@@ -246,14 +283,21 @@ const EditProfile = ({navigation}) => {
               style={styles.textInput}
             />
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
+            style={styles.commandButton}
+            // onPress={() => navigation.navigate('Profile')}
+            onPress={() => handleSave(navigation)}>
+            <Text style={styles.panelButtonTitle}>Submit</Text>
+          </TouchableOpacity> */}
+        </View>
+      </View>
+      <TouchableOpacity
             style={styles.commandButton}
             // onPress={() => navigation.navigate('Profile')}
             onPress={() => handleSave(navigation)}>
             <Text style={styles.panelButtonTitle}>Submit</Text>
           </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -266,9 +310,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   commandButton: {
-    padding: 15,
+    backgroundColor: COLORS.DEFAULT_GREEN,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    marginHorizontal: 20,
+    height: Display.setHeight(7),
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
   },

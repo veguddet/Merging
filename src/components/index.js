@@ -3,6 +3,7 @@ import TrendingCard from './TrendingCard';
 import Separator from './Separator';
 import ToggleButton from './ToggleButton';
 import WelcomeCard from './WelcomeCard';
+import CustomButton from './CustomButton';
 
 export {
     CategoryCard,
@@ -10,4 +11,5 @@ export {
     Separator,
     ToggleButton,
     WelcomeCard,
+    CustomButton,
 };

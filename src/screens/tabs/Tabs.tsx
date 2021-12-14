@@ -6,6 +6,7 @@ import Home1 from '../Home/Home';
 import Cart from '../cartscreen/cart';
 import Profile from '../profilepage/Profile';
 import HomeStack from '../../stacks/Homestack';
+import { COLORS } from './../../constants/theme';
 const Tab = createBottomTabNavigator();
 
 export default class Tabs extends Component {
@@ -19,7 +20,7 @@ export default class Tabs extends Component {
             headerShown:false,
             tabBarLabel: 'Home',
             tabBarIcon: ({color}) => (
-              <IconAntDesign name="rest" size={30} color="#900" />
+              <IconAntDesign name="home" size={30} color={COLORS.DEFAULT_GREEN} />
             ),
           }}
         />
@@ -30,7 +31,7 @@ export default class Tabs extends Component {
             tabBarLabel: 'Cart',
             headerShown:false,
             tabBarIcon: ({color}) => (
-              <IconAntDesign name="shoppingcart" size={30} color="#900" />
+              <IconAntDesign name="shoppingcart" size={30} color={COLORS.DEFAULT_GREEN} />
             ),
           }}
         />
@@ -41,7 +42,7 @@ export default class Tabs extends Component {
             tabBarLabel: 'Profile',
             headerShown:false,
             tabBarIcon: ({color}) => (
-              <IconAntDesign name="profile" size={30} color="#900" />
+              <IconAntDesign name="user" size={30} color={COLORS.DEFAULT_GREEN} />
             ),
           }}
         />

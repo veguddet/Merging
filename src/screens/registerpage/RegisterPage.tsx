@@ -7,12 +7,18 @@ import {
   StyleSheet,
   ScrollView,
   Alert,
+  StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {styles} from './style';
+import { COLORS } from '../../constants';
+import { FONTS } from './../../constants/theme';
+import { Separator } from '../../components';
+
 interface RegisterProps { navigation:any}
 interface RegisterState {
   firstname: any;
@@ -42,61 +48,60 @@ export default class RegisterPage extends React.Component<
   }
 
   async submit() {
-    // const user = database().ref('user').push();
-    // user
-    //   .set({
-    //     firstname: this.state.firstname,
-    //     lastname: this.state.lastname,
-    //     mobile: this.state.mobile,
-    //     email: this.state.email,
-    //     password: this.state.password,
-    //   })
-    //   .then(() => console.log('Data updated.'));
-    
-           await auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(res => {
-        let id = res.user.uid;
-          
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (reg.test(this.state.email) === true) {
+      await Alert.alert("valid");
+      await auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(res => {
+          let id = res.user.uid;
+
           firestore()
-          .collection('users')
-          .doc(id)
-          .set({
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            mobile: this.state.mobile,
-            email: this.state.email,
-            password: this.state.password,
-            address: this.state.address,
-          })
-          .catch(err => console.log(err));
-        this.setState({
-          firstname: '',
-          lastname: '',
-          mobile: '',
-          email: '',
-          password: '',
-          address: '',
-        })
-          
-          
-          this.props.navigation.navigate('Login')}
-      );
-     
-    
+            .collection('users')
+            .doc(id)
+            .set({
+              firstname: this.state.firstname,
+              lastname: this.state.lastname,
+              mobile: this.state.mobile,
+              email: this.state.email,
+              password: this.state.password,
+              address: this.state.address,
+            })
+            .catch(err => console.log(err));
+          this.setState({
+            firstname: '',
+            lastname: '',
+            mobile: '',
+            email: '',
+            password: '',
+            address: '',
+          });
+
+          this.props.navigation.navigate('Login');
+        });
+    }
+    else {
+      Alert.alert("invalid");
+    }
   }
+  
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, backgroundColor:COLORS.white}}>
+      <StatusBar
+      barStyle="dark-content" 
+      backgroundColor={COLORS.white }
+      translucent={false} />
         <ScrollView style={styles.scrollView}>
+          <Separator height={20}/>
           <View>
             <Text
               style={{
-                fontSize: 24,
-                top: 40,
-                color: '#e86c1a',
-                fontWeight: 'bold',
+                fontSize: 28,
+                top: 20,
+                color: COLORS.DEFAULT_GREEN,
                 textAlign: 'center',
+                fontFamily: FONTS.POPPINS_BOLD,
               }}>
               Create Account
             </Text>
@@ -104,91 +109,79 @@ export default class RegisterPage extends React.Component<
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'FirstName'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
               mode="outlined"
               label={'Firstname'}
               onChangeText={firstname => {
                 this.setState({firstname: firstname});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'LastName'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
+            //  outlineColor='black'
               mode="outlined"
               label={'Lastname'}
               onChangeText={lastname => {
                 this.setState({lastname: lastname});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'Mobile No'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
               mode="outlined"
               label={'Mobile No'}
               onChangeText={mobile => {
                 this.setState({mobile: mobile});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'email'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
               mode="outlined"
               label={'email'}
               onChangeText={email => {
                 this.setState({email: email});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'Password'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
               secureTextEntry={true}
               mode="outlined"
               label={'Password'}
               onChangeText={password => {
                 this.setState({password: password});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
           <View style={styles.textContainer}>
             <TextInput
-              placeholder={'Adress'}
-
+              placeholder={'Address'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
+              multiline={true}
               mode="outlined"
-              label={'Adress'}
+              label={'Address'}
               onChangeText={address => {
                 this.setState({address: address});
               }}
-              children={undefined}
-              autoComplete={undefined}
             />
           </View>
-          <View
-            style={{
-              marginRight: 20,
-              marginLeft: 20,
-              marginTop: 20,
-              paddingTop: 30,
-            }}>
-            <Button
-              title="SignUp"
-              color="#841584"
-              onPress={() => {
-                this.submit();
-              }}
-            />
+          <View>
+          <TouchableOpacity 
+            style={styles.signinButton}
+            onPress={() => {this.submit();}}
+            >
+              <Text style={styles.signinButtonText}>Sign Up</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>

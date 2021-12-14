@@ -1,5 +1,5 @@
-
 import { StyleSheet } from "react-native";
+import { COLORS, FONTS } from './../../constants/theme';
 export const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -9,14 +9,13 @@ export const styles = StyleSheet.create({
     },
     text: {
       fontSize: 24,
-      fontWeight: 'bold',
-      color: 'black',
+      color: COLORS.DEFAULT_RED,
       margin: 10,
-      
+      fontFamily: FONTS.POPPINS_BOLD,
     },
     text1: {
-      fontSize: 15,
-      color: 'black',
-      margin:2,
+      fontSize: 16,
+      margin: 10,
+      fontFamily: FONTS.POPPINS_LIGHT,
     },
   });

@@ -1,9 +1,9 @@
-const recipe = require("../../src/assets/FoodImages/recipe.png")
+const recipe = require("../../src/assets/shopping-bag.png")
 const burger = require("../../src/assets/FoodImages/burger.jpg")
 const biryani = require("../../src/assets/FoodImages/Biryani.jpg")
 const pizza = require("../../src/assets/FoodImages/pizza.jpg")
 const frankie = require("../../src/assets/FoodImages/frankie.jpg")
-const kfc = require("../../src/assets/FoodImages/kfc.jpg")
+const loginBackground = require("../../src/assets/images/login-background.png")
 
 export default {
     recipe,
@@ -11,7 +11,7 @@ export default {
     pizza,
     biryani,
     frankie,
-    kfc,
+    loginBackground,
     LOGO: require('../../src/assets/images/plate.png'),
     DISCOVER: require('../../src/assets/images/discover.png'),
     DELIVER: require('../../src/assets/images/deliver.png'),

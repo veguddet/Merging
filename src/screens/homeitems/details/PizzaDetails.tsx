@@ -8,10 +8,11 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
-import COLORS from '../../Home/colors';
-
+//import COLORS from '../../Home/colors';
+import { COLORS } from '../../../constants';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import cheese1 from '../../../assets/FoodImages/cheese1.png';
 import veggies from '../../../assets/FoodImages/veggies.png';
@@ -81,12 +82,17 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
   const Route = route.params;
   return (
     <ScrollView>
+      <StatusBar
+      barStyle="light-content" 
+      backgroundColor={COLORS.DEFAULT_GREEN }
+      translucent={false} 
+      />
       <View style={style.container}>
         <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: 10,
+           // paddingTop: 10,
           }}>
           <Image style={style.image} source={{uri: Route.image}} />
         </View>
@@ -98,7 +104,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
             paddingRight: 8,
           }}>
           <Image source={caloriesicon} style={{height: 50, width: 40}} />
-          <Text style={style.text}>Total Calories:{counter}</Text>
+          <Text style={style.text}>Total Calories : {counter}</Text>
         </View>
       </View>
 
@@ -111,17 +117,21 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{Route.name}</Text>
+          <Text style={{fontSize: 22, 
+           // fontWeight: 'bold', 
+            color: COLORS.DEFAULT_BLACK}}>
+            {Route.name}
+          </Text>
           <View style={style.priceTag}>
             <Text
               style={{
                 marginLeft: 15,
-                color: COLORS.white,
+                color: COLORS.DEFAULT_WHITE,
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
               {/* Rs{Route.price} */}
-              Rs{amount}
+              Rs {amount}
             </Text>
           </View>
         </View>
@@ -132,7 +142,8 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
               marginLeft: 19,
               marginTop: 10,
               fontSize: 22,
-              fontWeight: 'bold',
+             // fontWeight: 'bold',
+             // color: COLORS.DEFAULT_BLACK
             }}>
             Nutritional Info
           </Text>
@@ -191,7 +202,7 @@ const PizzaDetails = ({navigation, route, addItem}: any) => {
           </View>
           {/* Line Separtaor */}
         </View>
-        <View style={{width: '100%', height: 1, backgroundColor: '#CACACA'}} />
+        {/* <View style={{width: '100%', height: 1, backgroundColor: '#CACACA'}} /> */}
         <View style={style.checkboxbiew}>
           <Image source={extracrust} style={style.Icon} />
           <Text style={style.checkboxText}>Extra Crust</Text>
@@ -259,13 +270,11 @@ export const style = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   text: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    color: COLORS.DEFAULT_GREEN,
     margin: 10,
   },
   image: {
@@ -293,7 +302,7 @@ export const style = StyleSheet.create({
   },
   detailsContainer: {
     flex: 0.55,
-    backgroundColor: COLORS.light,
+  //  backgroundColor: COLORS.light,
     marginHorizontal: 7,
     marginBottom: 7,
     borderRadius: 20,
@@ -303,7 +312,7 @@ export const style = StyleSheet.create({
   line: {
     width: 25,
     height: 2,
-    backgroundColor: COLORS.dark,
+  //  backgroundColor: COLORS.dark,
     marginBottom: 5,
     marginRight: 3,
   },
@@ -316,17 +325,21 @@ export const style = StyleSheet.create({
     width: 60,
     height: 40,
   },
-  borderBtnText: {fontWeight: 'bold', fontSize: 28},
+  borderBtnText: {
+    fontWeight: 'bold', 
+    fontSize: 28
+  },
   buyBtn: {
     width: 130,
     height: 50,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
+    marginBottom: 20,
   },
   priceTag: {
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.DEFAULT_YELLOW,
     width: 80,
     height: 40,
     justifyContent: 'center',
@@ -335,7 +348,7 @@ export const style = StyleSheet.create({
   },
   nutritionsText: {
     marginLeft: 10,
-    color: COLORS.green,
+    color: COLORS.DEFAULT_GREEN,
     fontWeight: 'bold',
     fontSize: 20,
   },
@@ -350,8 +363,8 @@ export const style = StyleSheet.create({
   },
   checkboxText: {
     paddingLeft: 10,
-    color: 'brown',
-    fontWeight: 'bold',
+    color: 'black',
+   // fontWeight: 'bold',
     fontSize: 20,
     flex: 0.4,
   },

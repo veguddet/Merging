@@ -1,31 +1,31 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Button,Image} from 'react-native';
+import {View, Text,Image, StatusBar} from 'react-native';
 import { connect, useSelector } from 'react-redux';
+import { COLORS } from '../../constants';
 import { emptyCart } from '../../redux/cartAction';
 import {styles} from './style';
-// import {Image} from 'react-native';
+
 const Order = ({navigation,empty}: any) => {
   const { cartList } = useSelector(state => state.cartReducer);
   useEffect(() => {
     setTimeout(() => {
       navigation.push('Home1');
       empty()
-    }, 2000);
+    }, 3000);
   }, []);
   return (
     <View style={styles.container}>
+       <StatusBar
+      barStyle="light-content"
+      backgroundColor={COLORS.DEFAULT_GREEN}
+      translucent={false}
+    />
       <Image
-        source={{
-          uri:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWGtNRm57y2eZCc8G7Tby8P2erFIlZkfyKLQ&usqp=CAU'
-        }}
+       source={require('../../assets/food-delivery1.png')}
         style={{height:100, width:100}}
-        />
-
-          
+        />      
       <Text style={styles.text}>Congratulations..!</Text>
-      <Text style={styles.text1}>Order is Placed</Text>
-      {/* <Text style={styles.text1}>Toatl Amount is $565</Text> */}
+      <Text style={styles.text1}>Your Order is Placed</Text>
     </View>
   );
 };

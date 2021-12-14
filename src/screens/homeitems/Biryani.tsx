@@ -10,12 +10,15 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  StatusBar,
 } from 'react-native';
 
-import COLORS from '../Home/colors';
+//import COLORS from '../Home/colors';
 import firestore from '@react-native-firebase/firestore';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-const width = Dimensions.get('window').width / 2 - 30;
+import { FONTS, COLORS } from '../../constants';
+import Ionicons from "react-native-vector-icons/Ionicons";
+const width = Dimensions.get('window').width / 1 - 30;
 
 const Biryani = ({navigation}: any) => {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
@@ -50,75 +53,92 @@ const Biryani = ({navigation}: any) => {
               alignItems: 'center',
             }}>
             <Image
-              // source={{uri: item.img}}
               source={{uri: biryani.image}}
-              style={{width: 150, height: 200, borderRadius: 20}}
+              style={{
+                width: 325,
+                height: 200, 
+                borderRadius: 10
+              }}
             />
           </View>
-          <Text style={{fontSize: 19, fontWeight: 'bold'}}>{biryani.name}</Text>
+          <Text style={{
+            fontSize: 18, 
+            color:COLORS.DEFAULT_BLACK,
+            fontFamily: FONTS.POPPINS_MEDIUM,
+            padding:5
+            }}>{biryani.name}</Text>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 5,
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
-              Rs{biryani.price}
+            <Text style={{
+              fontSize: 18, 
+              fontWeight: 'bold',
+              paddingLeft:8, 
+              color:COLORS.DEFAULT_YELLOW 
+              }}>
+              Rs {biryani.price}
             </Text>
 
-            <View
-              style={{
-                height: 25,
-                width: 25,
-                backgroundColor: COLORS.green,
-                borderRadius: 5,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{fontSize: 22, color: COLORS.white, fontWeight: 'bold'}}>
-                +
-              </Text>
+             <View style={{justifyContent:'center',alignItems:'center'}}  >
+              <TouchableOpacity 
+             onPress={() => navigation.navigate('BiryaniDetails', biryani)}
+              >
+            <IconAntDesign name="right" size={20} 
+           // color={COLORS.DEFAULT_BLACK} 
+            />
+          </TouchableOpacity>
             </View>
           </View>
         </View>
       </TouchableOpacity>
     );
   };
+  
   return (
     <SafeAreaView
       style={{
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: COLORS.white,
-        marginTop: 50,
+        backgroundColor: COLORS.DEFAULT_WHITE,
       }}>
+      <StatusBar
+      barStyle="light-content" 
+      backgroundColor={COLORS.DEFAULT_GREEN}
+      translucent={false} 
+      />
       <View style={style.header}>
         <View style={{flexDirection: 'row',alignItems:'center'}}>
-        <TouchableOpacity    onPress={() => navigation.goBack()}> 
+        {/* <TouchableOpacity    onPress={() => navigation.goBack()}> 
           
-          <IconAntDesign name="arrowleft" size={30} color="#900" />
-        </TouchableOpacity>
-          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold',paddingLeft:20}}>
-            biryani!
+          <IconAntDesign name="arrowleft" size={30} color={'black'} />
+        </TouchableOpacity> */}
+        <Ionicons 
+                name="chevron-back-outline" 
+                size={30} 
+                style={{paddingBottom: 5}}
+               // color={COLORS.DEFAULT_GREEN}
+                onPress={() => navigation.goBack()} />
+
+          <Text style={{
+            fontSize: 24,
+            color: COLORS.DEFAULT_GREEN,
+            fontWeight: 'bold',
+            paddingLeft: 30,
+            paddingBottom: 10,
+            }}>
+            Biryani
           </Text>
         </View>
       </View>
-      <View style={{marginTop: 30, flexDirection: 'row'}}>
-        <View style={style.searchContainer}>
-          <TextInput placeholder="Search" style={style.input} />
-        </View>
-        <View style={style.sortBtn}></View>
-      </View>
 
       <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          marginTop: 10,
-          paddingBottom: 50,
+          marginTop: 20,
+          paddingBottom: 30,
         }}
-        numColumns={2}
         data={biryaniData}
         renderItem={({item}) => {
           return <Card biryani={item} />;
@@ -137,47 +157,24 @@ const style = StyleSheet.create({
   },
   categoryText: {fontSize: 16, color: 'grey', fontWeight: 'bold'},
   categoryTextSelected: {
-    color: COLORS.green,
+    color: COLORS.DEFAULT_GREEN,
     paddingBottom: 5,
     borderBottomWidth: 2,
-    borderColor: COLORS.green,
+    borderColor: COLORS.DEFAULT_GREEN,
   },
   card: {
     flex: 1,
-    backgroundColor: COLORS.light,
-    width,
-    marginHorizontal: 2,
+    backgroundColor: COLORS.LIGHT_GREY,
+   // width,
+   // marginHorizontal: 2,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 10,
     padding: 15,
   },
   header: {
-    marginTop: 30,
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  searchContainer: {
-    height: 50,
-    backgroundColor: COLORS.light,
-    borderRadius: 10,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    flex: 1,
-    color: COLORS.dark,
-  },
-  sortBtn: {
-    marginLeft: 10,
-    height: 50,
-    width: 50,
-    borderRadius: 10,
-    backgroundColor: COLORS.green,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 export default Biryani;

@@ -19,6 +19,8 @@ import auth, {firebase} from '@react-native-firebase/auth';
 import {useFocusEffect} from '@react-navigation/core';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import {ScrollView} from 'react-native-gesture-handler';
+import { COLORS } from '../../constants';
+import { Display } from '../../utils';
 
 //import { styles } from './styles';
 
@@ -61,6 +63,17 @@ const checkout = ({navigation}: any) => {
         });
     }, []),
   );
+
+  const handleAddData=async()=> {
+    let id = auth().currentUser.uid;
+   await  firestore().collection('users').doc(id).collection('userOrders').add({
+       Orders:cartList,
+       Address:address,
+       PhoneNo:phone,
+       GrandTotal:total,
+     });
+     navigation.navigate('Order')
+ }
 
   const totalAmountCalculte = () => {
     let Total = 0;
@@ -134,7 +147,7 @@ const checkout = ({navigation}: any) => {
         </Text>
       </View>
       <View style={styles.detailsContainer}>
-        <View>
+        <View style={{width:'90%'}}>
           <Text style={styles.details}>Address:{address}</Text>
           <Text style={styles.details}>Phone No:{phone}</Text>
         </View>
@@ -206,7 +219,8 @@ const checkout = ({navigation}: any) => {
   
         <TouchableOpacity
           style={styles.buyBtn}
-          onPress={() => navigation.navigate('Order')}>
+         //</View> onPress={() => navigation.navigate('Order')}>
+         onPress={() => handleAddData()}>
           <Text style={styles.order}>Place Order</Text>
         </TouchableOpacity>
      
@@ -222,8 +236,8 @@ const styles = StyleSheet.create({
 
   details: {
     fontSize: 18,
-    color: '#228b22',
-    fontWeight: '800',
+    color: COLORS.gray,
+   // fontWeight: '800',
   },
   detailsContainer: {
     padding: 20,
@@ -252,7 +266,7 @@ const styles = StyleSheet.create({
   },
   addeditems: {
     fontSize: 28,
-    color: '#228b22',
+    color: COLORS.DEFAULT_GREEN,
     fontWeight: 'bold',
     marginTop: 30,
   },
@@ -312,12 +326,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buyBtn: {
-   
-    backgroundColor: '#228b22',
+    backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
-    height:'5%'
-   
+    marginHorizontal: 20,
+    height: Display.setHeight(6),
+    borderRadius: 10,
+    marginBottom: 20,
   },
   amountview: {
     fontSize: 30,

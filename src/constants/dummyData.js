@@ -41,16 +41,6 @@ const trendingRecipes = [
     isBookmark: false,
     category: 'Frankie',
   },
-  // {
-  //   id: 5,
-  //   name: 'KFC',
-  //   image: images.kfc,
-  //   duration: '40 mins',
-  //   price: 235,
-  //   serving: 2,
-  //   isBookmark: false,
-  //   category: 'KFC',
-  // },
 ];
 
 const categories = trendingRecipes;

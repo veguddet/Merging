@@ -8,10 +8,11 @@ import {
   ScrollView,
   TouchableOpacity,
   useWindowDimensions,
+  StatusBar,
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
-import COLORS from '../../Home/colors';
-
+//import COLORS from '../../Home/colors';
+import { COLORS } from '../../../constants';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import cheese1 from '../../../assets/FoodImages/cheese1.png';
 import patty from '../../../assets/FoodImages/patty.png';
@@ -19,6 +20,7 @@ import veggies from '../../../assets/FoodImages/veggies.png'
 import caloriesicon from '../../../assets/FoodImages/caloriesicon.png';
 import { connect } from 'react-redux';
 import { AddData } from '../../../redux/cartAction';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const BurgerDetails = ({navigation, route,addItem}: any) => {
   const [checked, setChecked] = React.useState(false);
@@ -64,21 +66,49 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
   const Route = route.params;
   return (
     <ScrollView>
+       <StatusBar
+      barStyle="light-content" 
+      backgroundColor={COLORS.DEFAULT_GREEN }
+      translucent={false} 
+      />
       <View style={style.container}>
         <View
           style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingTop: 10,
+           // alignItems: 'center',
+           // justifyContent: 'center',
+         //   paddingTop: 10,
           }}>
-          <Image style={style.image} source={{uri: Route.image}} />
-        </View>
+          <Image
+           style={style.image} source={{uri: Route.image}} 
+           />
+<TouchableOpacity
+style={{
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 35,
+    width: 35,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: COLORS.lightGray, 
+    backgroundColor: COLORS.transparentBlack5
+}}
+onPress={() => navigation.goBack()}
+>
+                <Ionicons 
+                name="chevron-back-outline" 
+                size={30} 
+                style={{paddingBottom: 5}}
+                color={COLORS.DEFAULT_BLACK}
+                onPress={() => navigation.goBack()} />
+</TouchableOpacity>
+</View>
+
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',paddingRight:8}}>
           <Image
           source={caloriesicon}
           style={{height:50,width:50}}
           />
-        <Text style={style.text}>Total Calories:{counter}</Text>
+        <Text style={style.text}>Total Calories : {counter}</Text>
         </View>
       </View>
       <View>
@@ -90,16 +120,21 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{Route.name}</Text>
+          <Text style={{fontSize: 22, 
+           // fontWeight: 'bold', 
+            color: COLORS.DEFAULT_BLACK,
+            }}>
+            {Route.name}
+          </Text>
           <View style={style.priceTag}>
             <Text
               style={{
                 marginLeft: 15,
-                color: COLORS.white,
+                color: COLORS.DEFAULT_WHITE,
                 fontWeight: 'bold',
                 fontSize: 16,
               }}>
-              Rs{amount}
+              Rs {amount}
             </Text>
           </View>
         </View>
@@ -110,14 +145,15 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
               marginLeft: 20,
               marginTop: 10,
               fontSize: 22,
-              fontWeight: 'bold',
+             // fontWeight: 'bold',
+             // color: COLORS.DEFAULT_BLACK,
             }}>
             Nutritional Info
           </Text>
           <View
             style={{
-              marginTop: 10,
-              flexDirection: 'row',
+            marginTop: 10,
+            flexDirection: 'row',
             paddingTop:10,
             paddingLeft:5
             }}>
@@ -197,7 +233,7 @@ const BurgerDetails = ({navigation, route,addItem}: any) => {
           }}>
           <TouchableOpacity style={style.buyBtn} onPress={handleAddData}>
             <Text
-              style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>
+              style={{color: COLORS.DEFAULT_WHITE, fontSize: 18, fontWeight: 'bold'}}>
               Add To Cart
             </Text>
           </TouchableOpacity>
@@ -216,20 +252,18 @@ export default connect(null,mapDispatchToProps)(BurgerDetails);
 export const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    backgroundColor: COLORS.DEFAULT_WHITE,
   },
   text: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
-    //margin: 10,
+    color: COLORS.DEFAULT_GREEN,
+    margin: 10,
   },
   image: {
     width: '100%',
-    height: 290,
-    paddingTop: 20,
+    height: 280,
+   // paddingTop: 20,
   },
   header: {
     paddingHorizontal: 20,
@@ -248,11 +282,10 @@ export const style = StyleSheet.create({
   Icon:{
       height:40,
       width:40,
-    
   },
   detailsContainer: {
     flex: 0.55,
-    backgroundColor: COLORS.light,
+   // backgroundColor: COLORS.light,
     marginHorizontal: 7,
     marginBottom: 7,
     borderRadius: 20,
@@ -262,7 +295,7 @@ export const style = StyleSheet.create({
   line: {
     width: 25,
     height: 2,
-    backgroundColor: COLORS.dark,
+   // backgroundColor: COLORS.dark,
     marginBottom: 5,
     marginRight: 3,
   },
@@ -279,13 +312,14 @@ export const style = StyleSheet.create({
   buyBtn: {
     width: 130,
     height: 50,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
+    marginBottom: 20,
   },
   priceTag: {
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.DEFAULT_YELLOW,
     width: 80,
     height: 40,
     justifyContent: 'center',
@@ -294,7 +328,7 @@ export const style = StyleSheet.create({
   },
   nutritionsText: {
     marginLeft: 10,
-    color: COLORS.green,
+    color: COLORS.DEFAULT_GREEN,
     fontWeight: 'bold',
     fontSize: 20,
   },
@@ -308,8 +342,8 @@ export const style = StyleSheet.create({
   },
   checkboxText: {
     paddingLeft: 10,
-    color: 'brown',
-    fontWeight: 'bold',
+    color: 'black',
+   // fontWeight: 'bold',
     fontSize: 20,
     flex: 0.4,
   },
