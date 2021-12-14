@@ -35,6 +35,7 @@ const checkout = ({navigation}: any) => {
   //   let id = auth().currentUser.uid;
   //   const subscriber = firestore()
   //     .collection('users')
+  // venky
   //     .doc(id)
   //     .get()
   //     .then(snapshot => {
