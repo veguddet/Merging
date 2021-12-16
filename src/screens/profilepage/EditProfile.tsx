@@ -15,8 +15,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import firestore from '@react-native-firebase/firestore';
 import auth, {firebase} from '@react-native-firebase/auth';
-import { COLORS } from '../../constants';
 import { Display } from '../../utils';
+import { COLORS } from '../../constants';
 //import { useTheme } from 'react-native-paper';
 
 const EditProfile = ({navigation}:any) => {
@@ -27,6 +27,7 @@ const EditProfile = ({navigation}:any) => {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [user, setUser] = useState({});
+  const [city, setCity] = useState('');
 
   useEffect(() => {
     let id = auth().currentUser.uid;
@@ -45,7 +46,9 @@ const EditProfile = ({navigation}:any) => {
         setPhone(snapshot.data().mobile);
         setlName(snapshot.data().lastname);
         setAddress(snapshot.data().address);
-        setEmail(snapshot.data().email)
+        setEmail(snapshot.data().email);
+        setImage(snapshot.data().image);
+        setCity(snapshot.data().city);
       });
   }, [user]);
   const launchImageGallery = () => {
@@ -84,6 +87,7 @@ const EditProfile = ({navigation}:any) => {
         email: email,
         address: address,
         firstname: name,
+        city: city,
       });
 
       navigation.navigate('ProfileTab');
@@ -101,7 +105,9 @@ const EditProfile = ({navigation}:any) => {
       translucent={false}
     />
       <ScrollView>
-      <View style={{marginTop: '20%'}}>
+      <View 
+      style={{marginTop: '7%'}}
+      >
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={() => {}}>
             <View
@@ -133,7 +139,7 @@ const EditProfile = ({navigation}:any) => {
                      <Icon
                       name="camera"
                       size={35}
-                     // color="white"
+                      color={COLORS.LIGHT_GREY}
                       style={{
                         opacity: 0.9,
                         alignItems: 'center',
@@ -277,10 +283,12 @@ const EditProfile = ({navigation}:any) => {
               style={{paddingLeft: 30}}
             />
             <TextInput
-              placeholder="City"
+              placeholder={city}
               placeholderTextColor="#666666"
               autoCorrect={false}
               style={styles.textInput}
+              value={city}
+              onChangeText={text=>setCity(text)}
             />
           </View>
           {/* <TouchableOpacity
@@ -414,6 +422,7 @@ const styles = StyleSheet.create({
 // import firestore from '@react-native-firebase/firestore';
 // import auth, {firebase} from '@react-native-firebase/auth';
 // //import { useTheme } from 'react-native-paper';
+//import COLORS from './../Home/colors';
 
 // const EditProfile = ({navigation}) => {
 //   const [image,setImage] = useState('');

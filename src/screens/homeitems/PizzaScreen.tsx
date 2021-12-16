@@ -192,11 +192,16 @@ import {
 } from 'react-native';
 
 //import COLORS from '../Home/colors';
-import { COLORS, FONTS } from '../../constants';
+import { COLORS, dummyData, FONTS } from '../../constants';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerData from '../../Data/BurgerData';
 import firestore from '@react-native-firebase/firestore';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { styles } from '../splashscreen/style';
+import caloriesicon from './../../assets/FoodImages/caloriesicon.png';
+//import caloriesicon from '../../../assets/FoodImages/caloriesicon.png';
+import CategoryCard from './../../components/CategoryCard';
+import PizzaData from '../../Data/PizzaData';
 const width = Dimensions.get('window').width / 1 - 30;
 
 const PizzaScreen = ({navigation}: any) => {
@@ -240,59 +245,131 @@ const PizzaScreen = ({navigation}: any) => {
 
   const Card = ({pizza}: any) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('PizzaDetails', pizza)}>
-        <View style={style.card}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-            }}>
-            <Image
-              source={{uri: pizza.image}}
-              style={{
-                width: 325,
-                height: 200, 
-                borderRadius: 10
-              }}
-            />
-          </View>
-          <Text style={{
-            fontSize: 18, 
-            color:COLORS.DEFAULT_BLACK,
-            fontFamily: FONTS.POPPINS_MEDIUM,
-            padding:5
-          }}>
+      // <TouchableOpacity
+      //   activeOpacity={0.8}
+      //   onPress={() => navigation.navigate('PizzaDetails', pizza)}>
+      //   <View style={style.card}>
+      //     <View
+      //       style={{
+      //         flex: 1,
+      //         alignItems: 'center',
+      //       }}>
+      //       <Image
+      //         source={{uri: pizza.image}}
+      //         style={{
+      //           width: 325,
+      //           height: 200, 
+      //           borderRadius: 10
+      //         }}
+      //       />
+      //     </View>
+      //     <Text style={{
+      //       fontSize: 18, 
+      //       color:COLORS.DEFAULT_BLACK,
+      //       fontFamily: FONTS.POPPINS_MEDIUM,
+      //       padding:5
+      //     }}>
+      //         {pizza.name}
+      //       </Text>
+      //       <View style={{flexDirection: 'row',alignItems: 'center',}}>
+      //     {/* <Text style={style.nutritionText}>
+      //         Carbs : {pizza.carbs}
+      //       </Text>
+      //       <Text style={style.nutritionText}>
+      //         Fat : {pizza.fats}
+      //       </Text> */}
+      //       <Text style={style.nutritionText}>
+      //         Calories : {pizza.calories}
+      //       </Text>
+      //       <Image source={caloriesicon} style={{height: 30, width: 25}} />
+      //     </View>
+
+      //     <View
+      //       style={{
+      //         flexDirection: 'row',
+      //         justifyContent: 'space-between',
+      //       }}>
+      //       <Text style={{
+      //         fontSize: 18, 
+      //         fontWeight: 'bold',
+      //         paddingLeft:6, 
+      //         color:COLORS.DEFAULT_YELLOW 
+      //         }}>
+      //         Rs {pizza.price}
+      //       </Text>
+
+      //       <View style={{justifyContent:'center',alignItems:'center'}}  >
+      //         <TouchableOpacity 
+      //         onPress={() => navigation.navigate('PizzaDetails', pizza)}
+      //         >
+      //       <IconAntDesign name="right" size={20} 
+      //      // color={COLORS.DEFAULT_BLACK} 
+      //       />
+      //     </TouchableOpacity>
+      //       </View>
+      //     </View>
+      //   </View>
+      // </TouchableOpacity>
+      <TouchableOpacity 
+      style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 12,
+          backgroundColor: COLORS.gray2,
+         // ...containerStyle
+      }}
+      onPress={() => navigation.navigate('BurgerDetails' , pizza )}
+  >
+      {/* Image */}
+      <Image 
+          // source={{uri:categoryItem.image}}
+          source={{uri: pizza.image}}
+         // resizeMode="contain"
+          style={{
+              width: 100,
+              height: 100,
+              borderRadius: 12,
+          }}
+      />
+
+      {/* Details */}
+      <View
+         style={{
+             width: '65%',
+             paddingHorizontal: 20,
+         }}
+      >
+          {/* Name */}
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.black
+             }}
+          >
               {pizza.name}
-            </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{
-              fontSize: 18, 
-              fontWeight: 'bold',
-              paddingLeft:8, 
-              color:COLORS.DEFAULT_YELLOW 
-              }}>
-              Rs {pizza.price}
-            </Text>
-
-            <View style={{justifyContent:'center',alignItems:'center'}}  >
-              <TouchableOpacity 
-              onPress={() => navigation.navigate('PizzaDetails', pizza)}
-              >
-            <IconAntDesign name="right" size={20} 
-           // color={COLORS.DEFAULT_BLACK} 
-            />
-          </TouchableOpacity>
-            </View>
-          </View>
+          </Text>
+          <View style={{flexDirection:'row',alignItems: 'center',}}>
+        <Text style={{fontSize: 16,}}>Total Calories : {pizza.calories}</Text>
+        <Image
+          source={require('../../assets/FoodImages/caloriesicon.png')}
+          style={{height:25,width:25}}
+          />
         </View>
-      </TouchableOpacity>
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.DEFAULT_GREEN
+             }}
+          >
+             Rs : {pizza.price}
+          </Text>
+
+      </View>
+  </TouchableOpacity>
     );
   };
 
@@ -345,6 +422,26 @@ const PizzaScreen = ({navigation}: any) => {
           return <Card pizza={item} />;
         }}
       />
+
+       {/* <FlatList
+         // marginTop={20}
+          data={PizzaData}
+        keyExtractor={item => `${item.id}`}
+        keyboardDismissMode="on-drag"
+        showsVerticalScrollIndicator={false}
+        // ListHeaderComponent= {
+        // }
+        renderItem={({item}) => {
+          return (
+            <CategoryCard
+              containerStyle={{
+               // marginHorizontal: SIZES.padding,
+              }}
+              categoryItem={item}
+            />
+          );
+        }}
+      /> */}
     </SafeAreaView>
   );
 };
@@ -376,6 +473,12 @@ const style = StyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  nutritionText: {
+    fontSize: 16, 
+   // fontWeight: 'bold',
+    paddingLeft:6, 
+    color:COLORS.DEFAULT_BLACK 
   },
 });
 

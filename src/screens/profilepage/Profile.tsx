@@ -51,8 +51,8 @@ useEffect(() => {
     });
 }, [user]);
 
-const sighnout= async ()=>{
- await auth()
+const sighnout = ()=>{
+   auth()
   .signOut()
   .then(() => console.log('User signed out!'));
 }
@@ -146,7 +146,7 @@ return (
         <TouchableRipple onPress={() => navigation.navigate('CompletedOrderScreen')}>
           <View style={styles.menuItem}>
             <Icon name='bookmark-outline' color={COLORS.DEFAULT_GREEN} size={25} />
-            <Text style={styles.menuItemText}>Your Orders</Text>
+            <Text style={styles.menuItemText}>My Orders</Text>
           </View>
         </TouchableRipple>
         <TouchableRipple onPress={() => { }}>
@@ -155,13 +155,13 @@ return (
             <Text style={styles.menuItemText}>Tell Your Friends</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => { }}>
+        <TouchableRipple  onPress={() => navigation.navigate('Nutrition')}>
           <View style={styles.menuItem}>
             <Icon name='account-check-outline' color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.menuItemText}>Support</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => { }}>
+        <TouchableRipple  onPress={() => navigation.navigate('EditProfile')}>
           <View style={styles.menuItem}>
             <Icon name='cog-outline'  color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.menuItemText}>Settings</Text>

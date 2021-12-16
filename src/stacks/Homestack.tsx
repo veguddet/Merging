@@ -15,6 +15,7 @@ import Profile from '../screens/profilepage/Profile';
 import EditProfile from '../screens/profilepage/EditProfile';
 import checkout from '../screens/checkout/checkout';
 import Order from '../screens/order/Order';
+import Nutrition from './../screens/nutritionscreen/Nutrition';
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ const HomeStack = () => {
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="checkout" component={checkout} />
         <Stack.Screen name="Order" component={Order} />
+        <Stack.Screen name="Nutrition" component={Nutrition} />
 
         
       </Stack.Navigator>

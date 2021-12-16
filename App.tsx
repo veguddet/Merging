@@ -24,6 +24,7 @@ import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import CompletedOrderScreen from './src/screens/completedorders/completedOrders';
 import Onboarding from './src/screens/onboardingscreen/Onboarding';
+import Nutrition from './src/screens/nutritionscreen/Nutrition';
 
 
 const App = () => {
@@ -57,6 +58,7 @@ const App = () => {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} />
+        <Stack.Screen name="Nutrition" component={Nutrition} />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -24,8 +24,9 @@ const CategoryCard = ({containerStyle, categoryItem, onPress}) => {
         >
             {/* Image */}
             <Image 
-                source={categoryItem.image}
-                resizeMode="cover"
+                // source={{uri:categoryItem.image}}
+                source={{uri: categoryItem.image}}
+               // resizeMode="contain"
                 style={{
                     width: 100,
                     height: 100,
@@ -50,16 +51,16 @@ const CategoryCard = ({containerStyle, categoryItem, onPress}) => {
                 >
                     {categoryItem.name}
                 </Text>
-
-                {/* Servings */}
                 <Text
                    style={{
-                       color: COLORS.gray,
-                       ...FONTS.body4
+                       flex: 1,
+                       ...FONTS.h2,
+                       color: COLORS.black
                    }}
                 >
-                    {categoryItem.duration} | {categoryItem.serving} Serving
+                    {categoryItem.calories}
                 </Text>
+
             </View>
         </TouchableOpacity>
     )

@@ -19,6 +19,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerData from '../../Data/BurgerData';
 import firestore from '@react-native-firebase/firestore';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { TabRouter } from '@react-navigation/native';
 const width = Dimensions.get('window').width / 1 - 30;
 
 const BurgerScreen = ({navigation}: any) => {
@@ -42,23 +43,6 @@ const BurgerScreen = ({navigation}: any) => {
         //console.log(payments)
       });
   }, []);
-//  const searchData = (text:any) => {
-//     if (text) {
-//       const newData = this.state.DATA.filter(item => {
-//         const itemData = item.title
-//           ? item.title.toUpperCase()
-//           : ''.toUpperCase();
-//         const textData = text.toUpperCase();
-//         return itemData.indexOf(textData) > -1;
-//       });
-//       this.setState({FilteredData:newData})
-//       this.setState({text})
-//       // setText(text);
-//     } else {
-//       this.setState({FilteredData:this.state.DATA})
-//       this.setState({text:''})
-//     }
-//   };
 
   const Card = ({burgers}: any) => {
     return (
@@ -76,7 +60,7 @@ const BurgerScreen = ({navigation}: any) => {
               source={{uri: burgers.image}}
               style={{
                 width: 325,
-                height: 200, 
+                height: 180, 
                 borderRadius: 10
               }}
             />
@@ -85,8 +69,17 @@ const BurgerScreen = ({navigation}: any) => {
             fontSize: 18, 
             color:COLORS.DEFAULT_BLACK,
             fontFamily: FONTS.POPPINS_MEDIUM,
-            padding:5
-            }}>{burgers.name}</Text>
+            paddingLeft: 5,
+            paddingTop: 7,
+            }}>{burgers.name}
+            </Text>
+          <View style={{flexDirection:'row',alignItems: 'center',}}>
+        <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {burgers.calories}</Text>
+        <Image
+          source={require('../../assets/FoodImages/caloriesicon.png')}
+          style={{height:25,width:25}}
+          />
+        </View>
           <View
             style={{
               flexDirection: 'row',

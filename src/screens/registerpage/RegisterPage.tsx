@@ -27,6 +27,7 @@ interface RegisterState {
   email: any;
   password: any;
   address: any;
+  city: any;
  
 }
 
@@ -43,6 +44,7 @@ export default class RegisterPage extends React.Component<
       email: '',
       password: '',
       address: '',
+      city:'',
     };
     this.submit = this.submit.bind(this);
   }
@@ -66,6 +68,7 @@ export default class RegisterPage extends React.Component<
               email: this.state.email,
               password: this.state.password,
               address: this.state.address,
+              city: this.state.city,
             })
             .catch(err => console.log(err));
           this.setState({
@@ -75,6 +78,7 @@ export default class RegisterPage extends React.Component<
             email: '',
             password: '',
             address: '',
+            city:'',
           });
 
           this.props.navigation.navigate('Login');
@@ -172,6 +176,17 @@ export default class RegisterPage extends React.Component<
               label={'Address'}
               onChangeText={address => {
                 this.setState({address: address});
+              }}
+            />
+          </View>
+          <View style={styles.textContainer}>
+            <TextInput
+              placeholder={'City'}
+              activeOutlineColor={COLORS.DEFAULT_GREEN}
+              mode="outlined"
+              label={'City'}
+              onChangeText={city => {
+                this.setState({city: city});
               }}
             />
           </View>

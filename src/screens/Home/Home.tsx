@@ -14,32 +14,36 @@ import {
 import {COLORS, FONTS, SIZES, images, dummyData} from '../../constants';
 import {CategoryCard, TrendingCard} from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth, {firebase} from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { useFocusEffect } from '@react-navigation/core';
-import { useSelector } from 'react-redux';
+import {useFocusEffect} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
 
-const Home1 = ({navigation}:any) => {
+const Home1 = ({navigation}: any) => {
   const [userName, setUserName] = React.useState('');
   const [userImage, setUserImage] = React.useState('');
   const [searchText, setsearchtext] = React.useState('');
   const [FilteredData, setFilter] = React.useState('');
-  const { cartList } = useSelector(state => state.cartReducer);
-  useFocusEffect(useCallback(() => {
+  const {cartList} = useSelector(state => state.cartReducer);
+  const [address, setAddress] = React.useState('');
+  useFocusEffect(
+    useCallback(() => {
+      let id = auth().currentUser.uid;
+      const subscriber = firestore()
+        .collection('users')
+        .doc(id)
+        .get()
+        .then(snapshot => {
+          //  console.log(snapshot.data().firstname);
+          setUserName(snapshot.data().firstname);
+          setUserImage(snapshot.data().image);
+          setAddress(snapshot.data().city);
+        });
+    }, []),
+  );
 
-    let id = auth().currentUser.uid;
-    const subscriber = firestore()
-      .collection('users')
-      .doc(id)
-      .get()
-      .then(snapshot => {
-      //  console.log(snapshot.data().firstname);
-        setUserName(snapshot.data().firstname);
-        setUserImage(snapshot.data().image);
-      });
-  }, []))
-
-  const handleNavigation = (item: any)=> {
+  const handleNavigation = (item: any) => {
     switch (item.name) {
       case 'Burger':
         navigation.navigate('BurgerScreen');
@@ -63,18 +67,36 @@ const Home1 = ({navigation}:any) => {
           flexDirection: 'row',
           marginHorizontal: SIZES.padding,
           alignItems: 'center',
-          height: 90,
+          justifyContent: 'center',
+          paddingBottom: 10,
         }}>
         {/* Text */}
         <View
           style={{
             flex: 1,
           }}>
+            <View style={{width:'80%' ,flexDirection: 'row'}}>
+          <Icon1
+            name="map-marker-radius"
+            // color={COLORS.DEFAULT_GREEN}
+            color="#FF6347"
+            size={20}
+          />
+          <Text
+            style={{
+              color: COLORS.DEFAULT_BLACK,
+              ...FONTS.h4,
+              fontWeight: '500',
+              paddingLeft: 5,
+            }}>
+            {address},
+          </Text>
+        </View>
           <Text
             style={{
               color: COLORS.darkGreen,
-              ...FONTS.h2,
-              fontWeight: 'bold',
+              fontSize: 17,
+            //  fontWeight: 'bold',
             }}>
             Hello {userName},
           </Text>
@@ -90,9 +112,17 @@ const Home1 = ({navigation}:any) => {
         </View>
 
         {/* Image */}
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <View
+        // style={{paddingTop: 10}}
+        >
+        <TouchableOpacity 
+        onPress={() => navigation.navigate('Profile')}>
           <Image
-            source = {userImage? {uri : 'data:image/jpeg;base64,' + userImage}:require('../../assets/user2.png')}
+            source={
+              userImage
+                ? {uri: 'data:image/jpeg;base64,' + userImage}
+                : require('../../assets/user2.png')
+            }
             style={{
               width: 40,
               height: 40,
@@ -100,64 +130,67 @@ const Home1 = ({navigation}:any) => {
             }}
           />
         </TouchableOpacity>
+        </View>
       </View>
     );
   }
 
-const banners = [
-  'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
-  'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
-  'https://www.dominos.co.in/theme2/front/assets/banner2.png',
-  'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
-]
- const WIDTH = Dimensions.get('window').width;
- const HEIGHT = Dimensions.get('window').height;
+  const banners = [
+    'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
+    'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
+    'https://www.dominos.co.in/theme2/front/assets/banner2.png',
+    'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
+  ];
+  const WIDTH = Dimensions.get('window').width;
+  const HEIGHT = Dimensions.get('window').height;
 
   function renderBanner() {
     const [imgActive, setimgActive] = useState(0);
-    
-  const onchange = (nativeEvent) => {
-    if(nativeEvent) {
-      const slide = Math.ceil(nativeEvent.contentOffset.x/ nativeEvent.layoutMeasurement.width)
-      if(slide !=imgActive) {
-        setimgActive(slide);
+
+    const onchange = nativeEvent => {
+      if (nativeEvent) {
+        const slide = Math.ceil(
+          nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+        );
+        if (slide != imgActive) {
+          setimgActive(slide);
+        }
       }
-    }
-  }
-    return(
+    };
+    return (
       <View style={styles.container}>
-        <View style={{ width: WIDTH,height:HEIGHT * 0.25,}}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: WIDTH,
+            height: HEIGHT * 0.25,
+          }}>
           <ScrollView
-          onScroll={({nativeEvent}) => onchange(nativeEvent)}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          horizontal
-          style={{ width: WIDTH,height:HEIGHT * 0.25,}}
-          >
-            {
-              banners.map((e, index) =>
-              <Image 
-              key={e}
-              resizeMode = 'stretch'
-              style={{ width: WIDTH,height:HEIGHT * 0.25,}}
-              source={{uri: e}}
+            onScroll={({nativeEvent}) => onchange(nativeEvent)}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            horizontal
+            style={{width: WIDTH, height: HEIGHT * 0.25}}>
+            {banners.map((e, index) => (
+              <Image
+                key={e}
+                resizeMode="stretch"
+                style={{width: WIDTH, height: HEIGHT * 0.25}}
+                source={{uri: e}}
               />
-              )
-            }
+            ))}
           </ScrollView>
           <View style={styles.wrapDot}>
-          {
-      banners.map((e, index) =>
-      <Text
-       key={e}
-       style={imgActive ==index ? styles.dotActive:styles.dot}
-      >
-       ● 
-      </Text>
-      )
-    }
+            {banners.map((e, index) => (
+              <Text
+                key={e}
+                style={imgActive == index ? styles.dotActive : styles.dot}>
+                ●
+              </Text>
+            ))}
           </View>
         </View>
       </View>
@@ -166,26 +199,27 @@ const banners = [
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1, 
+      flex: 1,
       // justifyContent:'center',
       // alignItems: 'center',
     },
     wrapDot: {
-      position :'absolute',
+      position: 'absolute',
       bottom: 0,
       flexDirection: 'row',
       alignself: 'center',
-      justifyContent:'center',
+      justifyContent: 'center',
       alignItems: 'center',
+      // marginLeft: 120,
     },
     dotActive: {
-      margin:5,
-      color:'black'
+      margin: 5,
+      color: 'black',
     },
-    dot:{
-      margin:5,
-      color:'white'
-    }
+    dot: {
+      margin: 5,
+      color: 'white',
+    },
   });
 
   function renderScrollHeader() {
@@ -194,17 +228,15 @@ const banners = [
         horizontal
         showsHorizontalScrollIndicator={false}
         style={{
-          marginTop: 20,
+          marginBottom: 20,
           marginLeft: 10,
         }}>
-        <TouchableOpacity
-         onPress={() => navigation.navigate('BurgerScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('BurgerScreen')}>
           <View
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-             // backgroundColor: '#f9dd7a',
+              // backgroundColor: '#f9dd7a',
               backgroundColor: COLORS.LIGHT_GREEN,
               marginHorizontal: 10,
               borderRadius: 25,
@@ -226,14 +258,12 @@ const banners = [
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('PizzaScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('PizzaScreen')}>
           <View
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-            //  backgroundColor: '#e5e4eb',
+              //  backgroundColor: '#e5e4eb',
               backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
@@ -255,14 +285,12 @@ const banners = [
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('BiryaniScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('BiryaniScreen')}>
           <View
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-            //  backgroundColor: '#e5e4eb',
+              //  backgroundColor: '#e5e4eb',
               backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
@@ -284,14 +312,12 @@ const banners = [
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('FrankieScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('FrankieScreen')}>
           <View
             style={{
               alignItems: 'center',
               flexDirection: 'row',
-             // backgroundColor: '#e5e4eb',
+              // backgroundColor: '#e5e4eb',
               backgroundColor: COLORS.LIGHT_GREY2,
               marginHorizontal: 10,
               borderRadius: 25,
@@ -322,23 +348,22 @@ const banners = [
         style={{
           flexDirection: 'row',
           marginTop: SIZES.radius,
-          marginHorizontal: SIZES.padding/2,
+          marginHorizontal: SIZES.padding / 2,
           borderRadius: 10,
           backgroundColor: COLORS.lightGreen,
-         
         }}>
         {/* Image */}
         <View
           style={{
-            width: 150,
+            width: '40%',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
           <Image
             source={images.recipe}
             style={{
-              width: 80,
-              height: 80,
+              width: 70,
+              height: 70,
             }}
           />
         </View>
@@ -347,19 +372,20 @@ const banners = [
         <View
           style={{
             flex: 1,
-            paddingVertical: SIZES.radius/2,
+            paddingVertical: SIZES.radius / 2,
           }}>
           <Text
             style={{
               width: '70%',
               ...FONTS.body4,
             }}>
-            You have {cartList.length} items in your cart that you haven't tried yet
+            You have {cartList.length} items in your cart that you haven't tried
+            yet
           </Text>
 
           <TouchableOpacity
             style={{
-              marginTop:5,
+              marginTop: 5,
             }}
             onPress={() => navigation.jumpTo('Carttab')}>
             <Text
@@ -379,9 +405,11 @@ const banners = [
   function renderTrendingSection() {
     return (
       <View
-        style={{
-          marginTop: SIZES.padding,
-        }}>
+        style={
+          {
+            //  marginTop: SIZES.padding,
+          }
+        }>
         <Text
           style={{
             marginHorizontal: SIZES.padding,
@@ -420,16 +448,16 @@ const banners = [
       style={{
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingTop:10
+        paddingTop: 10,
       }}>
-     <StatusBar
-      barStyle="dark-content" 
-      backgroundColor={COLORS.DEFAULT_WHITE}
-      translucent={false} 
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={COLORS.DEFAULT_WHITE}
+        translucent={false}
       />
       <FlatList
-       // marginTop={20}
-      //  data={dummyData.categories}
+        // marginTop={20}
+        //  data={dummyData.categories}
         keyExtractor={item => `${item.id}`}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
@@ -438,18 +466,17 @@ const banners = [
             {/* Header */}
             {renderHeader()}
 
+            {/* Scroll Header */}
+            {renderScrollHeader()}
+
             {/* Banner */}
             {renderBanner()}
 
             {/* See Recipe Card */}
-            {renderSeeRecipeCard()}
-
-            {/* Scroll Header */}
-            {renderScrollHeader()}
+            {cartList.length ? renderSeeRecipeCard() : <Text></Text>}
 
             {/* Trending Section */}
             {renderTrendingSection()}
-
           </View>
         }
         renderItem={({item}) => {
