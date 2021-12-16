@@ -1,35 +1,38 @@
 
 import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
+import { COLORS } from '../../constants';
 var {width} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   topview: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    backgroundColor: 'white',
   },
   topCardView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   addeditems: {
-    fontSize: 28,
-    color: '#228b22',
+    fontSize: 26,
+    color: COLORS.DEFAULT_GREEN,
     fontWeight: 'bold',
-    marginTop: 30,
+    marginTop: 20,
+    marginBottom: 5,
   },
   height20: {
     height: 20,
   },
   imageview: {
-    backgroundColor: 'transparent',
+    backgroundColor: COLORS.LIGHT_GREY,
     flexDirection: 'row',
-    borderBottomWidth: 2,
-    borderColor: '#cccccc',
+    borderBottomWidth: 1,
+    borderColor: COLORS.DEFAULT_GREY,
     paddingLeft:10,
-    borderRadius:10
+    borderRadius:10,
   },
   imagelink: {
     width: 150,
@@ -80,8 +83,9 @@ export const styles = StyleSheet.create({
   },
   text1: {
     fontWeight: 'bold',
-    color: `#006400`,
+    color: COLORS.DEFAULT_GREEN,
     fontSize: 20,
+    paddingLeft: 20,
   },
   height10: {
     height: 20,
@@ -93,20 +97,21 @@ export const styles = StyleSheet.create({
   buyBtn: {
     width: 170,
     height: 50,
-    backgroundColor: '#228b22',
+    backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
+   // marginBottom: 20,
   },
   amountview: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingBottom: 10,
-    paddingLeft: 10,
+   // fontSize: 20,
+   // fontWeight: 'bold',
+   // paddingLeft: 10,
   },
   amount: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
+    marginRight: 50,
   },
   touch: {
     width: 130,
@@ -117,7 +122,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
   },
   order: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: 'white',
   },

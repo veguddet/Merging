@@ -320,7 +320,7 @@ const PizzaScreen = ({navigation}: any) => {
           backgroundColor: COLORS.gray2,
          // ...containerStyle
       }}
-      onPress={() => navigation.navigate('BurgerDetails' , pizza )}
+      onPress={() => navigation.navigate('Nutrition' , pizza )}
   >
       {/* Image */}
       <Image 

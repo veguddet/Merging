@@ -48,7 +48,7 @@ const BurgerScreen = ({navigation}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('BurgerDetails', burgers)}>
+        onPress={() => navigation.navigate('Nutrition', burgers)}>
         <View style={style.card}>
           <View
             style={{
@@ -97,7 +97,7 @@ const BurgerScreen = ({navigation}: any) => {
             <View style={{justifyContent:'center',alignItems:'center'}}  >
               <TouchableOpacity 
              // onPress={() => navigation.goBack()}
-              onPress={() => navigation.navigate('BurgerDetails', burgers)}
+              onPress={() => navigation.navigate('Nutrition', burgers)}
               >
             <IconAntDesign name="right" size={20} 
            // color={COLORS.DEFAULT_GREEN} 

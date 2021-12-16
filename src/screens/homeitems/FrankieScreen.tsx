@@ -47,7 +47,7 @@ const FrankieScreen = ({navigation}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('DetailsScreen', Frankie)}>
+        onPress={() => navigation.navigate('Nutrition', Frankie)}>
         <View style={style.card}>
           <View
             style={{
@@ -68,7 +68,15 @@ const FrankieScreen = ({navigation}: any) => {
             color:COLORS.DEFAULT_BLACK,
             fontFamily: FONTS.POPPINS_MEDIUM,
             padding:5
-            }}>{Frankie.name}</Text>
+            }}>{Frankie.name}
+            </Text>
+            <View style={{flexDirection:'row',alignItems: 'center',}}>
+        <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {Frankie.calories}</Text>
+        <Image
+          source={require('../../assets/FoodImages/caloriesicon.png')}
+          style={{height:25,width:25}}
+          />
+        </View>
           <View
             style={{
               flexDirection: 'row',
@@ -85,7 +93,7 @@ const FrankieScreen = ({navigation}: any) => {
 
             <View style={{justifyContent:'center',alignItems:'center'}}  >
               <TouchableOpacity 
-            onPress={() => navigation.navigate('DetailsScreen', Frankie)}
+            onPress={() => navigation.navigate('Nutrition', Frankie)}
               >
             <IconAntDesign name="right" size={20} 
            // color={COLORS.DEFAULT_GREEN} 

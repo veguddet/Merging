@@ -11,7 +11,7 @@ const Order = ({navigation,empty}: any) => {
     setTimeout(() => {
       navigation.push('Home1');
       empty()
-    }, 3000);
+    }, 2000);
   }, []);
   return (
     <View style={styles.container}>

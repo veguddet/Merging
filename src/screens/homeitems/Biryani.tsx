@@ -45,7 +45,7 @@ const Biryani = ({navigation}: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('BiryaniDetails', biryani)}>
+        onPress={() => navigation.navigate('Nutrition', biryani)}>
         <View style={style.card}>
           <View
             style={{
@@ -67,6 +67,13 @@ const Biryani = ({navigation}: any) => {
             fontFamily: FONTS.POPPINS_MEDIUM,
             padding:5
             }}>{biryani.name}</Text>
+            <View style={{flexDirection:'row',alignItems: 'center',}}>
+        <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {biryani.calories}</Text>
+        <Image
+          source={require('../../assets/FoodImages/caloriesicon.png')}
+          style={{height:25,width:25}}
+          />
+        </View>
           <View
             style={{
               flexDirection: 'row',
@@ -83,7 +90,7 @@ const Biryani = ({navigation}: any) => {
 
              <View style={{justifyContent:'center',alignItems:'center'}}  >
               <TouchableOpacity 
-             onPress={() => navigation.navigate('BiryaniDetails', biryani)}
+             onPress={() => navigation.navigate('Nutrition', biryani)}
               >
             <IconAntDesign name="right" size={20} 
            // color={COLORS.DEFAULT_BLACK} 

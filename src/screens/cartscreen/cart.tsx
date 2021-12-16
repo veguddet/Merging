@@ -1,5 +1,4 @@
-
-import React, { Component, useEffect, useState } from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -10,18 +9,30 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BurgerData from '../../Data/BurgerData';
-import { FlatList } from 'react-native-gesture-handler';
-import { connect, useSelector } from 'react-redux';
-import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
-import { Item } from 'react-native-paper/lib/typescript/components/List/List';
-import { countDecrement, countIncrement, DeleteData } from '../../redux/cartAction';
+import {FlatList} from 'react-native-gesture-handler';
+import {connect, useSelector} from 'react-redux';
+import {baseProps} from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
+import {Item} from 'react-native-paper/lib/typescript/components/List/List';
+import {
+  countDecrement,
+  countIncrement,
+  DeleteData,
+} from '../../redux/cartAction';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import { COLORS } from '../../constants';
 
-const Cart = ({ route, navigation, data, removeItem, quantity, quantitydecrese }: any) => {
-  const { cartList } = useSelector(state => state.cartReducer);
+const Cart = ({
+  route,
+  navigation,
+  data,
+  removeItem,
+  quantity,
+  quantitydecrese,
+}: any) => {
+  const {cartList} = useSelector(state => state.cartReducer);
   const [counter, setCounter] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -76,32 +87,36 @@ const Cart = ({ route, navigation, data, removeItem, quantity, quantitydecrese }
     });
   };
 
-  const Card = ({ Item }: any) => {
+  const Card = ({Item}: any) => {
     return (
       <View style={styles.topCardView}>
-        <View style={{ flex: 1, flexDirection: 'column' }}>
+        <View style={{flex: 1, flexDirection: 'column'}}>
           <View style={styles.imageview}>
             <Image
               resizeMode={'contain'}
               style={styles.imagelink}
-              source={{ uri: Item.Image }}
+              source={{uri: Item.Image}}
             />
             <View style={styles.text199view}>
-              <Text style={styles.text1}>Rs{Item.Price * Item.count}</Text>
+              <Text style={styles.text1}>Rs : {Item.Price * Item.count}</Text>
             </View>
 
-
-            <View style={{ paddingLeft: 30 }}>
+            <View style={{paddingLeft: 30}}>
               <View
                 style={{
                   flex: 1,
                   backgroundColor: 'transparent',
                   padding: 10,
+                  paddingTop: 18,
                   justifyContent: 'flex-end',
                   paddingLeft: 20,
                 }}>
                 <View>
-                  <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                  <Text style={{
+                    fontWeight: 'bold', 
+                    fontSize: 20,
+                   // color:COLORS.DEFAULT_BLACK
+                    }}>
                     {Item.Name}
                   </Text>
                   <View>
@@ -127,31 +142,35 @@ const Cart = ({ route, navigation, data, removeItem, quantity, quantitydecrese }
                     marginTop: 20,
                     justifyContent: 'space-evenly',
                   }}>
-                  <TouchableOpacity style={styles.borderBtn} onPress={() => decrement(Item)}>
+                  <TouchableOpacity
+                    style={styles.borderBtn}
+                    onPress={() => decrement(Item)}>
                     <Text style={styles.borderBtnText}>-</Text>
                   </TouchableOpacity>
                   <Text
                     style={{
                       fontSize: 20,
                       fontWeight: 'bold',
-                      padding: 10
+                      padding: 10,
                     }}>
                     {Item.count}
                   </Text>
-                  <TouchableOpacity style={styles.borderBtn} onPress={() => increment(Item)}>
+                  <TouchableOpacity
+                    style={styles.borderBtn}
+                    onPress={() => increment(Item)}>
                     <Text style={styles.borderBtnText}>+</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{ paddingLeft: 10 }} onPress={() => removeItem(Item.id)}>
-                    <IconAntDesign name="close" size={40} color={'black'} />
+                  <TouchableOpacity
+                    style={{paddingLeft: 10}}
+                    onPress={() => removeItem(Item.id)}>
+                    <IconAntDesign name="delete" size={25} color={'red'} />
                   </TouchableOpacity>
-
                 </View>
               </View>
             </View>
           </View>
         </View>
-        <View style={styles.height20} />
-        <View style={{ height: 20 }} />
+        <View style={{height: 10}} />
       </View>
       // <View style={{ flex: 1 }}>
       //   <View
@@ -249,34 +268,45 @@ const Cart = ({ route, navigation, data, removeItem, quantity, quantitydecrese }
     //   <View style={{height: 20}} />
     // </View>
     <View style={styles.topview}>
-      <Text style={styles.addeditems}>Added Items</Text>
-      <View style={styles.height10} />
+      <Text style={styles.addeditems}>Cart</Text>
+      {/* <View style={styles.height10} /> */}
       <FlatList
         data={cartList}
-        renderItem={({ item }) => {
+        renderItem={({item}) => {
           return <Card Item={item} />;
         }}
       />
-      {total ? (<View style={{alignItems:'center'}}>
-        <View style={styles.amountview}>
-          <Text style={styles.amount}>Total Amount = {total}</Text>
-        </View>
+      {total ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginBottom: '3%',
+            marginTop: '3%',
+            alignItems: 'center',
+          }}>
+          <View style={styles.amountview}>
+            <Text style={styles.amount}>Total = {total} </Text>
+          </View>
 
-        <TouchableOpacity style={styles.buyBtn} onPress={()=>navigation.navigate('checkout')}>
-          <Text style={styles.order}>Place Order</Text>
-        </TouchableOpacity>
-      </View>) : (<View>
-        <Image
-            source={{uri:'http://www.shitalexports.com/img/empty-cart.jpg'}}
+          <TouchableOpacity
+            style={styles.buyBtn}
+            onPress={() => navigation.navigate('checkout')}>
+            <Text style={styles.order}>Place Order</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View>
+          <Image
+            source={{uri: 'http://www.shitalexports.com/img/empty-cart.jpg'}}
             style={{
               width: 400,
               height: 400,
-              marginBottom:'30%'
+              marginBottom: '40%',
             }}
           />
-
-
-      </View>)}
+        </View>
+      )}
 
       {/* <View>
         <View style={styles.amountview}>
@@ -297,7 +327,6 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
   },
-
   cartCard: {
     height: 100,
     elevation: 15,
@@ -324,7 +353,6 @@ const style = StyleSheet.create({
     height: 25,
     marginTop: 4,
     borderRadius: 10,
-
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
