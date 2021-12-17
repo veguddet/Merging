@@ -191,7 +191,6 @@ import {
   ScrollView,
 } from 'react-native';
 
-//import COLORS from '../Home/colors';
 import { COLORS, dummyData, FONTS } from '../../constants';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerData from '../../Data/BurgerData';
@@ -225,23 +224,6 @@ const PizzaScreen = ({navigation}: any) => {
         //console.log(payments)
       });
   }, []);
-//  const searchData = (text:any) => {
-//     if (text) {
-//       const newData = this.state.DATA.filter(item => {
-//         const itemData = item.title
-//           ? item.title.toUpperCase()
-//           : ''.toUpperCase();
-//         const textData = text.toUpperCase();
-//         return itemData.indexOf(textData) > -1;
-//       });
-//       this.setState({FilteredData:newData})
-//       this.setState({text})
-//       // setText(text);
-//     } else {
-//       this.setState({FilteredData:this.state.DATA})
-//       this.setState({text:''})
-//     }
-//   };
 
   const Card = ({pizza}: any) => {
     return (

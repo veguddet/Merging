@@ -12,7 +12,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {COLORS, FONTS, SIZES, images, dummyData} from '../../constants';
-import {CategoryCard, TrendingCard} from '../../components';
+import {CategoryCard, Slider, TrendingCard} from '../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth, {firebase} from '@react-native-firebase/auth';
@@ -116,7 +116,7 @@ const Home1 = ({navigation}: any) => {
         // style={{paddingTop: 10}}
         >
         <TouchableOpacity 
-        onPress={() => navigation.navigate('Profile')}>
+        onPress={() => navigation.jumpTo('ProfileTab')}>
           <Image
             source={
               userImage
@@ -135,92 +135,92 @@ const Home1 = ({navigation}: any) => {
     );
   }
 
-  const banners = [
-    'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
-    'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
-    'https://www.dominos.co.in/theme2/front/assets/banner2.png',
-    'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
-  ];
-  const WIDTH = Dimensions.get('window').width;
-  const HEIGHT = Dimensions.get('window').height;
+  // const banners = [
+  //   'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
+  //   'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
+  //   'https://www.dominos.co.in/theme2/front/assets/banner2.png',
+  //   'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
+  // ];
+  // const WIDTH = Dimensions.get('window').width;
+  // const HEIGHT = Dimensions.get('window').height;
 
-  function renderBanner() {
-    const [imgActive, setimgActive] = useState(0);
+  // function renderBanner() {
+  //   const [imgActive, setimgActive] = useState(0);
 
-    const onchange = nativeEvent => {
-      if (nativeEvent) {
-        const slide = Math.ceil(
-          nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
-        );
-        if (slide != imgActive) {
-          setimgActive(slide);
-        }
-      }
-    };
-    return (
-      <View style={styles.container}>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: WIDTH,
-            height: HEIGHT * 0.25,
-          }}>
-          <ScrollView
-            onScroll={({nativeEvent}) => onchange(nativeEvent)}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            horizontal
-            style={{width: WIDTH, height: HEIGHT * 0.25}}>
-            {banners.map((e, index) => (
-              <Image
-                key={e}
-                resizeMode="stretch"
-                style={{width: WIDTH, height: HEIGHT * 0.25}}
-                source={{uri: e}}
-              />
-            ))}
-          </ScrollView>
-          <View style={styles.wrapDot}>
-            {banners.map((e, index) => (
-              <Text
-                key={e}
-                style={imgActive == index ? styles.dotActive : styles.dot}>
-                ●
-              </Text>
-            ))}
-          </View>
-        </View>
-      </View>
-    );
-  }
+  //   const onchange = nativeEvent => {
+  //     if (nativeEvent) {
+  //       const slide = Math.ceil(
+  //         nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
+  //       );
+  //       if (slide != imgActive) {
+  //         setimgActive(slide);
+  //       }
+  //     }
+  //   };
+  //   return (
+  //     <View style={styles.container}>
+  //       <View
+  //         style={{
+  //           justifyContent: 'center',
+  //           alignItems: 'center',
+  //           width: WIDTH,
+  //           height: HEIGHT * 0.25,
+  //         }}>
+  //         <ScrollView
+  //           onScroll={({nativeEvent}) => onchange(nativeEvent)}
+  //           showsHorizontalScrollIndicator={false}
+  //           pagingEnabled
+  //           horizontal
+  //           style={{width: WIDTH, height: HEIGHT * 0.25}}>
+  //           {banners.map((e, index) => (
+  //             <Image
+  //               key={e}
+  //               resizeMode="stretch"
+  //               style={{width: WIDTH, height: HEIGHT * 0.25}}
+  //               source={{uri: e}}
+  //             />
+  //           ))}
+  //         </ScrollView>
+  //         <View style={styles.wrapDot}>
+  //           {banners.map((e, index) => (
+  //             <Text
+  //               key={e}
+  //               style={imgActive == index ? styles.dotActive : styles.dot}>
+  //               ●
+  //             </Text>
+  //           ))}
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      // justifyContent:'center',
-      // alignItems: 'center',
-    },
-    wrapDot: {
-      position: 'absolute',
-      bottom: 0,
-      flexDirection: 'row',
-      alignself: 'center',
-      justifyContent: 'center',
-      alignItems: 'center',
-      // marginLeft: 120,
-    },
-    dotActive: {
-      margin: 5,
-      color: 'black',
-    },
-    dot: {
-      margin: 5,
-      color: 'white',
-    },
-  });
+  // const styles = StyleSheet.create({
+  //   container: {
+  //     flex: 1,
+  //     // justifyContent:'center',
+  //     // alignItems: 'center',
+  //   },
+  //   wrapDot: {
+  //     position: 'absolute',
+  //     bottom: 0,
+  //     flexDirection: 'row',
+  //     alignself: 'center',
+  //     justifyContent: 'center',
+  //     alignItems: 'center',
+  //     // marginLeft: 120,
+  //   },
+  //   dotActive: {
+  //     margin: 5,
+  //     color: 'black',
+  //   },
+  //   dot: {
+  //     margin: 5,
+  //     color: 'white',
+  //   },
+  // });
 
   function renderScrollHeader() {
     return (
@@ -454,6 +454,7 @@ const Home1 = ({navigation}: any) => {
         barStyle="dark-content"
         backgroundColor={COLORS.DEFAULT_WHITE}
         translucent={false}
+      //  hidden
       />
       <FlatList
         // marginTop={20}
@@ -470,8 +471,11 @@ const Home1 = ({navigation}: any) => {
             {renderScrollHeader()}
 
             {/* Banner */}
-            {renderBanner()}
+            {/* {renderBanner()} */}
 
+            {/* Swiper */}
+            {<Slider/>}
+            
             {/* See Recipe Card */}
             {cartList.length ? renderSeeRecipeCard() : <Text></Text>}
 

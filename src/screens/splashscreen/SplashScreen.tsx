@@ -9,7 +9,6 @@ const SplashScreen = ({navigation}: any) => {
 
   useEffect(() => {
     // setTimeout(() => {
-
     // }, 3000);
 
     handleLogin();
@@ -23,8 +22,8 @@ const SplashScreen = ({navigation}: any) => {
         } else {
           console.log('elseaaa', user);
 
-         // navigation.navigate('Onboard');
-          navigation.navigate('Welcome');
+          navigation.navigate('Onboard');
+        //  navigation.navigate('Welcome');
 
           setLogged(true);
         }

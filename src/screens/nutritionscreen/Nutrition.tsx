@@ -69,8 +69,8 @@ const Nutrition = ({navigation, route, addItem}: any) => {
       id: Math.floor(Math.random() * 9999999),
       count: 1,
     });
-    // navigation.navigate('Cart')
-    navigation.popToTop();
+     navigation.jumpTo('Carttab')
+   // navigation.popToTop();
   };
   console.log(counter);
   const Route = route.params;

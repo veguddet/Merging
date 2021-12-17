@@ -43,63 +43,123 @@ const Biryani = ({navigation}: any) => {
 
   const Card = ({biryani}: any) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('Nutrition', biryani)}>
-        <View style={style.card}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-            }}>
-            <Image
-              source={{uri: biryani.image}}
-              style={{
-                width: 325,
-                height: 200, 
-                borderRadius: 10
-              }}
-            />
-          </View>
-          <Text style={{
-            fontSize: 18, 
-            color:COLORS.DEFAULT_BLACK,
-            fontFamily: FONTS.POPPINS_MEDIUM,
-            padding:5
-            }}>{biryani.name}</Text>
-            <View style={{flexDirection:'row',alignItems: 'center',}}>
-        <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {biryani.calories}</Text>
+      // <TouchableOpacity
+      //   activeOpacity={0.8}
+      //   onPress={() => navigation.navigate('Nutrition', biryani)}>
+      //   <View style={style.card}>
+      //     <View
+      //       style={{
+      //         flex: 1,
+      //         alignItems: 'center',
+      //       }}>
+      //       <Image
+      //         source={{uri: biryani.image}}
+      //         style={{
+      //           width: 325,
+      //           height: 200, 
+      //           borderRadius: 10
+      //         }}
+      //       />
+      //     </View>
+      //     <Text style={{
+      //       fontSize: 18, 
+      //       color:COLORS.DEFAULT_BLACK,
+      //       fontFamily: FONTS.POPPINS_MEDIUM,
+      //       padding:5
+      //       }}>{biryani.name}</Text>
+      //       <View style={{flexDirection:'row',alignItems: 'center',}}>
+      //   <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {biryani.calories}</Text>
+      //   <Image
+      //     source={require('../../assets/FoodImages/caloriesicon.png')}
+      //     style={{height:25,width:25}}
+      //     />
+      //   </View>
+      //     <View
+      //       style={{
+      //         flexDirection: 'row',
+      //         justifyContent: 'space-between',
+      //       }}>
+      //       <Text style={{
+      //         fontSize: 18, 
+      //         fontWeight: 'bold',
+      //         paddingLeft:8, 
+      //         color:COLORS.DEFAULT_YELLOW 
+      //         }}>
+      //         Rs {biryani.price}
+      //       </Text>
+
+      //        <View style={{justifyContent:'center',alignItems:'center'}}  >
+      //         <TouchableOpacity 
+      //        onPress={() => navigation.navigate('Nutrition', biryani)}
+      //         >
+      //       <IconAntDesign name="right" size={20} 
+      //      // color={COLORS.DEFAULT_BLACK} 
+      //       />
+      //     </TouchableOpacity>
+      //       </View>
+      //     </View>
+      //   </View>
+      // </TouchableOpacity>
+      <TouchableOpacity 
+      style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 12,
+          backgroundColor: COLORS.gray2,
+         // ...containerStyle
+      }}
+      onPress={() => navigation.navigate('Nutrition' , biryani )}
+  >
+      {/* Image */}
+      <Image 
+          // source={{uri:categoryItem.image}}
+          source={{uri: biryani.image}}
+         // resizeMode="contain"
+          style={{
+              width: 100,
+              height: 100,
+              borderRadius: 12,
+          }}
+      />
+
+      {/* Details */}
+      <View
+         style={{
+             width: '65%',
+             paddingHorizontal: 20,
+         }}
+      >
+          {/* Name */}
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.black
+             }}
+          >
+              {biryani.name}
+          </Text>
+          <View style={{flexDirection:'row',alignItems: 'center',}}>
+        <Text style={{fontSize: 16,}}>Total Calories : {biryani.calories}</Text>
         <Image
           source={require('../../assets/FoodImages/caloriesicon.png')}
           style={{height:25,width:25}}
           />
         </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{
-              fontSize: 18, 
-              fontWeight: 'bold',
-              paddingLeft:8, 
-              color:COLORS.DEFAULT_YELLOW 
-              }}>
-              Rs {biryani.price}
-            </Text>
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.DEFAULT_GREEN
+             }}
+          >
+             Rs : {biryani.price}
+          </Text>
 
-             <View style={{justifyContent:'center',alignItems:'center'}}  >
-              <TouchableOpacity 
-             onPress={() => navigation.navigate('Nutrition', biryani)}
-              >
-            <IconAntDesign name="right" size={20} 
-           // color={COLORS.DEFAULT_BLACK} 
-            />
-          </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+      </View>
+  </TouchableOpacity>
     );
   };
   

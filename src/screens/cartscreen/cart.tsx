@@ -296,13 +296,17 @@ const Cart = ({
           </TouchableOpacity>
         </View>
       ) : (
-        <View>
+        <View 
+        // style={{
+        //   backgroundColor: COLORS.DEFAULT_WHITE,
+        // }}
+        >
           <Image
             source={{uri: 'http://www.shitalexports.com/img/empty-cart.jpg'}}
             style={{
               width: 400,
               height: 400,
-              marginBottom: '40%',
+              marginBottom: '37%',
             }}
           />
         </View>

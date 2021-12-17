@@ -46,6 +46,7 @@ const LoginPage = ({navigation}:any) => {
                 <Ionicons 
                 name="chevron-back-outline" 
                 size={30} 
+                color={COLORS.DEFAULT_BLACK}
                 onPress={() => navigation.goBack()} />
                 <Text style={styles.headerTitle}>Sign In</Text>
             </View>

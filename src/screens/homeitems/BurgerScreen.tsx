@@ -46,67 +46,127 @@ const BurgerScreen = ({navigation}: any) => {
 
   const Card = ({burgers}: any) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate('Nutrition', burgers)}>
-        <View style={style.card}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-            }}>
-            <Image
-              // source={{uri: item.img}}
-              source={{uri: burgers.image}}
-              style={{
-                width: 325,
-                height: 180, 
-                borderRadius: 10
-              }}
-            />
-          </View>
-          <Text style={{
-            fontSize: 18, 
-            color:COLORS.DEFAULT_BLACK,
-            fontFamily: FONTS.POPPINS_MEDIUM,
-            paddingLeft: 5,
-            paddingTop: 7,
-            }}>{burgers.name}
-            </Text>
+      // <TouchableOpacity
+      //   activeOpacity={0.8}
+      //   onPress={() => navigation.navigate('Nutrition', burgers)}>
+      //   <View style={style.card}>
+      //     <View
+      //       style={{
+      //         flex: 1,
+      //         alignItems: 'center',
+      //       }}>
+      //       <Image
+      //         // source={{uri: item.img}}
+      //         source={{uri: burgers.image}}
+      //         style={{
+      //           width: 325,
+      //           height: 180, 
+      //           borderRadius: 10
+      //         }}
+      //       />
+      //     </View>
+      //     <Text style={{
+      //       fontSize: 18, 
+      //       color:COLORS.DEFAULT_BLACK,
+      //       fontFamily: FONTS.POPPINS_MEDIUM,
+      //       paddingLeft: 5,
+      //       paddingTop: 7,
+      //       }}>{burgers.name}
+      //       </Text>
+      //     <View style={{flexDirection:'row',alignItems: 'center',}}>
+      //   <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {burgers.calories}</Text>
+      //   <Image
+      //     source={require('../../assets/FoodImages/caloriesicon.png')}
+      //     style={{height:25,width:25}}
+      //     />
+      //   </View>
+      //     <View
+      //       style={{
+      //         flexDirection: 'row',
+      //         justifyContent: 'space-between', 
+      //       }}>
+      //       <Text style={{
+      //          fontSize: 18, 
+      //          fontWeight: 'bold',
+      //          paddingLeft:8, 
+      //          color:COLORS.DEFAULT_YELLOW 
+      //         }}>
+      //         Rs {burgers.price}
+      //       </Text>
+
+      //       <View style={{justifyContent:'center',alignItems:'center'}}  >
+      //         <TouchableOpacity 
+      //        // onPress={() => navigation.goBack()}
+      //         onPress={() => navigation.navigate('Nutrition', burgers)}
+      //         >
+      //       <IconAntDesign name="right" size={20} 
+      //      // color={COLORS.DEFAULT_GREEN} 
+      //       />
+      //     </TouchableOpacity>
+      //       </View>
+      //     </View>
+      //   </View>
+      // </TouchableOpacity>
+      <TouchableOpacity 
+      style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 12,
+          backgroundColor: COLORS.gray2,
+         // ...containerStyle
+      }}
+      onPress={() => navigation.navigate('Nutrition' , burgers )}
+  >
+      {/* Image */}
+      <Image 
+          // source={{uri:categoryItem.image}}
+          source={{uri: burgers.image}}
+         // resizeMode="contain"
+          style={{
+              width: 100,
+              height: 100,
+              borderRadius: 12,
+          }}
+      />
+
+      {/* Details */}
+      <View
+         style={{
+             width: '65%',
+             paddingHorizontal: 20,
+         }}
+      >
+          {/* Name */}
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.black
+             }}
+          >
+              {burgers.name}
+          </Text>
           <View style={{flexDirection:'row',alignItems: 'center',}}>
-        <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {burgers.calories}</Text>
+        <Text style={{fontSize: 16,}}>Total Calories : {burgers.calories}</Text>
         <Image
           source={require('../../assets/FoodImages/caloriesicon.png')}
           style={{height:25,width:25}}
           />
         </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between', 
-            }}>
-            <Text style={{
-               fontSize: 18, 
-               fontWeight: 'bold',
-               paddingLeft:8, 
-               color:COLORS.DEFAULT_YELLOW 
-              }}>
-              Rs {burgers.price}
-            </Text>
+          <Text
+             style={{
+                 flex: 1,
+                 ...FONTS.h2,
+                 color: COLORS.DEFAULT_GREEN
+             }}
+          >
+             Rs : {burgers.price}
+          </Text>
 
-            <View style={{justifyContent:'center',alignItems:'center'}}  >
-              <TouchableOpacity 
-             // onPress={() => navigation.goBack()}
-              onPress={() => navigation.navigate('Nutrition', burgers)}
-              >
-            <IconAntDesign name="right" size={20} 
-           // color={COLORS.DEFAULT_GREEN} 
-            />
-          </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+      </View>
+  </TouchableOpacity>
     );
   };
 

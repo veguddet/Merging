@@ -71,7 +71,9 @@ const checkout = ({navigation}: any) => {
        Orders:cartList,
        Address:address,
        PhoneNo:phone,
-       GrandTotal:total,
+       GrandTotal: Math.round(total + (total * 5) / 100),
+       Date:new Date().toLocaleString(),
+       Gst: Math.round((total * 5) / 100),
      });
      navigation.navigate('Order')
  }

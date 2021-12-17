@@ -21,10 +21,27 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import firestore from '@react-native-firebase/firestore';
 import auth, { firebase } from '@react-native-firebase/auth';
 import { COLORS } from '../../constants';
+import Share from 'react-native-share';
 
 const Profile = ({ navigation }: any) => {
   
   const [user,setUser] = useState({}); 
+
+  const myCustomShare = async() => {
+
+    const shareOptions = {
+      message: 'Order your next meal from EatHealthy App. I\'ve already ordered more than 10 meals on it.',
+      // url: files.appLogo,
+      // urls: [files.image1, files.image2]
+    }
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch(error) {
+      console.log('Error => ', error);
+    }
+  };
 
 //   let id =auth().currentUser.uid 
 //   firestore().collection("users").get().then((snapshot) => {
@@ -35,7 +52,8 @@ const Profile = ({ navigation }: any) => {
 
 // }
 useEffect(() => {
-  let id = auth().currentUser.uid;
+  let user =  auth().currentUser;
+  let id = user?.uid;
   const subscriber = firestore()
     .collection('users')
     .doc(id)
@@ -137,7 +155,7 @@ return (
        </View> */}
       <View style={styles.boarder}></View>
       <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => { }}>
+        <TouchableRipple>
           <View style={styles.menuItem}>
             <Icon name='heart-outline'  color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.menuItemText}>Your Favorites</Text>
@@ -146,16 +164,16 @@ return (
         <TouchableRipple onPress={() => navigation.navigate('CompletedOrderScreen')}>
           <View style={styles.menuItem}>
             <Icon name='bookmark-outline' color={COLORS.DEFAULT_GREEN} size={25} />
-            <Text style={styles.menuItemText}>My Orders</Text>
+            <Text style={styles.menuItemText}>Your Orders</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() => { }}>
+        <TouchableRipple onPress={myCustomShare}>
           <View style={styles.menuItem}>
             <Icon name='share-outline'  color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.menuItemText}>Tell Your Friends</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple  onPress={() => navigation.navigate('Nutrition')}>
+        <TouchableRipple  onPress={() => navigation.navigate('Contact')}>
           <View style={styles.menuItem}>
             <Icon name='account-check-outline' color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.menuItemText}>Support</Text>
@@ -167,7 +185,7 @@ return (
             <Text style={styles.menuItemText}>Settings</Text>
           </View>
         </TouchableRipple>
-        <TouchableRipple onPress={() =>sighnout()}>
+        <TouchableOpacity onPress={() =>sighnout()}>
           <View style={styles.menuItem}>
             <Icon name='lock-outline' 
            // color="#FF6347" 
@@ -175,7 +193,7 @@ return (
             size={25} />
             <Text style={styles.menuItemText}>Logout</Text>
           </View>
-        </TouchableRipple>
+        </TouchableOpacity>
       </View>
       <View style={styles.spacing}></View>
     </ScrollView>

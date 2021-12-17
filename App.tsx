@@ -25,6 +25,10 @@ import store from './src/redux/store';
 import CompletedOrderScreen from './src/screens/completedorders/completedOrders';
 import Onboarding from './src/screens/onboardingscreen/Onboarding';
 import Nutrition from './src/screens/nutritionscreen/Nutrition';
+import Lottie from './src/screens/lottie/Lottie';
+import ContactUs from './src/screens/contactSupport/ContactUs';
+import OrderHistory from './src/screens/completedorders/OrderHistory';
+import Rating from './src/screens/rating/Rating';
 
 
 const App = () => {
@@ -59,6 +63,10 @@ const App = () => {
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} />
         <Stack.Screen name="Nutrition" component={Nutrition} />
+        <Stack.Screen name="Lottie" component={Lottie} />
+        <Stack.Screen name="Contact" component={ContactUs} />
+        <Stack.Screen name="OrderHistory" component={OrderHistory} />
+        <Stack.Screen name="Rating" component={Rating} />
 
       </Stack.Navigator>
     </NavigationContainer>

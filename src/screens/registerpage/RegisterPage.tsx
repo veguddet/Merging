@@ -17,6 +17,7 @@ import firestore from '@react-native-firebase/firestore';
 import {styles} from './style';
 import { COLORS } from '../../constants';
 import { FONTS } from './../../constants/theme';
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { Separator } from '../../components';
 
 interface RegisterProps { navigation:any}
@@ -52,7 +53,7 @@ export default class RegisterPage extends React.Component<
   async submit() {
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(this.state.email) === true) {
-      await Alert.alert("valid");
+     // await Alert.alert("valid");
       await auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(res => {
@@ -81,7 +82,7 @@ export default class RegisterPage extends React.Component<
             city:'',
           });
 
-          this.props.navigation.navigate('Login');
+          this.props.navigation.navigate('Welcome');
         });
     }
     else {
@@ -97,14 +98,22 @@ export default class RegisterPage extends React.Component<
       backgroundColor={COLORS.white }
       translucent={false} />
         <ScrollView style={styles.scrollView}>
-          <Separator height={20}/>
+          {/* <Separator height={20}/> */}
+          <View style={styles.headerContainer}>
+                <Ionicons 
+                name="chevron-back-outline" 
+                size={30} 
+                color={COLORS.DEFAULT_BLACK}
+                onPress={() => this.props.navigation.goBack()} />
+                <Text style={styles.headerTitle}>Sign In</Text>
+            </View>
           <View>
             <Text
               style={{
                 fontSize: 28,
                 top: 20,
-                color: COLORS.DEFAULT_GREEN,
-                textAlign: 'center',
+                color: COLORS.DEFAULT_BLACK,
+               // textAlign: 'center',
                 fontFamily: FONTS.POPPINS_BOLD,
               }}>
               Create Account

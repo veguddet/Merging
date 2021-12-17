@@ -7,6 +7,20 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
     },
+    headerContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+  },
+  headerTitle: {
+      fontSize: 22,
+      fontFamily: FONTS.POPPINS_MEDIUM,
+      color: COLORS.DEFAULT_BLACK,
+      lineHeight: 20 * 1.4,
+      width: Display.setWidth(80),
+      textAlign: 'center',
+  },
     textContainer: {
       marginTop: '2%',
       marginBottom: '2%',
@@ -24,6 +38,7 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 60,
+      marginBottom: 20,
   },
   signinButtonText: {
       fontSize: 18,

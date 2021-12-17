@@ -69,17 +69,18 @@ const WelcomeScreen = ({ navigation }: any) => {
             }}
             >
                <StatusBar
-      barStyle="light-content"
-      backgroundColor={COLORS.black}
-      translucent={false}
-      />
+                barStyle="light-content"
+                backgroundColor={COLORS.black}
+                translucent={false}
+               />
                 <ImageBackground
                    source={images.loginBackground}
                    style={{
                        flex: 1,
-                       justifyContent: 'flex-end'
+                       justifyContent: 'flex-end',
                    }}
                    resizeMode="cover"
+                   
                 >
                     <LinearGradient
                        start={{ x: 0, y: 0 }}
@@ -94,17 +95,16 @@ const WelcomeScreen = ({ navigation }: any) => {
                            paddingHorizontal: SIZES.padding
                        }}
                     >
-                        <Text
+                         <Text
                            style={{
-                               width: "80%",
+                               width: "90%",
                                color: COLORS.white,
                                ...FONTS.largeTitle,
                                lineHeight: 45
                            }}
                         >
                             Eat Healthy and Delicious Food Easily
-                        </Text>
-
+                        </Text> 
                     </LinearGradient>
                 </ImageBackground>
 
@@ -187,28 +187,3 @@ const WelcomeScreen = ({ navigation }: any) => {
 }
 
 export default WelcomeScreen;
-
-{/* Back Button */}
-{/* <TouchableOpacity
-style={{
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 35,
-    width: 35,
-    borderRadius: 18,
- //   borderWidth: 1,
-    borderColor: COLORS.lightGray, 
-    backgroundColor: COLORS.transparentBlack5
-}}
-onPress={() => navigation.goBack()}
->
-    <Image
-    source={icons.back}
-    style={{
-        width: 15,
-        height: 15,
-        tintColor: COLORS.lightGray
-    }}
-    />
-
-</TouchableOpacity> */}

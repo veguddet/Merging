@@ -18,4 +18,9 @@ export const styles = StyleSheet.create({
       margin: 10,
       fontFamily: FONTS.POPPINS_LIGHT,
     },
+    // lottie: {
+    //   marginTop: 20,
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    // },
   });

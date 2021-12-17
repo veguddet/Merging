@@ -4,14 +4,15 @@ import { connect, useSelector } from 'react-redux';
 import { COLORS } from '../../constants';
 import { emptyCart } from '../../redux/cartAction';
 import {styles} from './style';
+import LottieView from "lottie-react-native";
 
 const Order = ({navigation,empty}: any) => {
   const { cartList } = useSelector(state => state.cartReducer);
   useEffect(() => {
     setTimeout(() => {
-      navigation.push('Home1');
+      navigation.navigate('Rating');
       empty()
-    }, 2000);
+    },2000);
   }, []);
   return (
     <View style={styles.container}>
@@ -19,14 +20,13 @@ const Order = ({navigation,empty}: any) => {
       barStyle="light-content"
       backgroundColor={COLORS.DEFAULT_GREEN}
       translucent={false}
-    />
-      <Image
-       source={require('../../assets/food-delivery1.png')}
-        style={{height:100, width:100}}
-        />      
-      <Text style={styles.text}>Congratulations..!</Text>
-      <Text style={styles.text1}>Your Order is Placed</Text>
-    </View>
+    />    
+    <LottieView
+     source={require('../../assets/lottie/order_submit.json')}
+    autoPlay
+    loop
+  />
+   </View>
   );
 };
 const mapDispatchToProps = (dispatch: any) => {

@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     headerTitle: {
-        fontSize: 20,
+        fontSize: 22,
         fontFamily: FONTS.POPPINS_MEDIUM,
         color: COLORS.DEFAULT_BLACK,
         lineHeight: 20 * 1.4,

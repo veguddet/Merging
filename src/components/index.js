@@ -4,6 +4,7 @@ import Separator from './Separator';
 import ToggleButton from './ToggleButton';
 import WelcomeCard from './WelcomeCard';
 import CustomButton from './CustomButton';
+import Slider from './Slider';
 
 export {
     CategoryCard,
@@ -12,4 +13,5 @@ export {
     ToggleButton,
     WelcomeCard,
     CustomButton,
+    Slider,
 };
