@@ -1,15 +1,14 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, Platform, StyleSheet } from 'react-native';
-import { COLORS, FONTS, SIZES, } from '../../src/constants';
+import { COLORS, FONTS, SIZES, } from '../constants';
 
-const TrendingCard = ({ containerStyle, recipeItem, onPress }) => {
+const TrendingCard = ({ containerStyle, recipeItem, onPress }: any) => {
     return (
         <TouchableOpacity 
             style={{
               //  height: 350,
                // width: 250,
                 marginTop: SIZES.radius,
-              //  marginRight: 10,
                 borderRadius: SIZES.radius,
                 ...containerStyle
             }}

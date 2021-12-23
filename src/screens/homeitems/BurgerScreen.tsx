@@ -1,25 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  SafeAreaView,
-  Text,
-  StyleSheet,
+  Dimensions,
   FlatList,
   Image,
-  Dimensions,
-  TextInput,
+  SafeAreaView,
+  StatusBar, Text,
   TouchableOpacity,
-  Alert,
-  StatusBar,
+  View
 } from 'react-native';
+import { Header } from '../../components';
+import { COLORS } from '../../constants';
+import { styles } from './style';
 
-//import COLORS from '../Home/colors';
-import { COLORS, FONTS } from '../../constants';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import BurgerData from '../../Data/BurgerData';
-import firestore from '@react-native-firebase/firestore';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { TabRouter } from '@react-navigation/native';
 const width = Dimensions.get('window').width / 1 - 30;
 
 const BurgerScreen = ({navigation}: any) => {
@@ -40,182 +33,50 @@ const BurgerScreen = ({navigation}: any) => {
           return {doc_id, ...data};
         });
         setBurgerData(snap);
-        //console.log(payments)
       });
   }, []);
 
   const Card = ({burgers}: any) => {
     return (
-      // <TouchableOpacity
-      //   activeOpacity={0.8}
-      //   onPress={() => navigation.navigate('Nutrition', burgers)}>
-      //   <View style={style.card}>
-      //     <View
-      //       style={{
-      //         flex: 1,
-      //         alignItems: 'center',
-      //       }}>
-      //       <Image
-      //         // source={{uri: item.img}}
-      //         source={{uri: burgers.image}}
-      //         style={{
-      //           width: 325,
-      //           height: 180, 
-      //           borderRadius: 10
-      //         }}
-      //       />
-      //     </View>
-      //     <Text style={{
-      //       fontSize: 18, 
-      //       color:COLORS.DEFAULT_BLACK,
-      //       fontFamily: FONTS.POPPINS_MEDIUM,
-      //       paddingLeft: 5,
-      //       paddingTop: 7,
-      //       }}>{burgers.name}
-      //       </Text>
-      //     <View style={{flexDirection:'row',alignItems: 'center',}}>
-      //   <Text style={{fontSize: 16, paddingLeft: 5,}}>Total Calories : {burgers.calories}</Text>
-      //   <Image
-      //     source={require('../../assets/FoodImages/caloriesicon.png')}
-      //     style={{height:25,width:25}}
-      //     />
-      //   </View>
-      //     <View
-      //       style={{
-      //         flexDirection: 'row',
-      //         justifyContent: 'space-between', 
-      //       }}>
-      //       <Text style={{
-      //          fontSize: 18, 
-      //          fontWeight: 'bold',
-      //          paddingLeft:8, 
-      //          color:COLORS.DEFAULT_YELLOW 
-      //         }}>
-      //         Rs {burgers.price}
-      //       </Text>
+      <TouchableOpacity
+        style={styles.mainView}
+        onPress={() => navigation.navigate('Nutrition', burgers)}>
+        {/* Image */}
+        <Image source={{uri: burgers.image}} style={styles.image} />
 
-      //       <View style={{justifyContent:'center',alignItems:'center'}}  >
-      //         <TouchableOpacity 
-      //        // onPress={() => navigation.goBack()}
-      //         onPress={() => navigation.navigate('Nutrition', burgers)}
-      //         >
-      //       <IconAntDesign name="right" size={20} 
-      //      // color={COLORS.DEFAULT_GREEN} 
-      //       />
-      //     </TouchableOpacity>
-      //       </View>
-      //     </View>
-      //   </View>
-      // </TouchableOpacity>
-      <TouchableOpacity 
-      style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          padding: 10,
-          marginTop: 10,
-          borderRadius: 12,
-          backgroundColor: COLORS.gray2,
-         // ...containerStyle
-      }}
-      onPress={() => navigation.navigate('Nutrition' , burgers )}
-  >
-      {/* Image */}
-      <Image 
-          // source={{uri:categoryItem.image}}
-          source={{uri: burgers.image}}
-         // resizeMode="contain"
-          style={{
-              width: 100,
-              height: 100,
-              borderRadius: 12,
-          }}
-      />
-
-      {/* Details */}
-      <View
-         style={{
-             width: '65%',
-             paddingHorizontal: 20,
-         }}
-      >
+        {/* Details */}
+        <View style={styles.detailsContainer}>
           {/* Name */}
-          <Text
-             style={{
-                 flex: 1,
-                 ...FONTS.h2,
-                 color: COLORS.black
-             }}
-          >
-              {burgers.name}
-          </Text>
-          <View style={{flexDirection:'row',alignItems: 'center',}}>
-        <Text style={{fontSize: 16,}}>Total Calories : {burgers.calories}</Text>
-        <Image
-          source={require('../../assets/FoodImages/caloriesicon.png')}
-          style={{height:25,width:25}}
-          />
+          <Text style={styles.name}>{burgers.name}</Text>
+          <View style={styles.caloriesView}>
+            <Text style={{fontSize: 16}}>
+              Total Calories : {burgers.calories}
+            </Text>
+            <Image
+              source={require('../../assets/FoodImages/caloriesicon.png')}
+              style={styles.calorieIcon}
+            />
+          </View>
+          <Text style={styles.price}>Rs : {burgers.price}</Text>
         </View>
-          <Text
-             style={{
-                 flex: 1,
-                 ...FONTS.h2,
-                 color: COLORS.DEFAULT_GREEN
-             }}
-          >
-             Rs : {burgers.price}
-          </Text>
-
-      </View>
-  </TouchableOpacity>
+      </TouchableOpacity>
     );
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        backgroundColor: COLORS.DEFAULT_WHITE,
-      }}>
+    <SafeAreaView style={styles.container}>
       <StatusBar
-      barStyle="light-content" 
-      backgroundColor={COLORS.DEFAULT_GREEN}
-      translucent={false} 
+        barStyle="light-content"
+        backgroundColor={COLORS.DEFAULT_GREEN}
+        translucent={false}
       />
-      <View style={style.header}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {/* <TouchableOpacity onPress={() => navigation.goBack()}>
-            <IconAntDesign name="arrowleft" size={30} color={'black'}/>
-          </TouchableOpacity> */}
-          <Ionicons 
-                name="chevron-back-outline" 
-                size={30} 
-                style={{paddingBottom: 5}}
-               // color={COLORS.DEFAULT_GREEN}
-                onPress={() => navigation.goBack()} />
-
-          <Text
-            style={{
-              fontSize: 24,
-             // color: COLORS.DEFAULT_BLACK,
-              color: COLORS.DEFAULT_GREEN,
-              fontWeight: 'bold',
-              paddingLeft: 30,
-              paddingBottom: 10,
-            }}>
-            Burgers
-          </Text>
-        </View>
-      </View>
-
+      <Header headerTitle={'Burger'} onpress={() => navigation.goBack()} />
       <FlatList
-       // columnWrapperStyle={{justifyContent: 'space-between'}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          marginTop: 20,
+          paddingHorizontal: 20,
           paddingBottom: 30,
         }}
-       // numColumns={2}
         data={burgerData}
         renderItem={({item}) => {
           return <Card burgers={item} />;
@@ -225,34 +86,4 @@ const BurgerScreen = ({navigation}: any) => {
   );
 };
 
-const style = StyleSheet.create({
-  categoryContainer: {
-    flexDirection: 'row',
-    marginTop: 30,
-    marginBottom: 20,
-    justifyContent: 'space-between',
-  },
-  categoryText: {fontSize: 16, color: 'grey', fontWeight: 'bold'},
-  categoryTextSelected: {
-    color: COLORS.DEFAULT_GREEN,
-    paddingBottom: 5,
-    borderBottomWidth: 2,
-    borderColor: COLORS.DEFAULT_GREEN,
-  },
-  card: {
-    flex: 1,
-    backgroundColor: COLORS.LIGHT_GREY,
-   // width,
-   // marginHorizontal: 2,
-    borderRadius: 10,
-    marginBottom: 10,
-    padding: 15,
-  },
-  header: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-   // backgroundColor: COLORS.DEFAULT_GREEN,
-  },
-});
 export default BurgerScreen;

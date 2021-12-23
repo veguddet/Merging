@@ -1,24 +1,21 @@
-import React, {useCallback, useEffect, useLayoutEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  TextInput,
-  StatusBar,
-  ScrollView,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
-import {COLORS, FONTS, SIZES, images, dummyData} from '../../constants';
-import {CategoryCard, Slider, TrendingCard} from '../../components';
-import Icon from 'react-native-vector-icons/Ionicons';
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth, {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useFocusEffect} from '@react-navigation/core';
+import React, {useCallback} from 'react';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
+import {CategoryCard, Slider, TrendingCard} from '../../components';
+import {COLORS, dummyData, images, SIZES} from '../../constants';
+import {styles} from './style';
 
 const Home1 = ({navigation}: any) => {
   const [userName, setUserName] = React.useState('');
@@ -35,7 +32,6 @@ const Home1 = ({navigation}: any) => {
         .doc(id)
         .get()
         .then(snapshot => {
-          //  console.log(snapshot.data().firstname);
           setUserName(snapshot.data().firstname);
           setUserImage(snapshot.data().image);
           setAddress(snapshot.data().city);
@@ -62,165 +58,41 @@ const Home1 = ({navigation}: any) => {
 
   function renderHeader() {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          marginHorizontal: SIZES.padding,
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingBottom: 10,
-        }}>
+      <View style={styles.header}>
         {/* Text */}
         <View
           style={{
             flex: 1,
           }}>
-            <View style={{width:'80%' ,flexDirection: 'row'}}>
-          <Icon1
-            name="map-marker-radius"
-            // color={COLORS.DEFAULT_GREEN}
-            color="#FF6347"
-            size={20}
-          />
-          <Text
-            style={{
-              color: COLORS.DEFAULT_BLACK,
-              ...FONTS.h4,
-              fontWeight: '500',
-              paddingLeft: 5,
-            }}>
-            {address},
-          </Text>
-        </View>
-          <Text
-            style={{
-              color: COLORS.darkGreen,
-              fontSize: 17,
-            //  fontWeight: 'bold',
-            }}>
-            Hello {userName},
-          </Text>
+          <View style={{width: '80%', flexDirection: 'row'}}>
+            <Icon1
+              name="map-marker-radius"
+              color="#FF6347"
+              size={20}
+            />
+            <Text style={styles.address}>{address},</Text>
+          </View>
+          <Text style={styles.username}>Hello {userName},</Text>
 
-          <Text
-            style={{
-              marginTop: 3,
-              color: COLORS.gray,
-              ...FONTS.body3,
-            }}>
-            What you want to Eat today?
-          </Text>
+          <Text style={styles.query}>What you want to Eat today?</Text>
         </View>
 
         {/* Image */}
-        <View
-        // style={{paddingTop: 10}}
-        >
-        <TouchableOpacity 
-        onPress={() => navigation.jumpTo('ProfileTab')}>
-          <Image
-            source={
-              userImage
-                ? {uri: 'data:image/jpeg;base64,' + userImage}
-                : require('../../assets/user2.png')
-            }
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-            }}
-          />
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => navigation.jumpTo('ProfileTab')}>
+            <Image
+              source={
+                userImage
+                  ? {uri: 'data:image/jpeg;base64,' + userImage}
+                  : require('../../assets/user2.png')
+              }
+              style={styles.img}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
-
-  // const banners = [
-  //   'https://cdn.discoversg.com/wp-content/2017/11/Whatsnew-SzeChuan-banner-1440x600.jpg',
-  //   'https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-biryani-festival-at-ameya-suites-2020-2-25-t-17-1-31.jpg',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn7DhLwSA6guHewONhKqIkA5FmMG4Swy-V7g&usqp=CAU',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcIDLkzMV6rNcKj7gmDWEoM8RPVeK27iKwdw&usqp=CAU',
-  //   'https://www.dominos.co.in/theme2/front/assets/banner2.png',
-  //   'https://blog.dineout-cdn.co.in/blog/wp-content/uploads/2018/07/blog-banner-1-1030x538.jpg',
-  // ];
-  // const WIDTH = Dimensions.get('window').width;
-  // const HEIGHT = Dimensions.get('window').height;
-
-  // function renderBanner() {
-  //   const [imgActive, setimgActive] = useState(0);
-
-  //   const onchange = nativeEvent => {
-  //     if (nativeEvent) {
-  //       const slide = Math.ceil(
-  //         nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
-  //       );
-  //       if (slide != imgActive) {
-  //         setimgActive(slide);
-  //       }
-  //     }
-  //   };
-  //   return (
-  //     <View style={styles.container}>
-  //       <View
-  //         style={{
-  //           justifyContent: 'center',
-  //           alignItems: 'center',
-  //           width: WIDTH,
-  //           height: HEIGHT * 0.25,
-  //         }}>
-  //         <ScrollView
-  //           onScroll={({nativeEvent}) => onchange(nativeEvent)}
-  //           showsHorizontalScrollIndicator={false}
-  //           pagingEnabled
-  //           horizontal
-  //           style={{width: WIDTH, height: HEIGHT * 0.25}}>
-  //           {banners.map((e, index) => (
-  //             <Image
-  //               key={e}
-  //               resizeMode="stretch"
-  //               style={{width: WIDTH, height: HEIGHT * 0.25}}
-  //               source={{uri: e}}
-  //             />
-  //           ))}
-  //         </ScrollView>
-  //         <View style={styles.wrapDot}>
-  //           {banners.map((e, index) => (
-  //             <Text
-  //               key={e}
-  //               style={imgActive == index ? styles.dotActive : styles.dot}>
-  //               ●
-  //             </Text>
-  //           ))}
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // }
-
-  // const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //     // justifyContent:'center',
-  //     // alignItems: 'center',
-  //   },
-  //   wrapDot: {
-  //     position: 'absolute',
-  //     bottom: 0,
-  //     flexDirection: 'row',
-  //     alignself: 'center',
-  //     justifyContent: 'center',
-  //     alignItems: 'center',
-  //     // marginLeft: 120,
-  //   },
-  //   dotActive: {
-  //     margin: 5,
-  //     color: 'black',
-  //   },
-  //   dot: {
-  //     margin: 5,
-  //     color: 'white',
-  //   },
-  // });
 
   function renderScrollHeader() {
     return (
@@ -232,110 +104,42 @@ const Home1 = ({navigation}: any) => {
           marginLeft: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('BurgerScreen')}>
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              // backgroundColor: '#f9dd7a',
-              backgroundColor: COLORS.LIGHT_GREEN,
-              marginHorizontal: 10,
-              borderRadius: 25,
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-            }}>
+          <View style={styles.container}>
             <Image
               source={require('../../assets/FoodImages/burger.jpg')}
-              style={{height: 40, width: 40}}
+              style={styles.img1}
             />
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-                paddingLeft: 10,
-              }}>
-              Burgers
-            </Text>
+            <Text style={styles.text1}>Burgers</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('PizzaScreen')}>
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              //  backgroundColor: '#e5e4eb',
-              backgroundColor: COLORS.LIGHT_GREY2,
-              marginHorizontal: 10,
-              borderRadius: 25,
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-            }}>
+          <View style={styles.container1}>
             <Image
               source={require('../../assets/FoodImages/Pizza.png')}
-              style={{height: 40, width: 40}}
+              style={styles.img1}
             />
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-                paddingLeft: 10,
-              }}>
-              Pizza
-            </Text>
+            <Text style={styles.text1}>Pizza</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('BiryaniScreen')}>
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              //  backgroundColor: '#e5e4eb',
-              backgroundColor: COLORS.LIGHT_GREY2,
-              marginHorizontal: 10,
-              borderRadius: 25,
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-            }}>
+          <View style={styles.container1}>
             <Image
               source={require('../../assets/FoodImages/Biryani.jpg')}
-              style={{height: 40, width: 40}}
+              style={styles.img1}
             />
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-                paddingLeft: 10,
-              }}>
-              Biryani
-            </Text>
+            <Text style={styles.text1}>Biryani</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('FrankieScreen')}>
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              // backgroundColor: '#e5e4eb',
-              backgroundColor: COLORS.LIGHT_GREY2,
-              marginHorizontal: 10,
-              borderRadius: 25,
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-            }}>
+          <View style={styles.container1}>
             <Image
               source={require('../../assets/FoodImages/frankie.jpg')}
-              style={{height: 40, width: 40}}
+              style={styles.img1}
             />
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-                paddingLeft: 10,
-              }}>
-              Frankie
-            </Text>
+            <Text style={styles.text1}>Frankie</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -344,41 +148,15 @@ const Home1 = ({navigation}: any) => {
 
   function renderSeeRecipeCard() {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: SIZES.radius,
-          marginHorizontal: SIZES.padding / 2,
-          borderRadius: 10,
-          backgroundColor: COLORS.lightGreen,
-        }}>
+      <View style={styles.recipe}>
         {/* Image */}
-        <View
-          style={{
-            width: '40%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Image
-            source={images.recipe}
-            style={{
-              width: 70,
-              height: 70,
-            }}
-          />
+        <View style={styles.container4}>
+          <Image source={images.recipe} style={styles.img2} />
         </View>
 
         {/* Text */}
-        <View
-          style={{
-            flex: 1,
-            paddingVertical: SIZES.radius / 2,
-          }}>
-          <Text
-            style={{
-              width: '70%',
-              ...FONTS.body4,
-            }}>
+        <View style={styles.container5}>
+          <Text style={styles.text5}>
             You have {cartList.length} items in your cart that you haven't tried
             yet
           </Text>
@@ -388,14 +166,7 @@ const Home1 = ({navigation}: any) => {
               marginTop: 5,
             }}
             onPress={() => navigation.jumpTo('Carttab')}>
-            <Text
-              style={{
-                color: COLORS.darkGreen,
-                textDecorationLine: 'underline',
-                ...FONTS.h4,
-              }}>
-              See Items
-            </Text>
+            <Text style={styles.text6}>See Items</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -404,25 +175,11 @@ const Home1 = ({navigation}: any) => {
 
   function renderTrendingSection() {
     return (
-      <View
-        style={
-          {
-            //  marginTop: SIZES.padding,
-          }
-        }>
-        <Text
-          style={{
-            marginHorizontal: SIZES.padding,
-            color: COLORS.black,
-            ...FONTS.h2,
-            fontWeight: 'bold',
-          }}>
-          Categories
-        </Text>
+      <View>
+        <Text style={styles.text7}>Categories</Text>
 
         <FlatList
           data={dummyData.trendingRecipes}
-          // horizontal
           numColumns={2}
           paddingBottom={20}
           showsHorizontalScrollIndicator={false}
@@ -444,21 +201,15 @@ const Home1 = ({navigation}: any) => {
   }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.white,
-        paddingTop: 10,
-      }}>
+    <View style={styles.statusbar}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.DEFAULT_WHITE}
         translucent={false}
-      //  hidden
       />
       <FlatList
         // marginTop={20}
-        //  data={dummyData.categories}
+        // data={dummyData.categories}
         keyExtractor={item => `${item.id}`}
         keyboardDismissMode="on-drag"
         showsVerticalScrollIndicator={false}
@@ -470,12 +221,9 @@ const Home1 = ({navigation}: any) => {
             {/* Scroll Header */}
             {renderScrollHeader()}
 
-            {/* Banner */}
-            {/* {renderBanner()} */}
-
             {/* Swiper */}
-            {<Slider/>}
-            
+            {<Slider />}
+
             {/* See Recipe Card */}
             {cartList.length ? renderSeeRecipeCard() : <Text></Text>}
 

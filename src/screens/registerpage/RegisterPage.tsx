@@ -1,26 +1,23 @@
-import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  ScrollView,
-  Alert,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import {
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import {Header} from '../../components';
+import {COLORS} from '../../constants';
 import {styles} from './style';
-import { COLORS } from '../../constants';
-import { FONTS } from './../../constants/theme';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { Separator } from '../../components';
 
-interface RegisterProps { navigation:any}
+interface RegisterProps {
+  navigation: any;
+}
 interface RegisterState {
   firstname: any;
   lastname: any;
@@ -29,7 +26,6 @@ interface RegisterState {
   password: any;
   address: any;
   city: any;
- 
 }
 
 export default class RegisterPage extends React.Component<
@@ -45,16 +41,15 @@ export default class RegisterPage extends React.Component<
       email: '',
       password: '',
       address: '',
-      city:'',
+      city: '',
     };
     this.submit = this.submit.bind(this);
   }
 
   async submit() {
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (reg.test(this.state.email) === true) {
-     // await Alert.alert("valid");
-      await auth()
+    if (reg.test(this.state.email) === true && this.state.mobile.length == 10) {
+      auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(res => {
           let id = res.user.uid;
@@ -72,6 +67,7 @@ export default class RegisterPage extends React.Component<
               city: this.state.city,
             })
             .catch(err => console.log(err));
+          this.props.navigation.navigate('Login');
           this.setState({
             firstname: '',
             lastname: '',
@@ -79,46 +75,35 @@ export default class RegisterPage extends React.Component<
             email: '',
             password: '',
             address: '',
-            city:'',
+            city: '',
           });
-
-          this.props.navigation.navigate('Welcome');
         });
-    }
-    else {
-      Alert.alert("invalid");
+    } else {
+      Alert.alert(
+        'Please check entered feild below are the instructions',
+        "`Email format :abc@gmail.com \n Phone no : 10 digits'",
+        [
+          {
+            text: 'Ok',
+          },
+        ],
+      );
     }
   }
-  
+
   render() {
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor:COLORS.white}}>
-      <StatusBar
-      barStyle="dark-content" 
-      backgroundColor={COLORS.white }
-      translucent={false} />
+      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={COLORS.DEFAULT_GREEN}
+          translucent={false}
+        />
+        <Header
+          headerTitle={'Sign Up'}
+          onpress={() => this.props.navigation.goBack()}
+        />
         <ScrollView style={styles.scrollView}>
-          {/* <Separator height={20}/> */}
-          <View style={styles.headerContainer}>
-                <Ionicons 
-                name="chevron-back-outline" 
-                size={30} 
-                color={COLORS.DEFAULT_BLACK}
-                onPress={() => this.props.navigation.goBack()} />
-                <Text style={styles.headerTitle}>Sign In</Text>
-            </View>
-          <View>
-            <Text
-              style={{
-                fontSize: 28,
-                top: 20,
-                color: COLORS.DEFAULT_BLACK,
-               // textAlign: 'center',
-                fontFamily: FONTS.POPPINS_BOLD,
-              }}>
-              Create Account
-            </Text>
-          </View>
           <View style={styles.textContainer}>
             <TextInput
               placeholder={'FirstName'}
@@ -134,7 +119,6 @@ export default class RegisterPage extends React.Component<
             <TextInput
               placeholder={'LastName'}
               activeOutlineColor={COLORS.DEFAULT_GREEN}
-            //  outlineColor='black'
               mode="outlined"
               label={'Lastname'}
               onChangeText={lastname => {
@@ -200,10 +184,11 @@ export default class RegisterPage extends React.Component<
             />
           </View>
           <View>
-          <TouchableOpacity 
-            style={styles.signinButton}
-            onPress={() => {this.submit();}}
-            >
+            <TouchableOpacity
+              style={styles.signinButton}
+              onPress={() => {
+                this.submit();
+              }}>
               <Text style={styles.signinButtonText}>Sign Up</Text>
             </TouchableOpacity>
           </View>

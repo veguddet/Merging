@@ -13,30 +13,8 @@ export default class Slider extends Component {
             style={styles.wrapper}
             autoplay={true}
             autoplayDirection={true}
-            dot={
-              <View
-                style={{
-                  backgroundColor: 'rgba(255,255,255,.3)',
-                  width: 13,
-                  height: 13,
-                  borderRadius: 7,
-                  marginLeft: 7,
-                  marginRight: 7,
-                }}
-              />
-            }
-            activeDot={
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  width: 10,
-                  height: 10,
-                  borderRadius: 7,
-                  marginLeft: 7,
-                  marginRight: 7,
-                }}
-              />
-            }
+            dot={<View style={styles.dot} />}
+            activeDot={<View style={styles.dotActive} />}
             paginationStyle={{
               bottom: 40,
             }}
@@ -69,23 +47,34 @@ export default class Slider extends Component {
 }
 
 export const styles = StyleSheet.create({
-  wrapper: {
-    // backgroundColor: '#f00'
-  },
+  wrapper: {},
   slide: {
     flex: 1,
-  //  backgroundColor: 'white',
     height: '100%',
     width: '100%',
   },
   container: {
     flex: 1,
   },
-  imgBackground: {
-    //backgroundColor: 'white',
-  },
+  imgBackground: {},
   image: {
     height: '100%',
     width: '100%',
+  },
+  dot: {
+    backgroundColor: 'rgba(255,255,255,.3)',
+    width: 13,
+    height: 13,
+    borderRadius: 7,
+    marginLeft: 7,
+    marginRight: 7,
+  },
+  dotActive: {
+    backgroundColor: '#fff',
+    width: 10,
+    height: 10,
+    borderRadius: 7,
+    marginLeft: 7,
+    marginRight: 7,
   },
 });

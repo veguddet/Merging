@@ -1,8 +1,7 @@
-
-import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
-import { COLORS } from '../../constants';
+import {COLORS} from '../../constants';
 var {width} = Dimensions.get('window');
+
 export const styles = StyleSheet.create({
   topview: {
     flex: 1,
@@ -31,13 +30,13 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderColor: COLORS.DEFAULT_GREY,
-    paddingLeft:10,
-    borderRadius:10,
+    paddingLeft: 10,
+    borderRadius: 10,
   },
   imagelink: {
     width: 150,
     height: 150,
-    borderRadius:5
+    borderRadius: 5,
   },
   text199view: {
     flexDirection: 'column',
@@ -69,11 +68,13 @@ export const styles = StyleSheet.create({
     height: 40,
   },
   borderBtnText: {
-    fontWeight: 'bold', 
-    fontSize: 28
+    fontWeight: 'bold',
+    fontSize: 28,
   },
   buyBtn: {
-    backgroundColor: 'green',
+    width: 170,
+    height: 50,
+    backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
@@ -97,20 +98,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     fontWeight: 'bold',
   },
-  buyBtn: {
-    width: 170,
-    height: 50,
-    backgroundColor: COLORS.DEFAULT_GREEN,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30,
-   // marginBottom: 20,
-  },
-  amountview: {
-   // fontSize: 20,
-   // fontWeight: 'bold',
-   // paddingLeft: 10,
-  },
+  amountview: {},
   amount: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -128,5 +116,40 @@ export const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: 'white',
+  },
+  cardView: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    padding: 10,
+    paddingTop: 18,
+    justifyContent: 'flex-end',
+    paddingLeft: 20,
+  },
+  itemName: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  counterView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+    justifyContent: 'space-evenly',
+  },
+  counterText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 10,
+  },
+  totalView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: '3%',
+    marginTop: '3%',
+    alignItems: 'center',
+  },
+  emptyCartImage: {
+    width: 400,
+    height: 400,
+    marginBottom: '37%',
   },
 });

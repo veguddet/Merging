@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
 import {styles} from './style';
 import {COLORS} from './../../constants/theme';
@@ -8,9 +8,6 @@ const SplashScreen = ({navigation}: any) => {
   const [logged, setLogged] = useState(false);
 
   useEffect(() => {
-    // setTimeout(() => {
-    // }, 3000);
-
     handleLogin();
   }, [logged]);
 
@@ -23,7 +20,6 @@ const SplashScreen = ({navigation}: any) => {
           console.log('elseaaa', user);
 
           navigation.navigate('Onboard');
-        //  navigation.navigate('Welcome');
 
           setLogged(true);
         }
@@ -47,4 +43,5 @@ const SplashScreen = ({navigation}: any) => {
     </View>
   );
 };
+
 export default SplashScreen;

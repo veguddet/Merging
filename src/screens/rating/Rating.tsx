@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
-  View,
-  Platform,
   Text,
-  Image,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {Display} from '../../utils';
 import {COLORS} from '../../constants';
+import {Display} from '../../utils';
 
 const Rating = ({navigation}: any) => {
-  const [defaultRating, setDefaultRating] = useState(2);
+  const [defaultRating, setDefaultRating] = useState(0);
 
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
 
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 20,
     color: '#000',
     marginTop: 60,
   },

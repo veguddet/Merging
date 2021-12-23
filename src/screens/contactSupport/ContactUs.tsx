@@ -1,10 +1,13 @@
-
 import React from 'react';
 import {
   Image, Linking,
-  Platform, StyleSheet, Text, View
+  Platform,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Header } from '../../components';
 import { COLORS } from '../../constants';
 
 export default function ContactUs({navigation}: any) {
@@ -25,14 +28,16 @@ export default function ContactUs({navigation}: any) {
 
   return (
     <View style={{backgroundColor: '#fff', flex: 1}}>
-          
+      <Header headerTitle={'Contact Us'} onpress={() => navigation.goBack()} />
       <View style={styles.view1}>
-      <Image
-          resizeMode='cover'
-          style={{width: 200, height: 200}}
-          source={{uri:'https://cdn3.iconfinder.com/data/icons/logistics/256/Customer_Support-512.png'}}
+        <Image
+          resizeMode="cover"
+          style={{width: 200, height: 175}}
+          source={{
+            uri: 'https://cdn3.iconfinder.com/data/icons/logistics/256/Customer_Support-512.png',
+          }}
         />
-    
+
         <Text style={styles.text}>Connect With Us</Text>
       </View>
 
@@ -62,7 +67,6 @@ const styles = StyleSheet.create({
   },
   view1: {
     alignItems: 'center',
-    height: '33%',
     justifyContent: 'space-evenly',
   },
   box2: {
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 0.26,
     elevation: 8,
-    backgroundColor:COLORS.LIGHT_GREY,
+    backgroundColor: COLORS.LIGHT_GREY,
     padding: 20,
     borderRadius: 10,
     marginTop: 30,
@@ -95,16 +99,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     fontSize: 20,
-    color:COLORS.gray,
+    color: COLORS.gray,
     padding: 10,
   },
   view5: {
-    backgroundColor:COLORS.DEFAULT_GREEN,
+    backgroundColor: COLORS.DEFAULT_GREEN,
     alignItems: 'center',
     width: '80%',
     justifyContent: 'center',
     borderRadius: 10,
-   // color: COLORS.DEFAULT_GREEN,
   },
   box7: {
     paddingHorizontal: 180,

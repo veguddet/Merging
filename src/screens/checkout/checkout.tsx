@@ -1,28 +1,24 @@
-import {isTSEnumMember} from '@babel/types';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import {useFocusEffect} from '@react-navigation/core';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
+  Alert,
   FlatList,
-  TextInput,
   Modal,
-  Button,
   Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {useSelector} from 'react-redux';
-import {style} from '../homeitems/details/DetailScreen';
-import firestore from '@react-native-firebase/firestore';
-import auth, {firebase} from '@react-native-firebase/auth';
-import {useFocusEffect} from '@react-navigation/core';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import {ScrollView} from 'react-native-gesture-handler';
-import { COLORS } from '../../constants';
-import { Display } from '../../utils';
-
-//import { styles } from './styles';
+import {useSelector} from 'react-redux';
+import {Header} from '../../components';
+import {COLORS} from '../../constants';
+import {Display} from '../../utils';
 
 const checkout = ({navigation}: any) => {
   const {cartList} = useSelector(state => state.cartReducer);
@@ -31,24 +27,6 @@ const checkout = ({navigation}: any) => {
   const [address, setAddress] = useState('');
   const [onEdit, setEdit] = useState(false);
 
-  // const handledetails=() => {
-  //   let id = auth().currentUser.uid;
-  //   const subscriber = firestore()
-  //     .collection('users')
-  // venky
-  //     .doc(id)
-  //     .get()
-  //     .then(snapshot => {
-  //       // let snap = snapshot.docs.map(doc => {
-  //       //   const data = doc.data();
-  //       //   const doc_id = doc.id;
-  //       //   return {doc_id, ...data};
-  //       console.log('from', snapshot.data());
-  //      // setUser(snapshot.data());
-  //       setAddress(snapshot.data().address);
-  //       setPhone(snapshot.data().mobile);
-
-  //     })};
   useFocusEffect(
     useCallback(() => {
       let id = auth().currentUser.uid;
@@ -59,24 +37,34 @@ const checkout = ({navigation}: any) => {
         .then(snapshot => {
           setAddress(snapshot.data().address);
           setPhone(snapshot.data().mobile);
-          //console.log(snap)
-          // setBiryaniData(snap);
         });
     }, []),
   );
 
-  const handleAddData=async()=> {
+  const handleModel = () => {
+    if (phone.length == 10) {
+      setEdit(!onEdit);
+    } else {
+      Alert.alert('10 digits');
+    }
+  };
+
+  const handleAddData = async () => {
     let id = auth().currentUser.uid;
-   await  firestore().collection('users').doc(id).collection('userOrders').add({
-       Orders:cartList,
-       Address:address,
-       PhoneNo:phone,
-       GrandTotal: Math.round(total + (total * 5) / 100),
-       Date:new Date().toLocaleString(),
-       Gst: Math.round((total * 5) / 100),
-     });
-     navigation.navigate('Order')
- }
+    await firestore()
+      .collection('users')
+      .doc(id)
+      .collection('userOrders')
+      .add({
+        Orders: cartList,
+        Address: address,
+        PhoneNo: phone,
+        GrandTotal: Math.round(total + (total * 5) / 100),
+        Date: new Date().toLocaleString(),
+        Gst: Math.round((total * 5) / 100),
+      });
+    navigation.navigate('Order');
+  };
 
   const totalAmountCalculte = () => {
     let Total = 0;
@@ -92,27 +80,19 @@ const checkout = ({navigation}: any) => {
   };
   useEffect(() => {
     totalAmountCalculte();
-    // handledetails()
   }, []);
 
   const Card = ({Item}: any) => {
     console.log(Item.Name);
     return (
       <View style={{flex: 1}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '80%',
-            paddingLeft: '10%',
-          }}>
+        <View style={styles.itemView}>
           <View style={{alignItems: 'center'}}>
-            <Text style={styles.Itemdata}>{Item.Name}</Text>
+            <Text style={styles.Itemdata}>{Item.Name} </Text>
           </View>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Text>
-              {Item.Price} X {Item.count}={Item.count * Item.Price}
+            <Text style={styles.Itemdata}>
+              {Item.Price} X {Item.count} = {Item.count * Item.Price} Rs
             </Text>
           </View>
         </View>
@@ -121,126 +101,123 @@ const checkout = ({navigation}: any) => {
   };
 
   return (
-    <View style={{flex:1}}>
-    <ScrollView style={styles.topview}>
-      <View style={{alignItems: 'center'}}>
-        <Text style={styles.addeditems}>CHECKOUT</Text>
-      </View>
-
-      <View style={styles.height10} />
-
-      <View style={{marginTop: '5%'}}>
-        <FlatList
-          data={cartList}
-          renderItem={({item}) => {
-            return <Card Item={item} />;
-          }}
-        />
-      </View>
-      <View
-        style={{alignItems: 'center', marginTop: '10%', marginRight: '10%'}}>
-        <Text style={styles.amount}>Total: {total}</Text>
-        <Text style={styles.amount}>
-          Gst(5%): {Math.round((total * 5) / 100)}
-        </Text>
-      </View>
-      <View style={{alignItems: 'center', paddingRight: '5%', marginTop: '5%'}}>
-        <Text style={styles.grandTotal}>
-          Grand Total: {Math.round(total + (total * 5) / 100)}
-        </Text>
-      </View>
-      <View style={styles.detailsContainer}>
-        <View style={{width:'90%'}}>
-          <Text style={styles.details}>Address:{address}</Text>
-          <Text style={styles.details}>Phone No:{phone}</Text>
+    <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={COLORS.DEFAULT_GREEN}
+        translucent={false}
+      />
+      <Header
+        headerTitle={'Checkout'}
+        onpress={() => navigation.jumpTo('Carttab')}
+      />
+      <View style={styles.topview}>
+        <View style={{marginTop: '5%'}}>
+          <FlatList
+            data={cartList}
+            renderItem={({item}) => {
+              return <Card Item={item} />;
+            }}
+          />
         </View>
-        <View>
-          <TouchableOpacity onPress={() => setEdit(!onEdit)}>
-            <IconAntDesign name="edit" size={30} color="#900" />
-          </TouchableOpacity>
+        <View style={styles.priceView}>
+          <Text style={styles.amount}>Total : {total}</Text>
+          <Text style={styles.amount}>
+            Gst(5%) : {Math.round((total * 5) / 100)}
+          </Text>
         </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={onEdit}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setEdit(!onEdit);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '80%',
-              }}>
-              <Text style={{paddingRight: 10}}>Edit Address</Text>
-              <TextInput
-                placeholder={address}
-                placeholderTextColor="#666666"
-                autoCorrect={false}
-                style={styles.textInput}
-                value={address}
-                onChangeText={text => setAddress(text)}
-                multiline={true}
-                numberOfLines={3}
-                maxLength={40}
+        <View style={styles.priceView}>
+          <Text style={styles.grandTotal}>
+            Grand Total : {Math.round(total + (total * 5) / 100)} Rs
+          </Text>
+        </View>
+        <View style={styles.detailsContainer}>
+          <View style={{width: '90%'}}>
+            <Text style={styles.details}>Address : {address}</Text>
+            <Text style={styles.details}>Phone No : {phone}</Text>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => setEdit(!onEdit)}>
+              <IconAntDesign
+                name="edit"
+                size={30}
+                color={COLORS.DEFAULT_GREEN}
               />
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{paddingRight: 10}}>Edit Phone</Text>
-              <TextInput
-                placeholder={phone}
-                placeholderTextColor="#666666"
-                autoCorrect={false}
-                style={styles.textInput}
-                value={phone}
-                onChangeText={text => setPhone(text)}
-              />
-            </View>
-            <View style={{marginTop: '4%'}}>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setEdit(!onEdit)}>
-                <Text style={styles.textStyle}>Save</Text>
-              </Pressable>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    
-    </ScrollView>
-  
-        <TouchableOpacity
-          style={styles.buyBtn}
-         //</View> onPress={() => navigation.navigate('Order')}>
-         onPress={() => handleAddData()}>
-          <Text style={styles.order}>Place Order</Text>
-        </TouchableOpacity>
-     
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={onEdit}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setEdit(!onEdit);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={styles.modelContainer}>
+                <Text style={{paddingRight: 10, fontSize: 16}}>
+                  Edit Address :{' '}
+                </Text>
+                <TextInput
+                  placeholder={address}
+                  placeholderTextColor="#666666"
+                  autoCorrect={false}
+                  style={styles.textInput}
+                  value={address}
+                  onChangeText={text => setAddress(text)}
+                  multiline={true}
+                  numberOfLines={2}
+                />
+              </View>
+              <View style={styles.modelContainer}>
+                <Text style={{paddingRight: 20, fontSize: 16}}>
+                  Edit Phone :{' '}
+                </Text>
+                <TextInput
+                  placeholder={phone}
+                  placeholderTextColor="#666666"
+                  autoCorrect={false}
+                  style={styles.textInput}
+                  value={phone}
+                  onChangeText={text => setPhone(text)}
+                  maxLength={10}
+                />
+              </View>
+              <View style={{marginTop: '5%'}}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={handleModel}>
+                  <Text style={styles.textStyle}>Save</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+
+      <TouchableOpacity style={styles.buyBtn} onPress={() => handleAddData()}>
+        <Text style={styles.order}>Place Order</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.DEFAULT_WHITE,
+  },
   topview: {
     flex: 1,
-    marginTop: 30,
+    marginTop: 20,
+    backgroundColor: COLORS.DEFAULT_WHITE,
   },
-
   details: {
     fontSize: 18,
-    color: COLORS.gray,
-   // fontWeight: '800',
+    color: COLORS.DEFAULT_BLACK,
   },
   detailsContainer: {
     padding: 20,
@@ -248,20 +225,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  priceView: {
+    alignItems: 'center',
+    marginTop: '10%',
+  },
   grandTotal: {
     fontSize: 30,
-    fontWeight: '500',
+    color: COLORS.DEFAULT_GREEN,
   },
   Itemdata: {
     fontSize: 20,
-
-    fontWeight: '300',
+    fontWeight: '400',
   },
   textInput: {
     borderBottomWidth: 1,
     borderColor: 'grey',
   },
-
   topCardView: {
     flex: 1,
     alignItems: 'center',
@@ -271,7 +250,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: COLORS.DEFAULT_GREEN,
     fontWeight: 'bold',
-    marginTop: 30,
   },
   height20: {
     height: 20,
@@ -287,6 +265,11 @@ const styles = StyleSheet.create({
   imagelink: {
     width: 120,
     height: 120,
+  },
+  modelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '70%',
   },
   text199view: {
     flexDirection: 'column',
@@ -343,8 +326,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   amount: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
     paddingTop: 10,
   },
   touch: {
@@ -364,14 +346,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 20,
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
+    padding: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -380,7 +360,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: '90%',
+    width: '95%',
   },
   button: {
     borderRadius: 20,
@@ -391,7 +371,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: COLORS.DEFAULT_GREEN,
   },
   textStyle: {
     color: 'white',
@@ -402,5 +382,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  itemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '90%',
+    paddingLeft: '10%',
+  },
 });
+
 export default checkout;

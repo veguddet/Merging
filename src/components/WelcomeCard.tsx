@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import { Display } from "../utils";
 import { FONTS, COLORS, images } from "../constants";
 
-const WelcomeCard = ({title, content, image}) => {
+const WelcomeCard = ({title, content, image}:any) => {
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={images[image]} resizeMode="contain" />

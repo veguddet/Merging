@@ -8,7 +8,7 @@ import {
 
  import { COLORS, FONTS, SIZES } from '../../src/constants';
 
-const CategoryCard = ({containerStyle, categoryItem, onPress}) => {
+const CategoryCard = ({containerStyle, categoryItem, onPress}: any) => {
     return (
         <TouchableOpacity 
             style={{
@@ -24,9 +24,7 @@ const CategoryCard = ({containerStyle, categoryItem, onPress}) => {
         >
             {/* Image */}
             <Image 
-                // source={{uri:categoryItem.image}}
                 source={{uri: categoryItem.image}}
-               // resizeMode="contain"
                 style={{
                     width: 100,
                     height: 100,

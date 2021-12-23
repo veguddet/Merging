@@ -1,27 +1,25 @@
 import React, {useEffect} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  useWindowDimensions,
-  StatusBar,
   Alert,
+  Image,
   ImageBackground,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {Checkbox, Title} from 'react-native-paper';
-import { COLORS,FONTS } from '../../constants';
+import {Checkbox} from 'react-native-paper';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
+import {COLORS} from '../../constants';
 import {AddData} from '../../redux/cartAction';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {style} from './style';
 
 const Nutrition = ({navigation, route, addItem}: any) => {
   const [checked, setChecked] = React.useState(false);
+  const [valCount, setValCount] = React.useState(1);
   const [checCheese, setCheckCheese] = React.useState(false);
   const [counter, setCount] = React.useState(0);
   const [proteins, setProteins] = React.useState(0);
@@ -57,6 +55,22 @@ const Nutrition = ({navigation, route, addItem}: any) => {
     }
   }, []);
 
+  const increment = () => {
+    if (valCount < 1) {
+      return valCount;
+    } else {
+      setValCount(valCount => valCount + 1);
+    }
+  };
+
+  const decrement = () => {
+    if (valCount < 1 || valCount === 1) {
+      return valCount;
+    } else {
+      setValCount(valCount => valCount - 1);
+    }
+  };
+
   const handleAddData = () => {
     addItem({
       Proteins: proteins,
@@ -67,10 +81,9 @@ const Nutrition = ({navigation, route, addItem}: any) => {
       Price: amount,
       Image: Route.image,
       id: Math.floor(Math.random() * 9999999),
-      count: 1,
+      count: valCount,
     });
-     navigation.jumpTo('Carttab')
-   // navigation.popToTop();
+    navigation.jumpTo('Carttab');
   };
   console.log(counter);
   const Route = route.params;
@@ -98,66 +111,31 @@ const Nutrition = ({navigation, route, addItem}: any) => {
           </ImageBackground>
         </View>
 
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingRight: 8,
-          }}>
+        <View style={style.fireImageView}>
           <Image
-            source={require('../../assets/FoodImages/caloriesicon.png')}
-            style={{height: 50, width: 50}}
+            source={{
+              uri: 'https://i.pinimg.com/originals/01/d6/5c/01d65ce7c564223a72839a33349406ec.jpg',
+            }}
+            style={style.fireImage}
           />
-          <Text style={style.text}>Total Calories : {counter}</Text>
+          <Text style={style.text}>Total Calories : {counter * valCount}</Text>
         </View>
       </View>
       <View style={{backgroundColor: 'white'}}>
-        <View
-          style={{
-            marginLeft: 20,
-            marginTop: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 24,
-              // fontWeight: 'bold',
-              color: COLORS.DEFAULT_BLACK,
-            }}>
-            {Route.name}
-          </Text>
+        <View style={style.itemNameView}>
+          <Text style={style.name}>{Route.name}</Text>
           <View style={style.priceTag}>
-            <Text
-              style={{
-                marginLeft: 15,
-                color: COLORS.DEFAULT_WHITE,
-                fontWeight: 'bold',
-                fontSize: 18,
-              }}>
-              Rs {amount}
-            </Text>
+            <Text style={style.priceTagText}>{amount * valCount} Rs</Text>
           </View>
         </View>
 
         <View>
-          <Text
-            style={{
-              marginLeft: 20,
-              marginTop: 10,
-              fontSize: 20,
-              // fontWeight: 'bold',
-              // color: COLORS.DEFAULT_BLACK,
-            }}>
-            Nutritional Info
-          </Text>
+          <Text style={style.nutritionText}>Nutritional Info</Text>
 
           <View style={style.mainView}>
-            <View style={{width: '25%', paddingLeft: 10}}>
-              <View style={{flexDirection: 'row', paddingTop: 10}}>
-                <View style={{}}>
+            <View style={style.innermainView}>
+              <View style={style.pfcView}>
+                <View>
                   <Image
                     style={style.icon1}
                     source={{
@@ -169,7 +147,7 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                 <Text style={style.pfcText}> Carbs</Text>
               </View>
 
-              <View style={{flexDirection: 'row', paddingTop: 10}}>
+              <View style={style.pfcView}>
                 <Image
                   style={style.icon1}
                   source={{
@@ -179,7 +157,7 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                 <Text style={style.pfcText}> Protiens</Text>
               </View>
 
-              <View style={{flexDirection: 'row', paddingTop: 10}}>
+              <View style={style.pfcView}>
                 <Image
                   style={style.icon1}
                   source={{
@@ -190,36 +168,42 @@ const Nutrition = ({navigation, route, addItem}: any) => {
               </View>
             </View>
 
-            <View style={{width: '80%', paddingLeft: 15}}>
-              <View style={{ paddingTop: 7}}>
+            <View style={style.pfcTopView}>
+              <View style={{paddingTop: 7}}>
                 <Text style={style.nutritionsText}>
-                  {Route.carbs}g {isPatty ? '+ 10' : ''}{' '}
-                  {isveggies ? '+ 10' : ''} {checCheese ? '+ 10' : ''}{' '}
+                  {Route.carbs * valCount}g{' '}
+                  {isPatty ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {isveggies ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {checCheese ? <Text>+ {10 * valCount}</Text> : ''}{' '}
                   {checCheese || isveggies || isPatty ? (
-                    <Text>: {carbs}g</Text>
+                    <Text>: {carbs * valCount}g</Text>
                   ) : (
                     ''
                   )}
                 </Text>
               </View>
-              <View  style={{ paddingTop: 15}}>
+              <View style={{paddingTop: 15}}>
                 <Text style={style.nutritionsText}>
-                  {Route.proteins}g {isPatty ? '+ 10' : ''}{' '}
-                  {isveggies ? '+ 10' : ''} {checCheese ? '+ 10' : ''}{' '}
+                  {Route.proteins * valCount}g{' '}
+                  {isPatty ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {isveggies ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {checCheese ? <Text>+ {10 * valCount}</Text> : ''}{' '}
                   {checCheese || isveggies || isPatty ? (
-                    <Text>: {proteins}g</Text>
+                    <Text>: {proteins * valCount}g</Text>
                   ) : (
                     ''
                   )}
                 </Text>
               </View>
 
-              <View  style={{ paddingTop: 15}}>
+              <View style={{paddingTop: 15}}>
                 <Text style={style.nutritionsText}>
-                  {Route.fats}g {isPatty ? '+ 10' : ''}{' '}
-                  {isveggies ? '+ 10' : ''} {checCheese ? '+ 10' : ''}{' '}
+                  {Route.fats * valCount}g{' '}
+                  {isPatty ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {isveggies ? <Text>+ {10 * valCount}</Text> : ''}{' '}
+                  {checCheese ? <Text>+ {10 * valCount}</Text> : ''}{' '}
                   {checCheese || isveggies || isPatty ? (
-                    <Text>: {fats}g</Text>
+                    <Text>: {fats * valCount}g</Text>
                   ) : (
                     ''
                   )}
@@ -229,20 +213,9 @@ const Nutrition = ({navigation, route, addItem}: any) => {
           </View>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            //  flexDirection: 'row',
-            // alignItems: 'flex-end',
-            justifyContent: 'space-around',
-            // paddingTop:10
-          }}>
+        <View style={style.checkBoxTopView}>
           <View style={style.checkboxView}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-              }}>
+            <View style={style.innercheckBoxView}>
               <Image
                 source={require('../../assets/FoodImages/cheese1.png')}
                 style={style.Icon}
@@ -250,12 +223,12 @@ const Nutrition = ({navigation, route, addItem}: any) => {
               <Text style={style.checkboxText}>
                 {fromBiryani ? 'Extra Paneer' : 'Extra Cheese'}
               </Text>
-              <Text style={style.checkboxPrice}>+ 10</Text>
+              <Text style={style.checkboxPrice}>(+50 Rs)</Text>
               <TouchableOpacity
                 onPress={() =>
                   Alert.alert(
                     'per 25 grams',
-                    'Carbs : 20  Protines : 30  Fat : 26',
+                    'Carbs : 10  Protines : 10  Fat : 10',
                     [
                       {
                         text: 'Ok',
@@ -263,10 +236,10 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                     ],
                   )
                 }
-                style={style.checkboxPrice}
-                // onPress={() => navigation.navigate('BurgerDetails', burgers)}
-              >
-                <IconFeather name="info" size={22} color={COLORS.darkLime} />
+                style={style.checkboxPrice}>
+                <View style={{marginLeft: 10}}>
+                  <IconFeather name="info" size={22} color={COLORS.darkLime} />
+                </View>
               </TouchableOpacity>
             </View>
             <View
@@ -298,22 +271,18 @@ const Nutrition = ({navigation, route, addItem}: any) => {
           </View>
 
           <View style={style.checkboxView}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-              }}>
+            <View style={style.innercheckBoxView}>
               <Image
                 source={require('../../assets/FoodImages/veggies.png')}
                 style={style.Icon}
               />
               <Text style={style.checkboxText}>Extra Veggies</Text>
-              <Text style={style.checkboxPrice}>+ 10</Text>
+              <Text style={style.checkboxPrice}>(+50 Rs)</Text>
               <TouchableOpacity
                 onPress={() =>
                   Alert.alert(
                     'per 25 grams',
-                    'Carbs : 20  Protines : 30  Fat : 26',
+                    'Carbs : 10  Protines : 10  Fat : 10',
                     [
                       {
                         text: 'Ok',
@@ -321,10 +290,10 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                     ],
                   )
                 }
-                style={style.checkboxPrice}
-                // onPress={() => navigation.navigate('BurgerDetails', burgers)}
-              >
-                <IconFeather name="info" size={22} color={COLORS.darkLime} />
+                style={style.checkboxPrice}>
+                <View style={{marginLeft: 7}}>
+                  <IconFeather name="info" size={22} color={COLORS.darkLime} />
+                </View>
               </TouchableOpacity>
             </View>
             <View style={{marginRight: 10}}>
@@ -339,7 +308,7 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                       ? setProteins(proteins - 10)
                       : setProteins(proteins + 10);
                     isveggies ? setFats(fats - 10) : setFats(fats + 10);
-                    isveggies ? setAmount(amount - 30) : setAmount(amount + 30);
+                    isveggies ? setAmount(amount - 50) : setAmount(amount + 50);
                   }
                 }}
               />
@@ -349,11 +318,7 @@ const Nutrition = ({navigation, route, addItem}: any) => {
             <View></View>
           ) : (
             <View style={style.checkboxView}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                }}>
+              <View style={style.innercheckBoxView}>
                 {fromPizza ? (
                   <Image
                     source={require('../../assets/FoodImages/extracrust.png')}
@@ -379,12 +344,12 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                   {fromPizza ? 'Extra Crust' : ''}
                   {fromFrankie ? 'Extra Egg' : ''}
                 </Text>
-                <Text style={style.checkboxPrice}>+ 10</Text>
+                <Text style={style.checkboxPrice}>(+50 Rs)</Text>
                 <TouchableOpacity
                   onPress={() =>
                     Alert.alert(
                       'per 25 grams',
-                      'Carbs : 20  Protines : 30  Fat : 26',
+                      'Carbs : 10  Protines : 10  Fat : 10',
                       [
                         {
                           text: 'Ok',
@@ -392,10 +357,14 @@ const Nutrition = ({navigation, route, addItem}: any) => {
                       ],
                     )
                   }
-                  style={style.checkboxPrice}
-                  // onPress={() => navigation.navigate('BurgerDetails', burgers)}
-                >
-                  <IconFeather name="info" size={22} color={COLORS.darkLime} />
+                  style={style.checkboxPrice}>
+                  <View style={{marginLeft: 24}}>
+                    <IconFeather
+                      name="info"
+                      size={22}
+                      color={COLORS.darkLime}
+                    />
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{marginRight: 10}}>
@@ -418,22 +387,22 @@ const Nutrition = ({navigation, route, addItem}: any) => {
             </View>
           )}
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 20,
-            justifyContent: 'space-evenly',
-          }}>
+        <View style={style.counterView}>
+          <View style={style.innerCounterView}>
+            <TouchableOpacity
+              style={style.borderBtn}
+              onPress={() => decrement()}>
+              <Text style={style.borderBtnText}>-</Text>
+            </TouchableOpacity>
+            <Text style={style.counterText}>{valCount}</Text>
+            <TouchableOpacity
+              style={style.borderBtn}
+              onPress={() => increment()}>
+              <Text style={style.borderBtnText}>+</Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity style={style.buyBtn} onPress={handleAddData}>
-            <Text
-              style={{
-                color: COLORS.DEFAULT_WHITE,
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>
-              Add To Cart
-            </Text>
+            <Text style={style.addToCartText}>Add To Cart</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -446,129 +415,3 @@ function mapDispatchToProps(dispatch: any) {
   };
 }
 export default connect(null, mapDispatchToProps)(Nutrition);
-
-export const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.DEFAULT_WHITE,
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.DEFAULT_GREEN,
-    margin: 10,
-  },
-  image: {
-    width: '100%',
-    height: 250,
-  },
-  mainView: {
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 8,
-    backgroundColor: 'white',
-    padding: 25,
-    paddingLeft: 10,
-    borderRadius: 10,
-    marginTop: 10,
-    marginLeft: 7,
-    marginRight: 10,
-    flexDirection: 'row',
-    // paddingLeft: 60,
-  },
-  header: {
-    paddingHorizontal: 20,
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'red',
-  },
-  imageContainer: {
-    flex: 0.45,
-    marginTop: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-  },
-  Icon: {
-    height: 30,
-    width: 40,
-    marginTop: 10,
-    marginLeft: 10,
-  },
-  detailsContainer: {
-    flex: 0.55,
-    // backgroundColor: COLORS.light,
-    marginHorizontal: 7,
-    marginBottom: 7,
-    borderRadius: 20,
-    marginTop: 30,
-    paddingTop: 30,
-  },
-  line: {
-    width: 25,
-    height: 2,
-    marginBottom: 5,
-    marginRight: 3,
-  },
-  borderBtn: {
-    borderColor: 'grey',
-    borderWidth: 1,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 60,
-    height: 40,
-  },
-  borderBtnText: {fontWeight: 'bold', fontSize: 28},
-  buyBtn: {
-    width: 130,
-    height: 50,
-    backgroundColor: COLORS.DEFAULT_GREEN,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30,
-    marginBottom: 20,
-  },
-  priceTag: {
-    backgroundColor: COLORS.DEFAULT_YELLOW,
-    width: 80,
-    height: 40,
-    justifyContent: 'center',
-    borderTopLeftRadius: 25,
-    borderBottomLeftRadius: 25,
-  },
-  nutritionsText: {
-    marginVertical: 5,
-    fontSize: 18,
-    marginLeft: 30,
-    //marginBottom: 10,
-    //paddingTop: 10,
-  },
-  checkboxView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingBottom: 10,
-  },
-  checkboxText: {
-    marginLeft: 10,
-    marginTop: 10,
-    fontSize: 18,
-  },
-  checkboxPrice: {
-    marginLeft: 10,
-    marginTop: 12,
-    fontSize: 15,
-  },
-  pfcText: {
-    fontSize: 18,
-    // marginLeft: 15,
-    color: COLORS.DEFAULT_GREEN,
-  },
-  icon1: {
-    width: 40,
-    height: 40,
-  },
-});
