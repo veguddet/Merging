@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import {useFocusEffect} from '@react-navigation/core';
 import React, {useCallback} from 'react';
 import {
+  BackHandler,
   FlatList,
   Image,
   ScrollView,
@@ -10,6 +11,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
@@ -36,8 +38,23 @@ const Home1 = ({navigation}: any) => {
           setUserImage(snapshot.data().image);
           setAddress(snapshot.data().city);
         });
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
     }, []),
   );
+
+  const backAction = () => {
+    Alert.alert('Hold on!', 'Are you sure you want to miss your favaourite food?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {text: 'YES', onPress: () => BackHandler.exitApp()},
+    ]);
+    return true;
+  };
 
   const handleNavigation = (item: any) => {
     switch (item.name) {
@@ -65,11 +82,7 @@ const Home1 = ({navigation}: any) => {
             flex: 1,
           }}>
           <View style={{width: '80%', flexDirection: 'row'}}>
-            <Icon1
-              name="map-marker-radius"
-              color="#FF6347"
-              size={20}
-            />
+            <Icon1 name="map-marker-radius" color="#FF6347" size={20} />
             <Text style={styles.address}>{address},</Text>
           </View>
           <Text style={styles.username}>Hello {userName},</Text>
