@@ -70,7 +70,7 @@ const BurgerScreen = ({navigation}: any) => {
         backgroundColor={COLORS.DEFAULT_GREEN}
         translucent={false}
       />
-      <Header headerTitle={'Burger'} onpress={() => navigation.goBack()} />
+      <Header headerTitle={'Burger'} showCart onpress={() => navigation.goBack()} />
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

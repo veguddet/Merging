@@ -29,7 +29,7 @@ export const style = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 250,
+    height: 270,
   },
   fireImageView: {
     flexDirection: 'row',
@@ -38,8 +38,8 @@ export const style = StyleSheet.create({
     paddingRight: 8,
   },
   mainView: {
-    elevation: 3,
-    backgroundColor: 'white',
+    elevation: 2,
+    backgroundColor: COLORS.transparent,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
@@ -48,7 +48,10 @@ export const style = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 7,
     marginRight: 10,
-    flexDirection: 'row',
+    flex: 1,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: COLORS.transparent,
   },
   name: {
     fontSize: 24,
@@ -106,12 +109,12 @@ export const style = StyleSheet.create({
     paddingTop: 10,
   },
   buyBtn: {
-    width: 130,
+    width: 150,
     height: 50,
     backgroundColor: COLORS.DEFAULT_GREEN,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
+    borderRadius: 10,
   },
   priceTag: {
     backgroundColor: COLORS.DEFAULT_YELLOW,
@@ -137,14 +140,16 @@ export const style = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     fontSize: 18,
+    color: COLORS.DEFAULT_BLACK,
   },
   checkboxPrice: {
     marginLeft: 10,
     marginTop: 12,
     fontSize: 15,
+    color: COLORS.DEFAULT_BLACK,
   },
   pfcText: {
-    fontSize: 18,
+    fontSize: 16,
     color: COLORS.DEFAULT_GREEN,
     paddingTop: 5,
   },
@@ -158,8 +163,7 @@ export const style = StyleSheet.create({
     fontSize: 20,
   },
   checkBoxTopView: {
-    flex: 1,
-
+   // paddingTop: 40,
     justifyContent: 'space-around',
   },
   innercheckBoxView: {
@@ -167,12 +171,18 @@ export const style = StyleSheet.create({
     flexDirection: 'row',
   },
   counterView: {
-    flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-end',
+    backgroundColor: COLORS.DEFAULT_WHITE,
   },
+  counterView2: {
+     flexDirection: 'row',
+     alignItems: 'center',
+     marginTop: 10,
+     justifyContent: 'space-evenly',
+     backgroundColor: COLORS.DEFAULT_WHITE,
+   },
   innerCounterView: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -196,4 +206,87 @@ export const style = StyleSheet.create({
     width: '25%',
     paddingLeft: 7,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  modalView: {
+    backgroundColor: COLORS.DEFAULT_WHITE,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: '100%',
+    height: '50%',
+  },
+    button: {
+      borderRadius: 10,
+      padding: 12,
+      elevation: 1,
+    },
+    buttonClose: {
+      backgroundColor: COLORS.DEFAULT_GREEN,
+    },
+    saveButton: {
+      margin: 20,
+    },
+    textStyle: {
+      color: COLORS.DEFAULT_WHITE,
+      textAlign: 'center',
+      fontSize: 18,
+    },
+    modalHeader: {
+      flexDirection:'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 20,
+    },
+    modalText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: COLORS.DEFAULT_BLACK,
+    },
+    modalIcon: {},
+    modelContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '80%',
+    },
+    center: {
+      alignItems: 'center',
+      justifyContent:'center',
+    },
+    nutritionHeading: {
+      fontSize: 20,
+      textAlign: 'center',
+      color: COLORS.DEFAULT_BLACK,
+    },
+    nutritionContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 10,
+      paddingTop: 10,
+    },
+    gramsText: {
+      fontSize: 22,
+      fontWeight: 'bold',
+      color: COLORS.black,
+    },
+    descContainer: {
+      padding: 10,
+      marginLeft: 10,
+    },
+    descText: {
+      fontSize: 16,
+     // fontFamily: FONTS.POPPINS_LIGHT,
+    },
 });

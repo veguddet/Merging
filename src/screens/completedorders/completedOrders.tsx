@@ -48,10 +48,10 @@ const CompletedOrderScreen = ({navigation}: any) => {
     }
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1,paddingBottom:10,}}>
         <View style={styles.details1}>
           <View>
-            <Text style={styles.itemText}>Order ID :{data.doc_id}</Text>
+            <Text style={styles.itemText}>Order ID : {data.doc_id}</Text>
           </View>
 
           <View>
@@ -73,13 +73,13 @@ const CompletedOrderScreen = ({navigation}: any) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white',}}>
       <View style={styles.topview}>
         <Header
           headerTitle={'Order History'}
           onpress={() => navigation.goBack()}
         />
-        <View style={{marginTop: '1%'}}>
+        <View style={{marginTop: '1%',paddingBottom:20,}}>
           <FlatList
             data={completedOrders}
             renderItem={({item}) => {
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowRadius: 6,
     shadowOpacity: 0.26,
-    elevation: 9,
+    elevation: 7,
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 15,
     marginRight: 15,
     flexDirection: 'column',
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   seemoreText: {
     color: COLORS.darkGreen,
     textDecorationLine: 'underline',
-    ...FONTS.h4,
+    ...FONTS.h3,
   },
 });
 

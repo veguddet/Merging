@@ -31,7 +31,7 @@ const LoginPage = ({navigation}: any) => {
         .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log('User signed in ');
-          navigation.navigate('Tabs');
+          navigation.navigate('Home1');
         })
         .catch(function (error) {
           console.log(error.code);

@@ -69,7 +69,7 @@ const Biryani = ({navigation}: any) => {
         backgroundColor={COLORS.DEFAULT_GREEN}
         translucent={false}
       />
-      <Header headerTitle={'Biryani'} onpress={() => navigation.goBack()} />
+      <Header headerTitle={'Biryani'} showCart onpress={() => navigation.goBack()} />
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

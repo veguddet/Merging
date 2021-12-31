@@ -1,7 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useFocusEffect} from '@react-navigation/core';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   BackHandler,
   FlatList,
@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useSelector} from 'react-redux';
@@ -26,6 +27,12 @@ const Home1 = ({navigation}: any) => {
   const [FilteredData, setFilter] = React.useState('');
   const {cartList} = useSelector(state => state.cartReducer);
   const [address, setAddress] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
+  useEffect(() => {
+    // setLoading(true)
+    handleLoader()
+    }, []);
+
   useFocusEffect(
     useCallback(() => {
       let id = auth().currentUser.uid;
@@ -43,6 +50,13 @@ const Home1 = ({navigation}: any) => {
         BackHandler.removeEventListener('hardwareBackPress', backAction);
     }, []),
   );
+
+  const handleLoader = () => {
+    setTimeout(() => {
+       setLoading(true)
+    }, 1000);
+    setLoading(false)
+  };
 
   const backAction = () => {
     Alert.alert('Hold on!', 'Are you sure you want to miss your favaourite food?', [
@@ -214,7 +228,8 @@ const Home1 = ({navigation}: any) => {
   }
 
   return (
-    <View style={styles.statusbar}>
+    loading?(
+      <View style={styles.statusbar}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.DEFAULT_WHITE}
@@ -256,6 +271,56 @@ const Home1 = ({navigation}: any) => {
         }}
       />
     </View>
+    ):(
+      <View style={{flex:1,justifyContent: 'center'}}>
+        <ActivityIndicator
+        size="large"
+        color={COLORS.DEFAULT_GREEN}
+         />
+      </View>
+    )
+    // <View style={styles.statusbar}>
+    //   <StatusBar
+    //     barStyle="dark-content"
+    //     backgroundColor={COLORS.DEFAULT_WHITE}
+    //     translucent={false}
+    //   />
+    //   <FlatList
+    //     // marginTop={20}
+    //     // data={dummyData.categories}
+    //     keyExtractor={item => `${item.id}`}
+    //     keyboardDismissMode="on-drag"
+    //     showsVerticalScrollIndicator={false}
+    //     ListHeaderComponent={
+    //       <View>
+    //         {/* Header */}
+    //         {renderHeader()}
+
+    //         {/* Scroll Header */}
+    //         {renderScrollHeader()}
+
+    //         {/* Swiper */}
+    //         {<Slider />}
+
+    //         {/* See Recipe Card */}
+    //         {cartList.length ? renderSeeRecipeCard() : <Text></Text>}
+
+    //         {/* Trending Section */}
+    //         {renderTrendingSection()}
+    //       </View>
+    //     }
+    //     renderItem={({item}) => {
+    //       return (
+    //         <CategoryCard
+    //           containerStyle={{
+    //             marginHorizontal: SIZES.padding,
+    //           }}
+    //           categoryItem={item}
+    //         />
+    //       );
+    //     }}
+    //   />
+    // </View>
   );
 };
 

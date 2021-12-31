@@ -23,7 +23,7 @@ const Profile = ({navigation}: any) => {
   const myCustomShare = async () => {
     const shareOptions = {
       message:
-        "Order your next meal from EatHealthy App. I've already ordered more than 10 meals on it.",
+        "Order your next meal from EatHealthy App. I've already ordered more than 5 meals on it.",
     };
 
     try {
@@ -38,6 +38,23 @@ const Profile = ({navigation}: any) => {
     GetUser();
   }, [user]);
 
+  // const GetUser = () => {
+  //   let user = auth().currentUser;
+  //   let id = user?.uid;
+  //   const subscriber = firestore()
+  //     .collection('users')
+  //     .doc(id)
+  //     .get()
+  //     .then(snapshot => {
+  //       console.log(snapshot.data());
+  //       let data=snapshot.data()
+  //       if (data){
+  //         setUser(data);
+  //       }
+  //      // setUser(snapshot.data())
+  //     });
+  // };
+
   const GetUser = () => {
     let user = auth().currentUser;
     let id = user?.uid;
@@ -47,15 +64,25 @@ const Profile = ({navigation}: any) => {
       .get()
       .then(snapshot => {
         console.log(snapshot.data());
-        setUser(snapshot.data());
+        let data = snapshot.data()
+        if (data) {
+          setUser(data);
+        }
       });
   };
 
   const sighnout = async () => {
+    (navigation.jumpTo('HomeStack'))
     auth()
       .signOut()
-      .then(() => console.log('User signed out!'));
   };
+
+  // const sighnout = async () => {
+  //   (navigation.jumpTo('HomeStack'))
+  //   auth()
+  //     .signOut()
+  //     .then(() => console.log('User signed out!'));
+  // };
 
   const onValueChange = snapshot => {
     console.log(snapshot);

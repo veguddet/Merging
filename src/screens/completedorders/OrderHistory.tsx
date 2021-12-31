@@ -85,7 +85,7 @@ const OrderHistory = ({navigation, route}: any) => {
           <View style={styles.row}>
             <Icon name="update" color={COLORS.DEFAULT_GREEN} size={25} />
             <Text style={styles.details}>
-              OrderDate: {Route.Date.split()[0]}
+              Date : {Route.Date}
             </Text>
           </View>
         </View>

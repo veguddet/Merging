@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
   },
   caloriesView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+   flexDirection: 'row',
+   alignItems: 'center',
   },
   calorieIcon: {
     height: 25,
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   },
   price: {
     ...FONTS.h3,
-    paddingBottom: 10,
+    paddingBottom: 20,
     color: COLORS.DEFAULT_GREEN,
   },
 });

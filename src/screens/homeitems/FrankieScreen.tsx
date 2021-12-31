@@ -65,7 +65,7 @@ const FrankieScreen = ({navigation}: any) => {
         backgroundColor={COLORS.DEFAULT_GREEN}
         translucent={false}
       />
-      <Header headerTitle={'Frankie'} onpress={() => navigation.goBack()} />
+      <Header headerTitle={'Frankie'} showCart onpress={() => navigation.goBack()} />
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

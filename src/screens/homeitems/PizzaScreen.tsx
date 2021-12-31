@@ -70,7 +70,7 @@ const PizzaScreen = ({navigation}: any) => {
         backgroundColor={COLORS.DEFAULT_GREEN}
         translucent={false}
       />
-      <Header headerTitle={'Pizza'} onpress={() => navigation.goBack()} />
+      <Header headerTitle={'Pizza'} showCart onpress={() => navigation.goBack()} />
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

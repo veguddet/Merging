@@ -17,8 +17,8 @@ const Order = ({navigation, empty}: any) => {
   return (
     <View style={styles.container}>
       <StatusBar
-        barStyle="light-content"
-        backgroundColor={COLORS.DEFAULT_GREEN}
+        barStyle="dark-content"
+        backgroundColor={COLORS.DEFAULT_WHITE}
         translucent={false}
       />
       <LottieView
