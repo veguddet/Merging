@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   textStyleSmall: {
     textAlign: 'center',
     fontSize: 16,
-    color: '#000',
+    // color: '#000',
     marginTop: 15,
   },
   buttonStyle: {

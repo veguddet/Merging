@@ -66,12 +66,11 @@ export default class RegisterPage extends React.Component<
               address: this.state.address,
               city: this.state.city,
             })
-            .then(()=>{
+            .then(() => {
               this.props.navigation.navigate('Login');
-            // this.handlenavigation()
-           })
+            })
             .catch(err => console.log(err));
-          // this.props.navigation.navigate('Login');
+
           this.setState({
             firstname: '',
             lastname: '',

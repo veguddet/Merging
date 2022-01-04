@@ -18,6 +18,7 @@ export default {
     banner,
     banner1,
     banner2,
+    NUTRITION: require('../../src/assets/svg/breakfast.png'),
     LOGO: require('../../src/assets/images/plate.png'),
     DISCOVER: require('../../src/assets/images/discover.png'),
     DELIVER: require('../../src/assets/images/deliver.png'),

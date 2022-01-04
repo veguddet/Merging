@@ -29,9 +29,8 @@ const Home1 = ({navigation}: any) => {
   const [address, setAddress] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
-    // setLoading(true)
-    handleLoader()
-    }, []);
+    handleLoader();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -53,20 +52,24 @@ const Home1 = ({navigation}: any) => {
 
   const handleLoader = () => {
     setTimeout(() => {
-       setLoading(true)
+      setLoading(true);
     }, 1000);
-    setLoading(false)
+    setLoading(false);
   };
 
   const backAction = () => {
-    Alert.alert('Hold on!', 'Are you sure you want to miss your favaourite food?', [
-      {
-        text: 'Cancel',
-        onPress: () => null,
-        style: 'cancel',
-      },
-      {text: 'YES', onPress: () => BackHandler.exitApp()},
-    ]);
+    Alert.alert(
+      'Hold on!',
+      'Are you sure you want to miss your favaourite food?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ],
+    );
     return true;
   };
 
@@ -100,7 +103,6 @@ const Home1 = ({navigation}: any) => {
             <Text style={styles.address}>{address},</Text>
           </View>
           <Text style={styles.username}>Hello {userName},</Text>
-
           <Text style={styles.query}>What you want to Eat today?</Text>
         </View>
 
@@ -227,9 +229,8 @@ const Home1 = ({navigation}: any) => {
     );
   }
 
-  return (
-    loading?(
-      <View style={styles.statusbar}>
+  return loading ? (
+    <View style={styles.statusbar}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor={COLORS.DEFAULT_WHITE}
@@ -271,56 +272,10 @@ const Home1 = ({navigation}: any) => {
         }}
       />
     </View>
-    ):(
-      <View style={{flex:1,justifyContent: 'center'}}>
-        <ActivityIndicator
-        size="large"
-        color={COLORS.DEFAULT_GREEN}
-         />
-      </View>
-    )
-    // <View style={styles.statusbar}>
-    //   <StatusBar
-    //     barStyle="dark-content"
-    //     backgroundColor={COLORS.DEFAULT_WHITE}
-    //     translucent={false}
-    //   />
-    //   <FlatList
-    //     // marginTop={20}
-    //     // data={dummyData.categories}
-    //     keyExtractor={item => `${item.id}`}
-    //     keyboardDismissMode="on-drag"
-    //     showsVerticalScrollIndicator={false}
-    //     ListHeaderComponent={
-    //       <View>
-    //         {/* Header */}
-    //         {renderHeader()}
-
-    //         {/* Scroll Header */}
-    //         {renderScrollHeader()}
-
-    //         {/* Swiper */}
-    //         {<Slider />}
-
-    //         {/* See Recipe Card */}
-    //         {cartList.length ? renderSeeRecipeCard() : <Text></Text>}
-
-    //         {/* Trending Section */}
-    //         {renderTrendingSection()}
-    //       </View>
-    //     }
-    //     renderItem={({item}) => {
-    //       return (
-    //         <CategoryCard
-    //           containerStyle={{
-    //             marginHorizontal: SIZES.padding,
-    //           }}
-    //           categoryItem={item}
-    //         />
-    //       );
-    //     }}
-    //   />
-    // </View>
+  ) : (
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <ActivityIndicator size="large" color={COLORS.DEFAULT_GREEN} />
+    </View>
   );
 };
 

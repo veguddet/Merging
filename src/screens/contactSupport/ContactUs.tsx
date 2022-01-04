@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  Image, Linking,
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { Button } from 'react-native-paper';
-import { Header } from '../../components';
-import { COLORS } from '../../constants';
+import {Image, Linking, Platform, StyleSheet, Text, View} from 'react-native';
+import {Button} from 'react-native-paper';
+import {Header} from '../../components';
+import {COLORS} from '../../constants';
 
 export default function ContactUs({navigation}: any) {
   function dialCall() {
@@ -31,25 +25,23 @@ export default function ContactUs({navigation}: any) {
       <Header headerTitle={'Contact Us'} onpress={() => navigation.goBack()} />
       <View style={styles.view1}>
         <Image
-          resizeMode="cover"
-          style={{width: 200, height: 175}}
+          resizeMode="contain"
+          style={{width: 250, height: 200}}
           source={{
             uri: 'https://cdn3.iconfinder.com/data/icons/logistics/256/Customer_Support-512.png',
           }}
         />
-
-        <Text style={styles.text}>Connect With Us</Text>
       </View>
 
       <View style={styles.view2}>
-        <Text style={styles.view3}>Help Desk: Email</Text>
+        <Text style={styles.view3}>Help Desk : Email</Text>
         <Text style={styles.view4}>eathealthysupport@eat.com</Text>
         <Button style={styles.view5} onPress={() => openEmail()}>
           <Text style={{color: 'white'}}>Click To Mail</Text>
         </Button>
       </View>
       <View style={styles.view2}>
-        <Text style={styles.view3}>Help Desk: Number</Text>
+        <Text style={styles.view3}>Help Desk : Number</Text>
         <Text style={styles.view4}>+91 8267367450</Text>
         <Button style={styles.view5} onPress={() => dialCall()}>
           <Text style={{color: 'white'}}>Click To Call</Text>
@@ -60,14 +52,10 @@ export default function ContactUs({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    padding: 5,
-    fontSize: 25,
-    color: 'green',
-  },
   view1: {
+    paddingTop: 20,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
   },
   box2: {
     paddingHorizontal: 40,
@@ -98,9 +86,8 @@ const styles = StyleSheet.create({
   view3: {
     alignItems: 'center',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
     color: COLORS.gray,
-    padding: 10,
   },
   view5: {
     backgroundColor: COLORS.DEFAULT_GREEN,
@@ -114,6 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 22,
+    fontSize: 16,
+    paddingTop: 10,
   },
 });

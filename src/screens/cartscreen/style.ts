@@ -154,7 +154,6 @@
 //   },
 // });
 
-
 import {Dimensions, StyleSheet} from 'react-native';
 import {COLORS, FONTS} from '../../constants';
 var {width} = Dimensions.get('window');
@@ -279,14 +278,13 @@ export const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     padding: 10,
     paddingTop: 18,
-   justifyContent: 'flex-end',
+    justifyContent: 'flex-end',
     paddingLeft: 5,
   },
   itemName: {
-    //fontWeight: 'bold',
     fontSize: FONTS.h2.fontSize,
-    marginBottom:5,
-    marginLeft:20,
+    marginBottom: 5,
+    marginLeft: 20,
     color: COLORS.DEFAULT_BLACK,
   },
   counterView: {
@@ -294,7 +292,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     justifyContent: 'center',
-    marginRight:50
+    marginRight: 50,
   },
   counterText: {
     fontSize: 20,
@@ -302,16 +300,16 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   infoBoxWrapper: {
-  flexDirection: 'row',
-    marginTop:10,
+    flexDirection: 'row',
+    marginTop: 10,
     height: 35,
-    },
-    infoBox: {
+  },
+  infoBox: {
     width: '22%',
     alignItems: 'center',
     justifyContent: 'center',
-    },
-    
+  },
+
   totalView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -320,16 +318,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyCartImage: {
-    // width: 360,
-    // height: 300,
     width: 400,
     height: 400,
     marginBottom: '37%',
   },
   boarder: {
-    borderWidth:0.2,
-    borderColor:COLORS.DEFAULT_GREY,
-    width:'100%',
+    borderWidth: 0.2,
+    borderColor: COLORS.DEFAULT_GREY,
+    width: '100%',
   },
   emptyCartText: {
     fontSize: 18,

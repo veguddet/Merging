@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
+import {View, Text, StatusBar, Image} from 'react-native';
 import {styles} from './style';
 import {COLORS} from './../../constants/theme';
 import auth, {firebase} from '@react-native-firebase/auth';
@@ -25,7 +25,7 @@ const SplashScreen = ({navigation}: any) => {
         }
       });
     }),
-      3000;
+      4000;
   };
   return (
     <View style={styles.container}>

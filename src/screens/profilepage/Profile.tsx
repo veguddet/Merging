@@ -38,23 +38,6 @@ const Profile = ({navigation}: any) => {
     GetUser();
   }, [user]);
 
-  // const GetUser = () => {
-  //   let user = auth().currentUser;
-  //   let id = user?.uid;
-  //   const subscriber = firestore()
-  //     .collection('users')
-  //     .doc(id)
-  //     .get()
-  //     .then(snapshot => {
-  //       console.log(snapshot.data());
-  //       let data=snapshot.data()
-  //       if (data){
-  //         setUser(data);
-  //       }
-  //      // setUser(snapshot.data())
-  //     });
-  // };
-
   const GetUser = () => {
     let user = auth().currentUser;
     let id = user?.uid;
@@ -64,7 +47,7 @@ const Profile = ({navigation}: any) => {
       .get()
       .then(snapshot => {
         console.log(snapshot.data());
-        let data = snapshot.data()
+        let data = snapshot.data();
         if (data) {
           setUser(data);
         }
@@ -72,17 +55,9 @@ const Profile = ({navigation}: any) => {
   };
 
   const sighnout = async () => {
-    (navigation.jumpTo('HomeStack'))
-    auth()
-      .signOut()
+    navigation.jumpTo('HomeStack');
+    auth().signOut();
   };
-
-  // const sighnout = async () => {
-  //   (navigation.jumpTo('HomeStack'))
-  //   auth()
-  //     .signOut()
-  //     .then(() => console.log('User signed out!'));
-  // };
 
   const onValueChange = snapshot => {
     console.log(snapshot);

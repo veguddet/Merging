@@ -29,6 +29,7 @@ const Order = ({navigation, empty}: any) => {
     </View>
   );
 };
+
 const mapDispatchToProps = (dispatch: any) => {
   return {
     empty: (sub: any) => dispatch(emptyCart(sub)),

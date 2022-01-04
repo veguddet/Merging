@@ -38,8 +38,12 @@ export const style = StyleSheet.create({
     paddingRight: 8,
   },
   mainView: {
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
     elevation: 2,
-    backgroundColor: COLORS.transparent,
+    backgroundColor: COLORS.DEFAULT_WHITE,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
@@ -163,7 +167,6 @@ export const style = StyleSheet.create({
     fontSize: 20,
   },
   checkBoxTopView: {
-   // paddingTop: 40,
     justifyContent: 'space-around',
   },
   innercheckBoxView: {
@@ -177,12 +180,12 @@ export const style = StyleSheet.create({
     backgroundColor: COLORS.DEFAULT_WHITE,
   },
   counterView2: {
-     flexDirection: 'row',
-     alignItems: 'center',
-     marginTop: 10,
-     justifyContent: 'space-evenly',
-     backgroundColor: COLORS.DEFAULT_WHITE,
-   },
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    justifyContent: 'space-evenly',
+    backgroundColor: COLORS.DEFAULT_WHITE,
+  },
   innerCounterView: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -227,66 +230,65 @@ export const style = StyleSheet.create({
     width: '100%',
     height: '50%',
   },
-    button: {
-      borderRadius: 10,
-      padding: 12,
-      elevation: 1,
-    },
-    buttonClose: {
-      backgroundColor: COLORS.DEFAULT_GREEN,
-    },
-    saveButton: {
-      margin: 20,
-    },
-    textStyle: {
-      color: COLORS.DEFAULT_WHITE,
-      textAlign: 'center',
-      fontSize: 18,
-    },
-    modalHeader: {
-      flexDirection:'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: 20,
-    },
-    modalText: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      color: COLORS.DEFAULT_BLACK,
-    },
-    modalIcon: {},
-    modelContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '80%',
-    },
-    center: {
-      alignItems: 'center',
-      justifyContent:'center',
-    },
-    nutritionHeading: {
-      fontSize: 20,
-      textAlign: 'center',
-      color: COLORS.DEFAULT_BLACK,
-    },
-    nutritionContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      padding: 10,
-      paddingTop: 10,
-    },
-    gramsText: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      color: COLORS.black,
-    },
-    descContainer: {
-      padding: 10,
-      marginLeft: 10,
-    },
-    descText: {
-      fontSize: 16,
-     // fontFamily: FONTS.POPPINS_LIGHT,
-    },
+  button: {
+    borderRadius: 10,
+    padding: 12,
+    elevation: 1,
+  },
+  buttonClose: {
+    backgroundColor: COLORS.DEFAULT_GREEN,
+  },
+  saveButton: {
+    margin: 20,
+  },
+  textStyle: {
+    color: COLORS.DEFAULT_WHITE,
+    textAlign: 'center',
+    fontSize: 18,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: COLORS.DEFAULT_BLACK,
+  },
+  modalIcon: {},
+  modelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '80%',
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nutritionHeading: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: COLORS.DEFAULT_BLACK,
+  },
+  nutritionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    paddingTop: 10,
+  },
+  gramsText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: COLORS.black,
+  },
+  descContainer: {
+    padding: 10,
+    marginLeft: 10,
+  },
+  descText: {
+    fontSize: 16,
+  },
 });

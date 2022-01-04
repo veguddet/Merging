@@ -20,7 +20,7 @@ const Header = ({headerTitle, onpress, showCart}: any) => {
       />
       <Text style={styles.headerTitle}>{headerTitle}</Text>
       {showCart ? (
-          <View>
+        <View>
           <Ionicons
             name="cart-outline"
             size={30}
@@ -33,9 +33,7 @@ const Header = ({headerTitle, onpress, showCart}: any) => {
                 {cartList.length}
               </Text>
             </View>
-          ) : (
-           null
-          )}
+          ) : null}
         </View>
       ) : (
         <Text></Text>
@@ -50,15 +48,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
     backgroundColor: COLORS.DEFAULT_GREEN,
-    justifyContent: 'space-evenly',
   },
   headerTitle: {
     fontSize: 22,
     fontFamily: FONTS.POPPINS_MEDIUM,
     color: COLORS.DEFAULT_WHITE,
-    //  lineHeight: 20 * 1.4,
     width: Display.setWidth(80),
-    textAlign: 'center',
+    paddingLeft:20,
+   // textAlign: 'center',
   },
   cartTab: {
     position: 'absolute',

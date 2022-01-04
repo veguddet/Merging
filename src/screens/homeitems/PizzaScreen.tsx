@@ -1,17 +1,18 @@
 import firestore from '@react-native-firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
   Image,
   SafeAreaView,
-  StatusBar, Text,
+  StatusBar,
+  Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { Header } from '../../components';
-import { COLORS } from '../../constants';
-import { styles } from './style';
+import {Header} from '../../components';
+import {COLORS} from '../../constants';
+import {styles} from './style';
 
 const width = Dimensions.get('window').width / 1 - 30;
 
@@ -70,7 +71,11 @@ const PizzaScreen = ({navigation}: any) => {
         backgroundColor={COLORS.DEFAULT_GREEN}
         translucent={false}
       />
-      <Header headerTitle={'Pizza'} showCart onpress={() => navigation.goBack()} />
+      <Header
+        headerTitle={'Pizza'}
+        showCart
+        onpress={() => navigation.goBack()}
+      />
       <FlatList
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{

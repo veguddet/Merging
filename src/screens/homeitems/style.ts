@@ -1,5 +1,4 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {Display} from '../../utils';
 import {COLORS, FONTS} from './../../constants/theme';
 
 export const styles = StyleSheet.create({
@@ -30,8 +29,8 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
   },
   caloriesView: {
-   flexDirection: 'row',
-   alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   calorieIcon: {
     height: 25,

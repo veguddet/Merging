@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import LottieView from 'lottie-react-native';
 import firestore from '@react-native-firebase/firestore';
 import {useFocusEffect} from '@react-navigation/core';
 import React, {useCallback, useEffect, useState} from 'react';
@@ -8,7 +7,6 @@ import {
   FlatList,
   Image,
   Modal,
-  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -18,12 +16,10 @@ import {
 } from 'react-native';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
 import {Header} from '../../components';
 import {COLORS, FONTS} from '../../constants';
 import {Display} from '../../utils';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
 
 const checkout = ({navigation}: any) => {
   const {cartList} = useSelector(state => state.cartReducer);
@@ -56,23 +52,6 @@ const checkout = ({navigation}: any) => {
       Alert.alert('10 digits');
     }
   };
-
-  // const handleAddData = async () => {
-  //   let id = auth().currentUser.uid;
-  //   await firestore()
-  //     .collection('users')
-  //     .doc(id)
-  //     .collection('userOrders')
-  //     .add({
-  //       Orders: cartList,
-  //       Address: address,
-  //       PhoneNo: phone,
-  //       GrandTotal: Math.round(total + (total * 5) / 100),
-  //       Date: new Date().toLocaleString(),
-  //       Gst: Math.round((total * 5) / 100),
-  //     });
-  //   navigation.navigate('Order');
-  // };
 
   const handleAddData = async () => {
     if (address.length === 0) {
@@ -205,13 +184,6 @@ const checkout = ({navigation}: any) => {
                   color={COLORS.DEFAULT_GREEN}
                 />
               </TouchableOpacity>
-              {/* <TouchableOpacity onPress={() => setfresh(false)}>
-           <IconIonicons
-  name="reload"
-  size={30}
-  color={COLORS.DEFAULT_GREEN}
-           />
-           </TouchableOpacity> */}
             </View>
           </View>
 
@@ -225,45 +197,16 @@ const checkout = ({navigation}: any) => {
             }}>
             <View style={styles.centeredView}>
               <View style={styles.closeButton}>
-                {/* <TouchableOpacity onPress={handleModelSave}>
-   <IconAntDesign
-  name="checkcircleo"
-  size={30}
-  color={COLORS.DEFAULT_GREEN}
-         />
-      <Text>save</Text>
-      </TouchableOpacity> */}
                 <TouchableOpacity onPress={handleModelClose}>
-                  <IconAntDesign
-                    name="closecircleo"
-                    size={40}
-                    // color={COLORS.DEFAULT_GREY}
-                  />
-                  {/* <Text style={{color: COLORS.DEFAULT_BLACK}}>close</Text> */}
+                  <IconAntDesign name="closecircleo" size={40} />
                 </TouchableOpacity>
               </View>
               <View style={styles.modalView}>
                 <Text style={styles.modalHeading}>select an address</Text>
                 <Image
-                  // source={require('../../assets/svg/address.png')}
                   source={require('../../assets/icons/map.png')}
                   style={styles.modalImage}
                 />
-                {/* <View style={styles.modelContainer}>
-                <Text style={{paddingRight: 10, fontSize: 16}}>
-                  Edit Address :{' '}
-                </Text>
-                <TextInput
-                  placeholder={address}
-                  placeholderTextColor="#666666"
-                  autoCorrect={false}
-                  style={styles.textInput}
-                  value={address}
-                  onChangeText={text => setAddress(text)}
-                  multiline={true}
-                  numberOfLines={2}
-                />
-              </View> */}
 
                 <View style={styles.action}>
                   <FontAwesome
@@ -303,28 +246,6 @@ const checkout = ({navigation}: any) => {
                   />
                 </View>
 
-                {/* <View style={styles.modelContainer}>
-                <Text style={{paddingRight: 20, fontSize: 16}}>
-                  Edit Phone :{' '}
-                </Text>
-                <TextInput
-                  placeholder={phone}
-                  placeholderTextColor="#666666"
-                  autoCorrect={false}
-                  style={styles.textInput}
-                  value={phone}
-                  onChangeText={text => setPhone(text)}
-                  maxLength={10}
-                />
-              </View> */}
-
-                {/* <View style={{marginTop: '5%'}}>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={handleModel}>
-                  <Text style={styles.textStyle}>Save</Text>
-                </Pressable>
-              </View> */}
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity style={styles.buyBtn} onPress={handleModel}>
                     <Text style={styles.order}>Save</Text>
@@ -362,6 +283,7 @@ const styles = StyleSheet.create({
   details: {
     fontSize: 18,
     color: COLORS.DEFAULT_BLACK,
+    paddingBottom: 10,
   },
   detailsContainer: {
     padding: 20,
@@ -490,7 +412,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    // marginTop: 20,
   },
   modalView: {
     backgroundColor: 'white',
@@ -542,8 +463,6 @@ const styles = StyleSheet.create({
     width: '25%',
     marginBottom: 20,
     marginTop: 10,
-    // height: 230,
-    // width: 250,
   },
   modalHeading: {
     fontSize: 18,
@@ -558,7 +477,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     width: '80%',
-    // paddingBottom: 5,
   },
   action2: {
     flexDirection: 'row',

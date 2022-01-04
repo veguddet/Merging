@@ -57,7 +57,7 @@ const OrderHistory = ({navigation, route}: any) => {
             />
             <Text style={styles.details}>Items :</Text>
           </View>
-          
+
           <FlatList
             style={{marginLeft: 25}}
             data={Route.Orders}
@@ -84,9 +84,7 @@ const OrderHistory = ({navigation, route}: any) => {
 
           <View style={styles.row}>
             <Icon name="update" color={COLORS.DEFAULT_GREEN} size={25} />
-            <Text style={styles.details}>
-              Date : {Route.Date}
-            </Text>
+            <Text style={styles.details}>Date : {Route.Date}</Text>
           </View>
         </View>
       </View>

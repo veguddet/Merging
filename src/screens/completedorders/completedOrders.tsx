@@ -48,7 +48,7 @@ const CompletedOrderScreen = ({navigation}: any) => {
     }
 
     return (
-      <View style={{flex: 1,paddingBottom:10,}}>
+      <View style={{flex: 1, paddingBottom: 10}}>
         <View style={styles.details1}>
           <View>
             <Text style={styles.itemText}>Order ID : {data.doc_id}</Text>
@@ -73,13 +73,13 @@ const CompletedOrderScreen = ({navigation}: any) => {
   };
 
   return (
-    <View style={{flex: 1,backgroundColor:'white',}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <View style={styles.topview}>
         <Header
           headerTitle={'Order History'}
           onpress={() => navigation.goBack()}
         />
-        <View style={{marginTop: '1%',paddingBottom:20,}}>
+        <View style={{marginTop: '1%', paddingBottom: 20}}>
           <FlatList
             data={completedOrders}
             renderItem={({item}) => {

@@ -11,5 +11,4 @@ export {
     FONTS,
     dummyData,
     General,
-    
 }
