@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Header} from '../../components';
+import {CustomFlatlist, Header} from '../../components';
 import {COLORS} from '../../constants';
 import {styles} from './style';
 
@@ -37,33 +37,6 @@ const BurgerScreen = ({navigation}: any) => {
       });
   }, []);
 
-  const Card = ({burgers}: any) => {
-    return (
-      <TouchableOpacity
-        style={styles.mainView}
-        onPress={() => navigation.navigate('Nutrition', burgers)}>
-        {/* Image */}
-        <Image source={{uri: burgers.image}} style={styles.image} />
-
-        {/* Details */}
-        <View style={styles.detailsContainer}>
-          {/* Name */}
-          <Text style={styles.name}>{burgers.name}</Text>
-          <View style={styles.caloriesView}>
-            <Text style={{fontSize: 16}}>
-              Total Calories : {burgers.calories}
-            </Text>
-            <Image
-              source={require('../../assets/FoodImages/caloriesicon.png')}
-              style={styles.calorieIcon}
-            />
-          </View>
-          <Text style={styles.price}>Rs : {burgers.price}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -84,7 +57,7 @@ const BurgerScreen = ({navigation}: any) => {
         }}
         data={burgerData}
         renderItem={({item}) => {
-          return <Card burgers={item} />;
+          return <CustomFlatlist data={item} />;
         }}
       />
     </SafeAreaView>

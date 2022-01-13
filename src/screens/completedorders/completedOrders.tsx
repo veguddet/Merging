@@ -33,7 +33,7 @@ const CompletedOrderScreen = ({navigation}: any) => {
         setCompletedOrders(snap);
       });
     console.log('insidecomplete', completedOrders);
-  }, [completedOrders]);
+  }, []);
 
   const Card = ({data}: any) => {
     var Item = [];

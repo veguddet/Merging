@@ -1,16 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  SafeAreaView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {Header} from '../../components';
+import {Dimensions, FlatList, SafeAreaView, StatusBar} from 'react-native';
+import {CustomFlatlist, Header} from '../../components';
 import {COLORS} from '../../constants';
 import {styles} from './style';
 
@@ -38,32 +29,6 @@ const FrankieScreen = ({navigation}: any) => {
 
   console.log(FrankieData);
 
-  const Card = ({Frankie}: any) => {
-    return (
-      <TouchableOpacity
-        style={styles.mainView}
-        onPress={() => navigation.navigate('Nutrition', Frankie)}>
-        {/* Image */}
-        <Image source={{uri: Frankie.image}} style={styles.image} />
-
-        {/* Details */}
-        <View style={styles.detailsContainer}>
-          {/* Name */}
-          <Text style={styles.name}>{Frankie.name}</Text>
-          <View style={styles.caloriesView}>
-            <Text style={{fontSize: 16}}>
-              Total Calories : {Frankie.calories}
-            </Text>
-            <Image
-              source={require('../../assets/FoodImages/caloriesicon.png')}
-              style={styles.calorieIcon}
-            />
-          </View>
-          <Text style={styles.price}>Rs : {Frankie.price}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -84,7 +49,7 @@ const FrankieScreen = ({navigation}: any) => {
         }}
         data={FrankieData}
         renderItem={({item}) => {
-          return <Card Frankie={item} />;
+          return <CustomFlatlist data={item} />;
         }}
       />
     </SafeAreaView>

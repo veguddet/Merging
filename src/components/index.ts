@@ -5,6 +5,7 @@ import WelcomeCard from './WelcomeCard';
 import CustomButton from './CustomButton';
 import Slider from './Slider';
 import Header from './Header';
+import CustomFlatlist from './CustomFlatlist';
 
 export {
     CategoryCard,
@@ -14,4 +15,5 @@ export {
     CustomButton,
     Slider,
     Header,
+    CustomFlatlist,
 };
